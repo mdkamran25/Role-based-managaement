@@ -16,20 +16,22 @@ const initialState =
       designation: "Senior Developer",
       department: "React",
       FirstTraineeEmail: "mdkamran7255@gmail.com",
-      SecondTraineeEmail: "rishi@gmail.com",
+      SecondTraineeEmail: "mdkamran12310@gmail.com",
     },
-    // {
-    //   id:2,
-    //   email: "mentor@gmail.com",
-    //   name: "Nisarg",
-    //   designation:"Senior Developer",
-    //   department:"React",
-    //   FirstTraineeEmail:"mdkamran12310@gmail.com",
-    //   SecondTraineeEmail:null,
-    // },
+    
   ],
   status: 'idle',
-  loggedUserDetails: []
+  loggedUserDetails: [
+    {
+      id: 1,
+      email: "mentor@gmail.com",
+      name: "Mentor",
+      designation: "Senior Developer",
+      department: "React",
+      FirstTraineeEmail: "mdkamran7255@gmail.com",
+      SecondTraineeEmail: "rishi@gmail.com",
+    }
+  ]
 }
 
 const mentorLoginSlice = createSlice({
@@ -48,6 +50,7 @@ const mentorLoginSlice = createSlice({
         ...action.payload
       };
       state.login.push(newMentor);
+      console.log(current(state.login))
     },
     onLogout (state, action) {
       state.loggedUserDetails = []
@@ -58,20 +61,5 @@ const mentorLoginSlice = createSlice({
 export const { setStatus, getLoginUserData, addMentor, onLogout } = mentorLoginSlice.actions;
 export default mentorLoginSlice.reducer;
 
-export function validateLogin(emailToCheck) {
-  return async function validateLoginStatus(dispatch, getState) {
-    await dispatch(setStatus(STATUSES.LOADING));
-    const validation = initialState.login.find(
-      user => user.email === emailToCheck
-    );
-    if (validation) {
-      await dispatch(getLoginUserData(validation));
-      dispatch(setStatus(STATUSES.IDLE));
-      return true;
-    } else {
-      dispatch(setStatus(STATUSES.ERROR));
-      return false;
-    }
-  };
-}
+
 

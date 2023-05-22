@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
-import { validateLogin } from "../../../slice/mentor/mentorLoginSlice"; 
+import { useDispatch, useSelector } from "react-redux";
+import { setStatus,  getLoginUserData} from "../../../slice/mentor/mentorLoginSlice"; 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./mentorLogin.css";
 function MentorLogin() {
   const [showPassword, setShowPassword] = useState(true);
 
+  const loginData = useSelector(state => state.mentorLoginReducer.login)
+  
   const showPasswordToggle = () => {
     showPassword ? setShowPassword(false) : setShowPassword(true);
   };
@@ -19,21 +21,38 @@ function MentorLogin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const validate = (e) => {
+  const validate = (e) => {     
     e.preventDefault();
-    dispatch(validateLogin(userDetails.email))
-      .then((loginSuccessful) => {
-        if (loginSuccessful) {
-          navigate('mentorPanel')
-        } else {
-          toast.error("An error occurred during login validation.");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        toast.error("An error occurred during login validation.");
-      });
-  };
+      const validation = loginData.find(
+        user => user.email === userDetails.email
+      );
+      console.log(validation)
+      if (validation) {
+         dispatch(getLoginUserData(validation));
+         navigate('mentorPanel')
+        
+
+      } else {
+        toast.error("Invalid ID.");
+        return false;
+      }
+  }
+
+  // const validate = (e) => {
+  //   
+  //   dispatch(validateLogin(userDetails.email))
+  //     .then((loginSuccessful) => {
+  //       if (loginSuccessful) {
+          
+  //       } else {
+         
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       toast.error("An error occurred during login validation.");
+  //     });
+  // };
   return (
     <>
       <form>

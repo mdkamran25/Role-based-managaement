@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {useNavigate} from "react-router"
 import "./MentorPanel.css";
 import { onLogout } from "../../slice/mentor/mentorLoginSlice";
+import TraineeAssignedToMentor from "./TraineeAssignedToMentor/traineeAssignedToMentor";
 ;
 
 function MentorPanel() {
@@ -13,13 +14,14 @@ function MentorPanel() {
         dispatch(onLogout());
         navigate('/')
     }
+    console.log(loggedUser,"loggeduser")
     
     return (
     <>
       <nav className="navbar text-light bg-primary">
         <div className="container-fluid">
           <a className="navbar-brand text-light" href="#">
-            Welcome {loggedUser.name}
+            Welcome {loggedUser[0].name}
           </a>
           <button
             className="navbar-toggler"
@@ -32,7 +34,7 @@ function MentorPanel() {
           </button>
           <div
             className="offcanvas offcanvas-end"
-            tabindex="-1"
+            tabIndex="-1"
             id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel"
           >
@@ -68,7 +70,7 @@ function MentorPanel() {
           </div>
         </div>
       </nav> 
-      
+      <TraineeAssignedToMentor />
     </>
   );
 }
