@@ -1,14 +1,36 @@
 .TraineeDetail{
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
+    height: 550px !important; 
+    overflow-y: scroll; 
+    overflow-x: hidden;
 }
+.task-submission{
+  height: 550px !important; 
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px !important;
 
-.segmented-buttons {
-  display: flex;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow: hidden;
 }
+.TraineeDetail{
+    scrollbar-width: thin;
+    scrollbar-color: #009dff #ffffff;
+  }
 
+.TraineeDetail::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .TraineeDetail::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  .TraineeDetail::-webkit-scrollbar-thumb {
+    background-color: #009dff;
+    border-radius: 10px;
+    border: 3px none #ffffff;
+  }
+.segmented-buttons{
+  background-color: rgb(227, 227, 227);
+  height: 49px;
+}
 .segmented-buttons button {
   flex-grow: 1;
   border-radius: 0;
@@ -16,27 +38,26 @@
   outline: none;
   padding: 10px;
   cursor: pointer;
+  z-index: 10;
 }
 
 .segmented-buttons button:first-child {
   border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .segmented-buttons button:last-child {
+  border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  left: 125px;
 }
-
-.fade-effect {
-  animation: fade 0.5s linear forwards;
+#taskButton{
+  background-color: #fff;
+  color: black;
+  transition: background-color 0.9s ease;
 }
-
-@keyframes fade {
-  0% {
-    background-color: #007bff;
-  }
-  100% {
-    background-color: transparent;
-  }
+#submissionButton{
+  background-color: #fff;
+  color: black;
+  transition: background-color 0.9s ease;
 }
