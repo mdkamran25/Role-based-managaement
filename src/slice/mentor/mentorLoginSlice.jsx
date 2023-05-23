@@ -22,15 +22,7 @@ const initialState =
   ],
   status: 'idle',
   loggedUserDetails: [
-    {
-      id: 1,
-      email: "mentor@gmail.com",
-      name: "Mentor",
-      designation: "Senior Developer",
-      department: "React",
-      FirstTraineeEmail: "mdkamran7255@gmail.com",
-      SecondTraineeEmail: "rishi@gmail.com",
-    }
+  
   ]
 }
 
@@ -51,6 +43,9 @@ const mentorLoginSlice = createSlice({
       };
       state.login.push(newMentor);
       console.log(current(state.login))
+    },
+    addTask(state, action){
+
     },
     onLogout (state, action) {
       state.loggedUserDetails = []

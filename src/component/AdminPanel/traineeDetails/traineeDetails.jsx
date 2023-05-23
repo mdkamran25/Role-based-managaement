@@ -16,12 +16,12 @@ function TraineeDetails() {
         <>
             <div className="col-12 pt-3 pe-2">
                 <span className='table-name ps-1'>Trainee Details</span>
-                <button className="btn btn-primary float-end" onClick={openModal}>
+                <button className="btn btn-primary float-end text-light" onClick={openModal}>
                     + Add Trainee
                 </button>
             </div>
             <hr />
-            <div className="col-12 table-overflow">
+            <div className="col-12">
                 <table className="table table-striped table-hover">
                     <thead>
                         <tr>

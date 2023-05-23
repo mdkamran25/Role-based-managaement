@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,300&family=Wix+Madefor+Display:wght@500;600&display=swap');
-.table-overflow{
-    overflow-x: scroll;
+.traineeDetailsMainContainer{
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     max-height: 500px;
-    overflow-y: scroll;
+    overflow-x: auto;
+    overflow-y: auto;
 }
 .table-name{
     font-family: 'Nunito', sans-serif;

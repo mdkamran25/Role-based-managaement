@@ -1,18 +1,23 @@
-import React from 'react';
-import noTask from "../../../Image/no-task.svg"
+import React, {useState} from 'react';
 import './traineeTask.css'
 import Lottie from "lottie-react"
 import noTaskAnimation from "./empty-box-blue.json"
+import TraineeTaskForm from './traineeTaskForm';
 function TraineeTask() {
+    const [modalOpen, setModalOpen] = useState(false);
+    const openModal = () => {
+        setModalOpen(true);
+      };
     return ( 
         <>
-        <div className='noTaskImage position-relative d-flex align-items-center justify-content-center p-5'>
+        <div className='noTaskImage position-relative d-flex flex-column align-items-center justify-content-center px-5'>
+            <button className='btn btn-primary text-light position-absolute addNewTask' onClick={openModal}>+ Add Task</button>
             <Lottie animationData={noTaskAnimation} className="noTask" loop={false} />
-            <div className='position-absolute bottom-0'>
+            <div className=''>
                 <p className='fw-bold fs-3'>No Task Added</p>
             </div>
         </div>
-            
+        {modalOpen && <TraineeTaskForm setModalOpen={setModalOpen} />}    
         </>
      );
 }

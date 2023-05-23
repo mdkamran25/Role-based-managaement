@@ -10,6 +10,8 @@ function MentorLogin() {
 
   const loginData = useSelector(state => state.mentorLoginReducer.login)
   
+  console.log(loginData, "loginData")
+
   const showPasswordToggle = () => {
     showPassword ? setShowPassword(false) : setShowPassword(true);
   };
@@ -26,12 +28,10 @@ function MentorLogin() {
       const validation = loginData.find(
         user => user.email === userDetails.email
       );
-      console.log(validation)
+      console.log(validation,"validation")
       if (validation) {
          dispatch(getLoginUserData(validation));
          navigate('mentorPanel')
-        
-
       } else {
         toast.error("Invalid ID.");
         return false;

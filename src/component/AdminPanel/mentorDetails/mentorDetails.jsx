@@ -15,11 +15,11 @@ function MentorDetails() {
   return (
     <>
       <div className="col-12 d-flex flex-column flex-lg-row mt-5 justify-content-center justify-content-lg-evenly align-items-lg-start align-items-center">
-        <div className="col-11 col-lg-6 rounded-3 mentorDetails d-flex flex-column">
+        <div className="col-11 col-lg-6 rounded-3 mentorDetailMainContainer d-flex flex-column">
           <div className="col-12 pt-3 pe-2">
             <span className="table-name ps-1">Mentor Details</span>
             <button
-              className="btn btn-primary float-end"
+              className="btn btn-primary text-light float-end"
               data-tooltip-id="my-tooltip"
               data-tooltip-content="Assigned Mentor To Trainee"
               data-tooltip-place="top"
@@ -30,7 +30,7 @@ function MentorDetails() {
             <Tooltip id="my-tooltip" />
           </div>
           <hr />
-          <div className="col-12 mentorTable table-overflow">
+          <div className="col-12 mentorTable">
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
@@ -57,7 +57,7 @@ function MentorDetails() {
             </table>
           </div>
         </div>
-        <div className="col-11 col-lg-5 mentorDetails mt-3 mt-lg-0 rounded-3 d-flex flex-column">
+        <div className="col-11 col-lg-5 traineeDetailsMainContainer mt-3 mt-lg-0 rounded-3 d-flex flex-column">
           <TraineeDetails />
         </div>
       </div>

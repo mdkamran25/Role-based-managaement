@@ -21,7 +21,7 @@ function MentorPanel() {
       <nav className="navbar text-light bg-primary">
         <div className="container-fluid">
           <a className="navbar-brand text-light" href="#">
-            Welcome {loggedUser[0].name}
+            Welcome {loggedUser.name}
           </a>
           <button
             className="navbar-toggler"

@@ -13,7 +13,7 @@ function TraineeAssignedToMentor() {
   const traineeData = useSelector((state) => state.traineeLoginReducer.login);
 
   const matchingTrainees = traineeData.filter(
-    (trainee) => trainee.mentor === mentorDetail[0].email
+    (trainee) => trainee.mentor === mentorDetail.email
   );
 
   console.log(matchingTrainees, "trainee filter Data");
@@ -66,7 +66,7 @@ function TraineeAssignedToMentor() {
                           Designation: {items.designation}
                         </span>
                         <hr />
-                        <button className="btn btn-primary w-50 align-self-center">
+                        <button className="btn btn-primary text-light w-50 align-self-center">
                           View Profile
                         </button>
                       </div>

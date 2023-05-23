@@ -1,3 +1,15 @@
 .noTask{
     width: 340px !important;
 }
+.addNewTask{
+    top: -60px;
+    right: 5px;
+}
+@media (max-width:942px){
+    .addNewTask{
+        top: unset;
+        bottom: -3.4rem !important;
+        right: unset;
+        width: 100%;
+    }
+}

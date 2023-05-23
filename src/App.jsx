@@ -6,7 +6,8 @@ import AdminLogin from "./component/LoginPage/AdminLogin/adminLogin";
 import MentorLogin from "./component/LoginPage/MentorLogin/mentorLogin";
 import TraineeLogin from "./component/LoginPage/TraineeLogin/traineeLogin";
 import { Provider } from "react-redux";
-import store from "./store";
+import { persistor, store } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 import AdminPanel from "./component/AdminPanel/adminpanel";
 import MentorPanel from "./component/MentorPanel/MentorPanel";
 
@@ -14,13 +15,15 @@ function App() {
   return (
     <div className="App">
       <Provider store={store}>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />}></Route>
-            <Route path="adminPanel" element={<AdminPanel />} />
-            <Route path="mentorPanel" element={<MentorPanel />} />
-          </Routes>
-        </BrowserRouter>
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />}></Route>
+              <Route path="adminPanel" element={<AdminPanel />} />
+              <Route path="mentorPanel" element={<MentorPanel />} />
+            </Routes>
+          </BrowserRouter>
+        </PersistGate>
       </Provider>
     </div>
   );

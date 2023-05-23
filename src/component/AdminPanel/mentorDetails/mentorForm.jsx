@@ -6,7 +6,7 @@ import { addMentor } from '../../../slice/mentor/mentorLoginSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const validationSchema = Yup.object().shape({
-  // Validation schema definition...
+  
 });
 
 function MentorForm(props) {
@@ -19,55 +19,7 @@ function MentorForm(props) {
 
   const dispatch = useDispatch();
 
-//   const assignMentorToTrainee = () => {
-//     mentors.forEach((mentor) => {
-//       const matchingTrainees = trainees.filter(
-//         (trainee) =>
-//           trainee.email === mentor.FirstTraineeEmail ||
-//           trainee.email === mentor.SecondTraineeEmail
-//       );
-//       console.log(matchingTrainees, "m t");
-  
-//       if (matchingTrainees.length > 0) {
-//         const mentorName = mentor.name;
-  
-//         matchingTrainees.forEach((matchingTrainee) => {
-//           const traineeId = matchingTrainee.id;
-//           dispatch(updateTrainee({ traineeId, mentor: mentorName }));
-//         });
-//       }
-//     });
-//   };
-  
-  
-// const assignMentorToTrainee = () => {
-//     mentors.forEach((mentor) => {
-//       const matchingTrainees = trainees.filter(
-//         (trainee) =>
-//           trainee.email === mentor.FirstTraineeEmail ||
-//           trainee.email === mentor.SecondTraineeEmail ||
-//           (mentor.SecondTraineeEmail === null && trainee.mentor === null)
-//       );
-  
-//       if (matchingTrainees.length > 0) {
-//         const mentorName = mentor.name;
-  
-//         matchingTrainees.forEach((matchingTrainee) => {
-//           const traineeId = matchingTrainee.id;
-//           dispatch(updateTrainee({ traineeId, mentor: mentorName }));
-//         });
-//       }
-//     });
-//   };
-// useEffect(()=>{
-//     assignMentorToTrainee();
-// },[])
 
-//   const handleSubmit = async (values) => {
-//     dispatch(addMentor(values));
-//     assignMentorToTrainee();
-//     closeModal();
-//   };
 const handleSubmit = async (values) => {
     dispatch(addMentor(values));
   
