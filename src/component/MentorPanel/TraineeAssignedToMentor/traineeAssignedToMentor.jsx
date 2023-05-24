@@ -16,7 +16,7 @@ function TraineeAssignedToMentor() {
     (trainee) => trainee.mentor === mentorDetail.email
   );
 
-  console.log(matchingTrainees, "trainee filter Data");
+  // console.log(matchingTrainees, "trainee filter Data");
 
   const [isSubmissionButtonClicked, setSubmissionButtonClicked] =
     useState(true);
@@ -94,9 +94,8 @@ function TraineeAssignedToMentor() {
             </button>
           </div>
           <hr className="mt-0" />
-          <div className="col-12">
-            {isSubmissionButtonClicked ? <TraineeSubmission /> : <TraineeTask />}
-            
+          <div className="col-12 position-relative">
+            {isSubmissionButtonClicked ? <TraineeSubmission /> : <TraineeTask  matchingTrainee={matchingTrainees} />}  
           </div>
         </div>
       </div>

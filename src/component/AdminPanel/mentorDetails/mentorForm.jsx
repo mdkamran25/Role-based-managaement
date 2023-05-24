@@ -6,9 +6,31 @@ import { addMentor } from '../../../slice/mentor/mentorLoginSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const validationSchema = Yup.object().shape({
-  
-});
-
+    name: Yup.string()
+    .matches(/^[a-zA-Z\s]*$/, 'Name can only contain alphabets')
+    .min(2, 'Name must be at least 2 characters')
+    .max(30, 'Name must not exceed 30 characters')
+    .required('Name is required'),
+    department: Yup.string()
+    .matches(/^[a-zA-Z\s]*$/, 'Department can only contain alphabets')
+    .min(2, 'Department must be at least 2 characters')
+    .max(20, 'Department must not exceed 20 characters')
+    .required('Department is required'),
+    designation: Yup.string()
+    .matches(/^[a-zA-Z\s]*$/, 'Designation can only contain alphabets')
+    .min(2, 'Designation must be at least 2 characters')
+    .max(20, 'Designation must not exceed 20 characters')
+    .required('Designation is required'),
+    email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
+    FirstTraineeEmail: Yup.string()
+    .email('Invalid email')
+    .required('Trainee Email is required'),
+    SecondTraineeEmail: Yup.string()
+    .email('Invalid email')
+    .required('Trainee Email is required'),
+    });
 function MentorForm(props) {
   const mentors = useSelector(state => state.mentorLoginReducer.login || []);
   const trainees = useSelector(state => state.traineeLoginReducer.login || []);
@@ -36,6 +58,7 @@ const handleSubmit = async (values) => {
   
     closeModal();
   };
+
   
     return (
             <div>
@@ -138,6 +161,7 @@ const handleSubmit = async (values) => {
                                                     className={`form-control ${touched.email && errors.email ? 'is-invalid' : ''
                                                         }`}
                                                 />
+                                                {console.log(errors.email, "Error email")}
                                                 {touched.email && errors.email && (
                                                     <div className="text-danger">{errors.email}</div>
                                                 )}
@@ -156,6 +180,7 @@ const handleSubmit = async (values) => {
                                                 />
                                                 {touched.FirstTraineeEmail && errors.FirstTraineeEmail && (
                                                     <div className="text-danger">{errors.FirstTraineeEmail}</div>
+                                                    
                                                 )}
                                             </div>
                                             <div className="mb-3">
