@@ -3,18 +3,26 @@ import './traineeTask.css'
 import Lottie from "lottie-react"
 import { useSelector, useDispatch } from 'react-redux';
 import view from "../../../Image/icons-eye.png";
+import edit from "../../../Image/icons-edit.png"
 import deleteIcon from "../../../Image/icons-delete.svg";
 import noTaskAnimation from "./empty-box-blue.json";
 import TraineeTaskForm from './traineeTaskForm';
 import { deleteTask } from '../../../slice/trainee/traineeLoginSlice';
 import { Tooltip } from "react-tooltip";
+import TraineeEditTaskForm from '../traineeEditTaskForm/traineeEditTaskForm';
 function TraineeTask(props) {
     const [modalOpen, setModalOpen] = useState(false);
+    const [editTaskForm, setEditTaskForm] = useState(false);
     const openModal = () => {
         setModalOpen(true);
     };
-    const editAssignedTask = () => {
-
+    const openTaskEditForm = () => {
+        setEditTaskForm(true);
+    }
+    const editAssignedTask = (item) => {
+        openTaskEditForm();
+        console.log(editTaskForm);
+        (editTaskForm && <TraineeEditTaskForm matchingTrainee={props.matchingTrainee}  item={item}  setEditTaskForm={setEditTaskForm}/>)
     }
     const dispatch = useDispatch();
 
@@ -55,16 +63,22 @@ function TraineeTask(props) {
                                         <td className='align-middle justify'>
                                             <img src={view} alt="edit" width={40}
                                                 data-tooltip-id="traineeTaskTooltipDeleteEditView"
-                                                data-tooltip-content="View/Edit"
+                                                data-tooltip-content="View Task"
                                                 data-tooltip-place="top"
                                                 onClick={editAssignedTask}
-                                            />  &nbsp; &nbsp;
+                                            />  &nbsp;
+                                            <img src={edit} alt="edit" width={40}
+                                                data-tooltip-id="traineeTaskTooltipDeleteEditView"
+                                                data-tooltip-content="Edit Task"
+                                                data-tooltip-place="top"
+                                                onClick={() => editAssignedTask(item)}
+                                            />  &nbsp;
                                             <img src={deleteIcon} alt="edit" width={40}
                                                 data-tooltip-id="traineeTaskTooltipDeleteEditView"
                                                 data-tooltip-content="Delete"
                                                 data-tooltip-place="top"
                                                 onClick={() => deleteAssignTask(item.id)}
-                                            />
+                                            /> 
                                         </td>
                                         <Tooltip id="traineeTaskTooltipDeleteEditView" />
                                     </tr>
@@ -84,6 +98,7 @@ function TraineeTask(props) {
 
             </div>
             {modalOpen && <TraineeTaskForm setModalOpen={setModalOpen} matchingTrainee={props.matchingTrainee} />}
+
         </>
     );
 }

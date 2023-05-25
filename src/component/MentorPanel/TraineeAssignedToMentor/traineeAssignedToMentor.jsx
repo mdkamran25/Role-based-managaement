@@ -4,8 +4,7 @@ import TraineeSubmission from "../TraineeSubmission/traineeSubmission";
 import TraineeTask from "../TraineeTask/traineeTask";
 import "./traineeAssignedToMentor.css";
 function TraineeAssignedToMentor() {
-  // const [data, setData] = useState()
-
+  
   const mentorDetail = useSelector(
     (state) => state.mentorLoginReducer.loggedUserDetails
   );
@@ -16,10 +15,8 @@ function TraineeAssignedToMentor() {
     (trainee) => trainee.mentor === mentorDetail.email
   );
 
-  // console.log(matchingTrainees, "trainee filter Data");
-
   const [isSubmissionButtonClicked, setSubmissionButtonClicked] =
-    useState(true);
+    useState(false);
 
   const handleSubmissionButtonClick = () => {
     setSubmissionButtonClicked(!isSubmissionButtonClicked);
