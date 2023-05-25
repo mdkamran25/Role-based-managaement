@@ -42,7 +42,7 @@ const mentorLoginSlice = createSlice({
       console.log(current(state.login))
     },
     addTask(state, action){
-
+      
     },
     onLogout (state, action) {
       state.loggedUserDetails = []
