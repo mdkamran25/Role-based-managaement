@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { setStatus,  getLoginUserData} from "../../../slice/mentor/mentorLoginSlice"; 
+import { getLoginUserData} from "../../../slice/loggedUserDetails/loggedUserSlice"; 
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./mentorLogin.css";
@@ -38,21 +38,6 @@ function MentorLogin() {
       }
   }
 
-  // const validate = (e) => {
-  //   
-  //   dispatch(validateLogin(userDetails.email))
-  //     .then((loginSuccessful) => {
-  //       if (loginSuccessful) {
-          
-  //       } else {
-         
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //       toast.error("An error occurred during login validation.");
-  //     });
-  // };
   return (
     <>
       <form>

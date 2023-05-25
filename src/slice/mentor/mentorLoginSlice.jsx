@@ -17,13 +17,11 @@ const initialState =
       department: "React",
       FirstTraineeEmail: "mdkamran7255@gmail.com",
       SecondTraineeEmail: "mdkamran12310@gmail.com",
+      role:'Mentor'
     },
     
   ],
   status: 'idle',
-  loggedUserDetails: [
-  
-  ]
 }
 
 const mentorLoginSlice = createSlice({
@@ -33,12 +31,11 @@ const mentorLoginSlice = createSlice({
     setStatus(state, action) {
       state.status = action.payload;
     },
-    getLoginUserData(state, action) {
-      state.loggedUserDetails = action.payload;
-    },
+
     addMentor: (state, action) => {
       const newMentor = {
         id: state.login.length + 1,
+        role:"Mentor",
         ...action.payload
       };
       state.login.push(newMentor);
@@ -53,7 +50,7 @@ const mentorLoginSlice = createSlice({
   }
 })
 
-export const { setStatus, getLoginUserData, addMentor, onLogout } = mentorLoginSlice.actions;
+export const { setStatus, addMentor, onLogout } = mentorLoginSlice.actions;
 export default mentorLoginSlice.reducer;
 
 

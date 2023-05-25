@@ -10,19 +10,28 @@ import TraineeTaskForm from './traineeTaskForm';
 import { deleteTask } from '../../../slice/trainee/traineeLoginSlice';
 import { Tooltip } from "react-tooltip";
 import TraineeEditTaskForm from '../traineeEditTaskForm/traineeEditTaskForm';
+import ViewAssignedTask from '../viewAssignedTask/viewAssignedTask';
 function TraineeTask(props) {
     const [modalOpen, setModalOpen] = useState(false);
     const [editTaskForm, setEditTaskForm] = useState(false);
+    const [assignedTask, setAssignedTask] = useState(false);
+    const [selectedTask, setSelectedTask] = useState(null);
     const openModal = () => {
         setModalOpen(true);
     };
     const openTaskEditForm = () => {
         setEditTaskForm(true);
     }
+    const openAssigendTask = () => {
+        setAssignedTask(true)
+    }
+    const viewAssignedTask = (item) => {
+        setSelectedTask(item)
+        openAssigendTask();
+    }
     const editAssignedTask = (item) => {
+        setSelectedTask(item)
         openTaskEditForm();
-        console.log(editTaskForm);
-        (editTaskForm && <TraineeEditTaskForm matchingTrainee={props.matchingTrainee}  item={item}  setEditTaskForm={setEditTaskForm}/>)
     }
     const dispatch = useDispatch();
 
@@ -45,12 +54,13 @@ function TraineeTask(props) {
                                     <th scope="col" className="px-4">Task</th>
                                     <th scope="col" >Task Details</th>
                                     <th scope="col">Task Assigned</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {props.matchingTrainee[0].tasks.map((item) => (
-                                    <tr key={item.id}>
+                                    <tr key={item.id} className={item.complete?'bg-success':''}>
                                         <td className="px-3"><img src={item.file} alt="task image" width={80} height={50} /></td>
                                         <td className='descriptionInTable'><span className='fw-bold'>{item.taskName}</span>
                                             <br />
@@ -60,12 +70,13 @@ function TraineeTask(props) {
                                             <br />
                                             {item.date}
                                         </td>
+                                        <td className={item.complete? "text-success":"text-danger"}>{item.complete? "Submitted":"Not Submitted"}</td>
                                         <td className='align-middle justify'>
                                             <img src={view} alt="edit" width={40}
                                                 data-tooltip-id="traineeTaskTooltipDeleteEditView"
                                                 data-tooltip-content="View Task"
                                                 data-tooltip-place="top"
-                                                onClick={editAssignedTask}
+                                                onClick={() => viewAssignedTask(item)}
                                             />  &nbsp;
                                             <img src={edit} alt="edit" width={40}
                                                 data-tooltip-id="traineeTaskTooltipDeleteEditView"
@@ -80,6 +91,7 @@ function TraineeTask(props) {
                                                 onClick={() => deleteAssignTask(item.id)}
                                             /> 
                                         </td>
+                                        
                                         <Tooltip id="traineeTaskTooltipDeleteEditView" />
                                     </tr>
                                 ))}
@@ -98,6 +110,8 @@ function TraineeTask(props) {
 
             </div>
             {modalOpen && <TraineeTaskForm setModalOpen={setModalOpen} matchingTrainee={props.matchingTrainee} />}
+            {editTaskForm && <TraineeEditTaskForm matchingTrainee={props.matchingTrainee}  item={selectedTask}  setEditTaskForm={setEditTaskForm}/>}
+            {assignedTask && <ViewAssignedTask item={selectedTask}  setAssignedTask={setAssignedTask}/>}
 
         </>
     );

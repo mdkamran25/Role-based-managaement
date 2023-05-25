@@ -1,12 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import TraineeSubmission from "../TraineeSubmission/traineeSubmission";
 import TraineeTask from "../TraineeTask/traineeTask";
 import "./traineeAssignedToMentor.css";
+import { Link } from "react-router-dom";
 function TraineeAssignedToMentor() {
-  
+  const navigate = useNavigate();
   const mentorDetail = useSelector(
-    (state) => state.mentorLoginReducer.loggedUserDetails
+    (state) => state.loggedUserReducer.loggedUserDetails
   );
 
   const traineeData = useSelector((state) => state.traineeLoginReducer.login);
@@ -14,6 +16,9 @@ function TraineeAssignedToMentor() {
   const matchingTrainees = traineeData.filter(
     (trainee) => trainee.mentor === mentorDetail.email
   );
+  const ViewTraineeProfile = () => {
+    <Link to='/traineeProfile' />
+  }
 
   const [isSubmissionButtonClicked, setSubmissionButtonClicked] =
     useState(false);
@@ -63,9 +68,11 @@ function TraineeAssignedToMentor() {
                           Designation: {items.designation}
                         </span>
                         <hr />
-                        <button className="btn btn-primary text-light w-50 align-self-center">
-                          View Profile
-                        </button>
+                        <Link to='/traineeProfile' className="text-center">
+                          <button className="btn btn-primary text-light w-50 align-self-center">
+                            View Profile
+                          </button>
+                        </Link> 
                       </div>
                     </div>
                   );

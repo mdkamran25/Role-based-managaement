@@ -15,16 +15,8 @@ const initialState = {
             department: "React",
             designation: "Trainee",
             mentor: "mentor@gmail.com",
-            tasks: [
-                // {taskName: 'fdsadfsa', description: 'fdasfdasdfsa', file: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAB4AA…iJ56w6Amu7oKIiPTg/wOYiDgWsr8jdwAAAABJRU5ErkJggg==', time: '16:10:00', date: 'May 24, 2023'},
-                // {taskName: 'fdsadfsa', description: 'fdasfdasdfsa', file: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAB4AA…iJ56w6Amu7oKIiPTg/wOYiDgWsr8jdwAAAABJRU5ErkJggg==', time: '16:10:00', date: 'May 24, 2023'},
-                // {taskName: 'fdsadfsa', description: 'fdasfdasdfsa', file: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAB4AA…iJ56w6Amu7oKIiPTg/wOYiDgWsr8jdwAAAABJRU5ErkJggg==', time: '16:10:00', date: 'May 24, 2023'},
-                // {taskName: 'fdsadfsa', description: 'fdasfdasdfsa', file: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAB4AA…iJ56w6Amu7oKIiPTg/wOYiDgWsr8jdwAAAABJRU5ErkJggg==', time: '16:10:00', date: 'May 24, 2023'},
-                // {taskName: 'fdsadfsa', description: 'fdasfdasdfsa', file: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAB4AA…iJ56w6Amu7oKIiPTg/wOYiDgWsr8jdwAAAABJRU5ErkJggg==', time: '16:10:00', date: 'May 24, 2023'},
-                // {taskName: 'fdsadfsa', description: 'fdasfdasdfsa', file: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAB4AA…iJ56w6Amu7oKIiPTg/wOYiDgWsr8jdwAAAABJRU5ErkJggg==', time: '16:10:00', date: 'May 24, 2023'},
-                // {taskName: 'fdsadfsa', description: 'fdasfdasdfsa', file: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAB4AA…iJ56w6Amu7oKIiPTg/wOYiDgWsr8jdwAAAABJRU5ErkJggg==', time: '16:10:00', date: 'May 24, 2023'},
-                // {taskName: 'fdsadfsa', description: 'fdasfdasdfsa', file: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAB4AA…iJ56w6Amu7oKIiPTg/wOYiDgWsr8jdwAAAABJRU5ErkJggg==', time: '16:10:00', date: 'May 24, 2023'},
-            ]
+            tasks: [],
+            role:"Trainee",
         },
         {
             id: 2,
@@ -33,7 +25,8 @@ const initialState = {
             department: "React",
             designation: "Trainee",
             mentor: "mentor@gmail.com",
-            tasks: []
+            tasks: [],
+            role:"Trainee",
         },
         {
             id: 3,
@@ -42,7 +35,8 @@ const initialState = {
             department: "React",
             designation: "Trainee",
             mentor: null,
-            tasks: []
+            tasks: [],
+            role:"Trainee",
         },
         {
             id: 4,
@@ -51,11 +45,11 @@ const initialState = {
             department: "React",
             designation: "Trainee",
             mentor: null,
-            tasks: []
+            tasks: [],
+            role:"Trainee",
         },
     ],
     status: 'idle',
-    loginUserDetails: []
 };
 
 const traineeLoginSlice = createSlice({
@@ -64,9 +58,6 @@ const traineeLoginSlice = createSlice({
     reducers: {
         setStatus(state, action) {
             state.status = action.payload;
-        },
-        getLoginUserData(state, action) {
-            state.loginUserDetails = action.payload;
         },
         addTrainee: (state, action) => {
             const newTrainee = {
@@ -100,7 +91,6 @@ const traineeLoginSlice = createSlice({
             console.log(current(state.login), "state Login")
         },
         deleteTask: (state, action) => {
-
             const { TraineeEmail, TaskId} = action.payload;
             console.log(TraineeEmail, "traineeEmail", TaskId);
 
@@ -109,12 +99,29 @@ const traineeLoginSlice = createSlice({
                 trainee.tasks = trainee.tasks.filter((task) => task.id !== TaskId);
             }
         },
+        updateTask: (state, action) => {
+            const { TraineeEmail, TaskId, Task } = action.payload;
+          
+            
+            const trainee = state.login.find((trainee) => trainee.email === TraineeEmail);
+          
+            if (trainee) {
+              const taskIndex = trainee.tasks.findIndex((item) => item.id === TaskId);
+            console.log(taskIndex, "taskIndex");
+              if (taskIndex !== -1) {
+                trainee.tasks[taskIndex] = {
+                  ...trainee.tasks[taskIndex],
+                  ...Task,
+                };
+              }
+            }
+          },
 
 
     }
 });
 
-export const { setStatus, getLoginUserData, addTrainee, updateTrainee, addTask, deleteTask} = traineeLoginSlice.actions;
+export const { setStatus, addTrainee, updateTrainee, addTask, deleteTask, updateTask} = traineeLoginSlice.actions;
 export default traineeLoginSlice.reducer;
 
 
