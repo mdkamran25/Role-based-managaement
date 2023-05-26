@@ -16,9 +16,9 @@ function TraineeAssignedToMentor() {
   const matchingTrainees = traineeData.filter(
     (trainee) => trainee.mentor === mentorDetail.email
   );
-  const ViewTraineeProfile = () => {
-    <Link to='/traineeProfile' />
-  }
+  // const ViewTraineeProfile = () => {
+  //   <Link to='/traineeProfile' />
+  // }
 
   const [isSubmissionButtonClicked, setSubmissionButtonClicked] =
     useState(false);
@@ -68,7 +68,7 @@ function TraineeAssignedToMentor() {
                           Designation: {items.designation}
                         </span>
                         <hr />
-                        <Link to='/traineeProfile' className="text-center">
+                        <Link to='/traineeProfile' state={items} className="text-center">
                           <button className="btn btn-primary text-light w-50 align-self-center">
                             View Profile
                           </button>

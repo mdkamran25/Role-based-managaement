@@ -4,8 +4,8 @@ import { useNavigate } from "react-router"
 import { onLogout } from "../../slice/loggedUserDetails/loggedUserSlice";
 import { Link } from 'react-router-dom';
 const currentRole = {
-    "Lead": ["Home", "Trainee"],
-    "Mentor": ["Home", "Trainee"],
+    "Lead": ["dashboard", "Trainee", "module"],
+    "Mentor": ["Dashboard", "module"],
 }
 function Navbar() {
     const LoggedUserData = useSelector(state => state.loggedUserReducer.loggedUserDetails || [])
@@ -53,14 +53,14 @@ function Navbar() {
                                     return (<>
                                         <li className="nav-item" >
 
-                                            <Link className="nav-link active" to={`/${routes}`}>{route}</Link>
+                                            <Link className="nav-link active" to={`/${route}`}><span className='text-capitalize'>{route}</span></Link>
 
                                         </li>
                                         <hr />
                                     </>)
                                 })}
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#" onClick={logoutFunction}>
+                                    <a className="nav-link active" href="#" onClick={logoutFunction}>
                                         Logout
                                     </a>
                                 </li>

@@ -17,6 +17,11 @@ const initialState = {
             mentor: "mentor@gmail.com",
             tasks: [],
             role:"Trainee",
+            phone: "8969385731",
+            address: "Ara, Bihar",
+            college: "Parul University",
+            github: undefined,
+            linkdin: undefined
         },
         {
             id: 2,
@@ -27,6 +32,11 @@ const initialState = {
             mentor: "mentor@gmail.com",
             tasks: [],
             role:"Trainee",
+            phone: "8969385731",
+            address: "Ara, Bihar",
+            college: "Parul University",
+            github: undefined,
+            linkdin: undefined
         },
         {
             id: 3,
@@ -37,6 +47,11 @@ const initialState = {
             mentor: null,
             tasks: [],
             role:"Trainee",
+            phone: "8969385731",
+            address: "Ara, Bihar",
+            college: "Parul University",
+            github: undefined,
+            linkdin: undefined
         },
         {
             id: 4,
@@ -47,6 +62,11 @@ const initialState = {
             mentor: null,
             tasks: [],
             role:"Trainee",
+            phone: "8969385731",
+            address: "Ara, Bihar",
+            college: "Parul University",
+            github: undefined,
+            linkdin: undefined
         },
     ],
     status: 'idle',

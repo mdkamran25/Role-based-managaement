@@ -1,0 +1,14 @@
+.cardContain{
+    width: 90%;
+    min-height: 379px !important;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important; 
+    transition: all .3s ease-in-out;
+}
+.cardContain:hover{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        z-index: 1;
+        filter: none;
+          -webkit-filter: grayscale(0);
+          -webkit-transform: scale(1.01);
+          color: #000;
+}

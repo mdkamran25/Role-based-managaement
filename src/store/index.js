@@ -7,13 +7,15 @@ import {persistReducer, persistStore} from 'redux-persist'
 import mentorLoginSlice from "../slice/mentor/mentorLoginSlice";
 import 'react-tooltip/dist/react-tooltip.css';
 import loggedUserSlice from "../slice/loggedUserDetails/loggedUserSlice";
+import topicsToLearnSlice from "../slice/TopicsToLearn/topicsToLearnSlice";
 
 const rootReducer = combineReducers(
   {
     adminLoginReducer: adminLoginSlice,
     traineeLoginReducer: traineeLoginSlice,
     mentorLoginReducer: mentorLoginSlice,
-    loggedUserReducer: loggedUserSlice
+    loggedUserReducer: loggedUserSlice,
+    topicsToLearnReducer: topicsToLearnSlice,
   }
 )
 

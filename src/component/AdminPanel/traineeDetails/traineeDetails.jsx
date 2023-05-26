@@ -21,7 +21,7 @@ function TraineeDetails() {
                 </button>
             </div>
             <hr />
-            <div className="col-12">
+            <div className="col-12 traineeTable">
                 <table className="table table-striped table-hover">
                     <thead>
                         <tr>

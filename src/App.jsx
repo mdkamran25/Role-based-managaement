@@ -12,6 +12,7 @@ import AdminPanel from "./component/AdminPanel/adminpanel";
 import MentorPanel from "./component/MentorPanel/MentorPanel";
 import TraineeProfile from "./component/TraineeProfile/TraineeProfile";
 import Navbar from "./component/Navbar/navbar";
+import TopicsToLearn from "./component/TopicsToLearn/topicsToLearn";
 
 function App() {
   const title = useLocation()
@@ -28,6 +29,7 @@ function App() {
               <Route path="/adminPanel" element={<AdminPanel />} />
               <Route path="/mentorPanel" element={<MentorPanel />} />
               <Route path="/traineeProfile" element={<TraineeProfile />} />
+              <Route path="/module" element={<TopicsToLearn />} />
             </Routes>
         </PersistGate>
       </Provider>
