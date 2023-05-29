@@ -1,7 +1,12 @@
+
 .TraineeDetail{
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;    
   height: 550px !important; 
-    overflow-y: scroll; 
+
+}
+.traineeProfileCard{
+  height: 28rem;
+  overflow-y: scroll; 
     overflow-x: hidden;
 }
 .task-submission{

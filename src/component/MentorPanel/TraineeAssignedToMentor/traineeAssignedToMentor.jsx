@@ -5,6 +5,7 @@ import TraineeSubmission from "../TraineeSubmission/traineeSubmission";
 import TraineeTask from "../TraineeTask/traineeTask";
 import "./traineeAssignedToMentor.css";
 import { Link } from "react-router-dom";
+import ProfileCard from "../../ProfileCard/profileCard";
 function TraineeAssignedToMentor() {
   const navigate = useNavigate();
   const mentorDetail = useSelector(
@@ -34,50 +35,15 @@ function TraineeAssignedToMentor() {
           <div className="col-12 pt-3">
             <span className="table-name pt-1 ps-2">Trainee Assigned</span>
             <hr />
-            <div className="col-12 d-flex align-items-center justify-content-center justify-content-lg-evenly flex-column flex-xl-row pb-3">
+            <div className="col-12 d-flex flex-wrap traineeProfileCard justify-content-evenly pb-3">
               {matchingTrainees &&
-                matchingTrainees.map((items) => {
-                  return (
-                    <div className="py-2" key={items.id}>
-                      <div
-                        className="card pt-2 pb-3"
-                        style={{ width: "18rem" }}
-                      >
-                        <img
-                          className="rounded-circle align-self-center"
-                          src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                          alt="User-Profile-Image"
-                          width={100}
-                          height={100}
-                        />
-                        <div className="card-body float-left ps-3 pt-3 pb-0">
-                          <h5 className="card-title p-0 m-0">
-                            Name: <span>{items.name}</span>
-                          </h5>
-                        </div>
-                        <hr />
-                        <span className="ps-3">
-                          Email: <span>{items.email}</span>
-                        </span>
-                        <hr />
-                        <span className="ps-3">
-                          Department: {items.department}
-                        </span>
-                        <hr />
-                        <span className="ps-3">
-                          Designation: {items.designation}
-                        </span>
-                        <hr />
-                        <Link to='/traineeProfile' state={items} className="text-center">
-                          <button className="btn btn-primary text-light w-50 align-self-center">
-                            View Profile
-                          </button>
-                        </Link> 
-                      </div>
-                    </div>
-                  );
-                })}
+                matchingTrainees.map((item) => (
+                  <div className="col-12 col-sm-10 col-md-10 col-lg-5 mb-3" key={item.id}>
+                    <ProfileCard item={item} />
+                  </div>
+                ))}
             </div>
+
           </div>
         </div>
         <div className="col-11 col-md-5 mb-3 mt-3 mt-md-0 rounded-3 d-flex flex-column task-submission rounded-3">
@@ -99,7 +65,7 @@ function TraineeAssignedToMentor() {
           </div>
           <hr className="mt-0" />
           <div className="col-12 position-relative">
-            {isSubmissionButtonClicked ? <TraineeSubmission /> : <TraineeTask  matchingTrainee={matchingTrainees} />}  
+            {isSubmissionButtonClicked ? <TraineeSubmission /> : <TraineeTask matchingTrainee={matchingTrainees} />}
           </div>
         </div>
       </div>

@@ -1,11 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 
-export const STATUSES = Object.freeze({
-    IDLE: 'idle',
-    ERROR: 'error',
-    LOADING: 'loading',
-});
-
 const initialState = {
     login: [
         {
@@ -41,44 +35,116 @@ const initialState = {
         {
             id: 3,
             email: "dipak@gmail.com",
-            name: "dipak",
+            name: "Dipak",
             department: "React",
             designation: "Trainee",
             mentor: null,
             tasks: [],
             role:"Trainee",
-            phone: "8969385731",
-            address: "Ara, Bihar",
-            college: "Parul University",
+            phone: "9769385739",
+            address: "Rajkot, Gujarat",
+            college: "Marwadi University",
             github: undefined,
             linkdin: undefined
         },
         {
             id: 4,
             email: "rishi@gmail.com",
-            name: "rishi",
+            name: "Rishi",
             department: "React",
             designation: "Trainee",
             mentor: null,
             tasks: [],
             role:"Trainee",
-            phone: "8969385731",
-            address: "Ara, Bihar",
-            college: "Parul University",
+            phone: "7569385734",
+            address: "Daman",
+            college: "Diu University",
             github: undefined,
             linkdin: undefined
         },
+        {
+            id: 5,
+            email: "anjali@gmail.com",
+            name: "Anjali",
+            department: "React",
+            designation: "Trainee",
+            mentor: null,
+            tasks: [],
+            role:"Trainee",
+            phone: "6569385734",
+            address: "Dawarka",
+            college: "Dawarka University",
+            github: undefined,
+            linkdin: undefined
+        },
+        {
+            id: 6,
+            email: "prashant@gmail.com",
+            name: "Prashant",
+            department: "React",
+            designation: "Trainee",
+            mentor: null,
+            tasks: [],
+            role:"Trainee",
+            phone: "8769385731",
+            address: "GandhiNagar",
+            college: "L.D College of Engineering",
+            github: undefined,
+            linkdin: undefined
+        },
+        {
+            id: 7,
+            email: "chetan@gmail.com",
+            name: "Chetan",
+            department: "React",
+            designation: "Trainee",
+            mentor: null,
+            tasks: [],
+            role:"Trainee",
+            phone: "9569385730",
+            address: "Rajkot",
+            college: "Rajkot University",
+            github: undefined,
+            linkdin: undefined
+        },
+        {
+            id: 8,
+            email: "ashish@gmail.com",
+            name: "Ashish",
+            department: "React",
+            designation: "Trainee",
+            mentor: null,
+            tasks: [],
+            role:"Trainee",
+            phone: "6869385731",
+            address: "Ahmedabad",
+            college: "Nirma University",
+            github: undefined,
+            linkdin: undefined
+        },
+        {
+            id: 9,
+            email: "vipul@gmail.com",
+            name: "Vipul",
+            department: "React",
+            designation: "Trainee",
+            mentor: null,
+            tasks: [],
+            role:"Trainee",
+            phone: "9012885738",
+            address: "Ahmedabad",
+            college: "L.K.U University",
+            github: undefined,
+            linkdin: undefined
+        }
     ],
-    status: 'idle',
 };
 
 const traineeLoginSlice = createSlice({
     name: 'traineeLogin',
     initialState,
     reducers: {
-        setStatus(state, action) {
-            state.status = action.payload;
-        },
+        
         addTrainee: (state, action) => {
             const newTrainee = {
                 id: state.login.length + 1,
@@ -141,7 +207,7 @@ const traineeLoginSlice = createSlice({
     }
 });
 
-export const { setStatus, addTrainee, updateTrainee, addTask, deleteTask, updateTask} = traineeLoginSlice.actions;
+export const { addTrainee, updateTrainee, addTask, deleteTask, updateTask} = traineeLoginSlice.actions;
 export default traineeLoginSlice.reducer;
 
 

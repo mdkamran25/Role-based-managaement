@@ -1,12 +1,46 @@
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { getLoginUserData } from "../../../slice/loggedUserDetails/loggedUserSlice";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./traineeLogin.css";
 function TraineeLogin() {
   const [showPassword, setShowPassword] = useState(true);
 
+  const loginData = useSelector(state => state.traineeLoginReducer.login)
+
+
   const showPasswordToggle = () => {
     showPassword ? setShowPassword(false) : setShowPassword(true);
   };
+
+  const [userDetails, setUserDetails] = useState({
+    email: "",
+    // password: "",
+  });
+
+  console.log(userDetails.email, "email")
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const validate = (e) => {
+    e.preventDefault();
+    const validation = loginData.find(user => {
+      console.log(user.email);
+      return user.email === userDetails.email;
+    });
+    ;
+    console.log(validation, "validation")
+    if (validation) {
+      dispatch(getLoginUserData(validation));
+      navigate('traineePanel')
+    } else {
+      toast.error("Invalid ID.");
+      return false;
+    }
+  }
   return (
     <>
       <form>
@@ -30,10 +64,11 @@ function TraineeLogin() {
               </svg>
             </div>
             <div className="col-11 align-self-center ps-lg-0 ps-2">
-              <input
+            <input
                 type="text"
                 className="bg-transparent border-0 outline-0"
                 placeholder="Enter Email"
+                onChange={(e) => setUserDetails((prevState) => ({ ...prevState, email: e.target.value }))}
                 required
               />
             </div>
@@ -106,10 +141,13 @@ function TraineeLogin() {
             </div>
           </div>
         </div>
-        <button type="submit" className="btn mb-4 mt-3 btn-primary">
+        <button type="submit" className="btn mb-4 mt-3 btn-primary"  onClick={validate}>
           Trainee Login
         </button>
       </form>
+      <div className="col-10">
+        <ToastContainer className="toastContainer" autoClose={2000} />
+      </div>
     </>
   );
 }
