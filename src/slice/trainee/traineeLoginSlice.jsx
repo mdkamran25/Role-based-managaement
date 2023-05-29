@@ -70,6 +70,7 @@ const initialState = {
             designation: "Trainee",
             mentor: null,
             tasks: [],
+            submission:[],
             role:"Trainee",
             phone: "6569385734",
             address: "Dawarka",
@@ -166,16 +167,16 @@ const traineeLoginSlice = createSlice({
         },
         addTask: (state, action) => {
             const { traineeEmail, task } = action.payload;
-
-            const trainee = state.login.find(trainee => trainee.email === traineeEmail);
+          
+            const trainee = state.login.find((trainee) => trainee.email === traineeEmail);
             if (trainee) {
-                if (!trainee.tasks) {
-                    trainee.tasks = [];
-                }
-                trainee.tasks.push({ ...task, completed: false, id: trainee.tasks.length + 1, });
+              if (!trainee.tasks) {
+                trainee.tasks = [];
+              }
+              trainee.tasks.unshift({ ...task, completed: false, id: trainee.tasks.length + 1 });
             }
-            console.log(current(state.login), "state Login")
-        },
+          },
+          
         deleteTask: (state, action) => {
             const { TraineeEmail, TaskId} = action.payload;
             console.log(TraineeEmail, "traineeEmail", TaskId);
@@ -187,13 +188,11 @@ const traineeLoginSlice = createSlice({
         },
         updateTask: (state, action) => {
             const { TraineeEmail, TaskId, Task } = action.payload;
-          
             
             const trainee = state.login.find((trainee) => trainee.email === TraineeEmail);
           
             if (trainee) {
               const taskIndex = trainee.tasks.findIndex((item) => item.id === TaskId);
-            console.log(taskIndex, "taskIndex");
               if (taskIndex !== -1) {
                 trainee.tasks[taskIndex] = {
                   ...trainee.tasks[taskIndex],
@@ -202,8 +201,6 @@ const traineeLoginSlice = createSlice({
               }
             }
           },
-
-
     }
 });
 

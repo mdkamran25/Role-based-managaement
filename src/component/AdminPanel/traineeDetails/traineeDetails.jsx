@@ -49,7 +49,7 @@ function TraineeDetails() {
                 </table>
             </div>
 
-            {/* The Modal */}
+            
             {modalOpen && (
                 <TraineeForm setModalOpen={setModalOpen} />
             )
