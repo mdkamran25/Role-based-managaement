@@ -1,13 +1,12 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit"
 
 export const STATUSES = Object.freeze({
-  IDLE: 'idle',
-  ERROR: 'error',
-  LOADING: 'loading',
-});
+  IDLE: "idle",
+  ERROR: "error",
+  LOADING: "loading",
+})
 
-const initialState =
-{
+const initialState = {
   login: [
     {
       id: 1,
@@ -17,41 +16,37 @@ const initialState =
       department: "React",
       FirstTraineeEmail: "mdkamran7255@gmail.com",
       SecondTraineeEmail: "mdkamran12310@gmail.com",
-      role:'Mentor'
+      role: "Mentor",
     },
-    
   ],
-  status: 'idle',
+  status: "idle",
 }
 
 const mentorLoginSlice = createSlice({
-  name: 'mentorLogin',
+  name: "mentorLogin",
   initialState,
   reducers: {
     setStatus(state, action) {
-      state.status = action.payload;
+      state.status = action.payload
     },
 
     addMentor: (state, action) => {
       const newMentor = {
         id: state.login.length + 1,
-        role:"Mentor",
-        ...action.payload
-      };
-      state.login.push(newMentor);
+        role: "Mentor",
+        ...action.payload,
+      }
+      state.login.push(newMentor)
       console.log(current(state.login))
     },
-    addTask(state, action){
-      
-    },
-    onLogout (state, action) {
+    // addTask(state, action){
+
+    // },
+    onLogout(state) {
       state.loggedUserDetails = []
     },
-  }
+  },
 })
 
-export const { setStatus, addMentor, onLogout } = mentorLoginSlice.actions;
-export default mentorLoginSlice.reducer;
-
-
-
+export const { setStatus, addMentor, onLogout } = mentorLoginSlice.actions
+export default mentorLoginSlice.reducer

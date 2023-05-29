@@ -1,41 +1,41 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
-import { getLoginUserData} from "../../../slice/loggedUserDetails/loggedUserSlice"; 
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "./adminLogin.css";
+import React, { useState } from "react"
+import { useNavigate } from "react-router"
+import { useSelector, useDispatch } from "react-redux"
+import { getLoginUserData } from "../../../slice/loggedUserDetails/loggedUserSlice"
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import "./adminLogin.css"
 
 function AdminLogin() {
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(true)
 
-  const loginData = useSelector(state => state.adminLoginReducer.login)
+  const loginData = useSelector((state) => state.adminLoginReducer.login)
 
   const showPasswordToggle = () => {
-    setShowPassword(!showPassword);
-  };
+    setShowPassword(!showPassword)
+  }
 
   const [userDetails, setUserDetails] = useState({
     email: "",
     password: "",
-  });
+  })
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const validate = (e) => {     
-    e.preventDefault();
-      const validation = loginData.find(
-        user => user.email === userDetails.email
-      );
-      console.log(validation,"validation")
-      if (validation) {
-         dispatch(getLoginUserData(validation));
-         navigate('adminPanel')
-      } else {
-        toast.error("Invalid ID.");
-        return false;
-      }
+  const validate = (e) => {
+    e.preventDefault()
+    const validation = loginData.find(
+      (user) => user.email === userDetails.email
+    )
+    console.log(validation, "validation")
+    if (validation) {
+      dispatch(getLoginUserData(validation))
+      navigate("adminPanel")
+    } else {
+      toast.error("Invalid ID.")
+      return false
+    }
   }
   return (
     <>
@@ -64,7 +64,12 @@ function AdminLogin() {
                 type="text"
                 className="bg-transparent border-0 outline-0"
                 placeholder="Enter Email"
-                onChange={(e) => setUserDetails((prevState) => ({ ...prevState, email: e.target.value }))}
+                onChange={(e) =>
+                  setUserDetails((prevState) => ({
+                    ...prevState,
+                    email: e.target.value,
+                  }))
+                }
                 required
               />
             </div>
@@ -94,7 +99,12 @@ function AdminLogin() {
                 type={showPassword ? "password" : "text"}
                 className="bg-transparent border-0 outline-0"
                 placeholder="Enter Password"
-                onChange={(e) => setUserDetails((prevState) => ({ ...prevState, password: e.target.value }))}
+                onChange={(e) =>
+                  setUserDetails((prevState) => ({
+                    ...prevState,
+                    password: e.target.value,
+                  }))
+                }
                 required
               />
             </div>
@@ -138,15 +148,19 @@ function AdminLogin() {
             </div>
           </div>
         </div>
-        <button type="submit" className="btn mb-4 mt-3 btn-primary" onClick={validate}>
+        <button
+          type="submit"
+          className="btn mb-4 mt-3 btn-primary"
+          onClick={validate}
+        >
           Admin Login
         </button>
       </form>
       <div className="col-10">
-        <ToastContainer className="toastContainer"  autoClose={2000}/>
+        <ToastContainer className="toastContainer" autoClose={2000} />
       </div>
     </>
-  );
+  )
 }
 
-export default AdminLogin;
+export default AdminLogin

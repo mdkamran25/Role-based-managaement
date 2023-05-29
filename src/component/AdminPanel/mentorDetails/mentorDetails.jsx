@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import "./mentorDetails.css";
-import TraineeDetails from "../traineeDetails/traineeDetails";
-import MentorForm from "./mentorForm";
-import { useSelector } from "react-redux";
-import { Tooltip } from "react-tooltip";
+import React, { useState } from "react"
+import "./mentorDetails.css"
+import TraineeDetails from "../traineeDetails/traineeDetails"
+import MentorForm from "./mentorForm"
+import { useSelector } from "react-redux"
+import { Tooltip } from "react-tooltip"
 
 function MentorDetails() {
-  const [modalOpen, setModalOpen] = useState(false);
-  const mentorDetail = useSelector((state) => state.mentorLoginReducer.login);
+  const [modalOpen, setModalOpen] = useState(false)
+  const mentorDetail = useSelector((state) => state.mentorLoginReducer.login)
 
   const openModal = () => {
-    setModalOpen(true);
-  };
+    setModalOpen(true)
+  }
   return (
     <>
       <div className="col-12 d-flex flex-column flex-lg-row mt-5 justify-content-center justify-content-lg-evenly align-items-lg-start align-items-center">
@@ -63,7 +63,7 @@ function MentorDetails() {
       </div>
       {modalOpen && <MentorForm setModalOpen={setModalOpen} />}
     </>
-  );
+  )
 }
 
-export default MentorDetails;
+export default MentorDetails

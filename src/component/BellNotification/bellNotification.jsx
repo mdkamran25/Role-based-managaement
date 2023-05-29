@@ -1,6 +1,6 @@
-import React, { useState, useCallback } from "react";
-import bell from "../../Image/bell.svg";
-import "./bellNotification.css";
+import React, { useState, useCallback } from "react"
+import bell from "../../Image/bell.svg"
+import "./bellNotification.css"
 const SmallBox = React.memo((props) => {
   return (
     <>
@@ -8,7 +8,7 @@ const SmallBox = React.memo((props) => {
         {props.task &&
           props.task.map((item, index) => {
             return (
-              <React.Fragment>
+              <React.Fragment key={index}>
                 <div className="taskNotification d-flex position-relative justify-content-between pt-2 pb-4 px-3">
                   <p className="text-dark mb-0 fw-bold">Task</p>
                   <p className="text-dark fw-normal mb-0 position-absolute taskName">
@@ -21,7 +21,7 @@ const SmallBox = React.memo((props) => {
                 </div>
                 <hr />
               </React.Fragment>
-            );
+            )
           })}
 
         <div className="submissionNotification d-flex position-relative justify-content-between pt-2 pb-4 px-3">
@@ -37,15 +37,15 @@ const SmallBox = React.memo((props) => {
         <hr />
       </div>
     </>
-  );
-});
+  )
+})
 
 function BellNotification(props) {
-  const [isBoxVisible, setIsBoxVisible] = useState(false);
+  const [isBoxVisible, setIsBoxVisible] = useState(false)
 
   const handleNotificationClick = useCallback(() => {
-    setIsBoxVisible((prevState) => !prevState);
-  }, []);
+    setIsBoxVisible((prevState) => !prevState)
+  }, [])
 
   return (
     <div
@@ -56,7 +56,7 @@ function BellNotification(props) {
       <img src={bell} className="bell" width={40} alt="bell-notification" />
       {isBoxVisible && <SmallBox task={props.task} />}
     </div>
-  );
+  )
 }
 
-export default BellNotification;
+export default BellNotification

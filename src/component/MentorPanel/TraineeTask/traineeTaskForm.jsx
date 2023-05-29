@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import { addTask } from "../../../slice/trainee/traineeLoginSlice";
-import { useDispatch } from "react-redux";
-import * as Yup from "yup";
+import React from "react"
+import { Formik, Field, Form, ErrorMessage } from "formik"
+import { addTask } from "../../../slice/trainee/traineeLoginSlice"
+import { useDispatch } from "react-redux"
+import * as Yup from "yup"
 
 const validationSchema = Yup.object().shape({
   taskName: Yup.string()
@@ -32,46 +32,46 @@ const validationSchema = Yup.object().shape({
       "fileSize",
       "File size should be less than or equal to 1MB",
       (value) => value || (value && value.size >= 1048576)
-    )
-
-
-});
+    ),
+})
 
 function TraineeTaskForm(props) {
   const closeModal = () => {
-    props.setModalOpen(false);
-  };
-  const date = new Date();
-  const options = { hour12: false };
-  const time = date.toLocaleTimeString("en-US", options);
+    props.setModalOpen(false)
+  }
+  const date = new Date()
+  const options = { hour12: false }
+  const time = date.toLocaleTimeString("en-US", options)
   const dates = date.toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",
     year: "numeric",
-  });
+  })
 
   console.log("matchingTrainee= ", props.matchingTrainee)
 
   const dispatch = useDispatch()
 
   const handleSubmit = (values) => {
-    console.log(values);
-    let image = document.getElementById("file");
-    console.log(image.files[0], "values as file");
-    const fr = new FileReader();
-    fr.readAsDataURL(image.files[0]);
+    console.log(values)
+    let image = document.getElementById("file")
+    console.log(image.files[0], "values as file")
+    const fr = new FileReader()
+    fr.readAsDataURL(image.files[0])
     fr.onload = () => {
-      let url = fr.result;
-      values.file = url;
+      let url = fr.result
+      values.file = url
       values = {
-        ...values, time: time, date: dates
+        ...values,
+        time: time,
+        date: dates,
       }
       props.matchingTrainee.forEach((trainee) => {
-        dispatch(addTask({ traineeEmail: trainee.email, task: values }));
-      });
-    };
-    closeModal();
-  };
+        dispatch(addTask({ traineeEmail: trainee.email, task: values }))
+      })
+    }
+    closeModal()
+  }
   return (
     <>
       <div>
@@ -138,7 +138,6 @@ function TraineeTaskForm(props) {
                         id="file"
                         name="file"
                         className="form-control"
-
                       />
                       <ErrorMessage
                         name="file"
@@ -178,7 +177,7 @@ function TraineeTaskForm(props) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default TraineeTaskForm;
+export default TraineeTaskForm

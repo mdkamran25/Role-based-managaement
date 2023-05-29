@@ -1,32 +1,30 @@
-import React, { useState } from "react";
-import "./MultiUserLoginButton.css";
-import { useNavigate } from "react-router-dom";
-import AdminLogin from "../AdminLogin/adminLogin";
-import MentorLogin from "../MentorLogin/mentorLogin";
-import TraineeLogin from "../TraineeLogin/traineeLogin";
+import React, { useState } from "react"
+import "./MultiUserLoginButton.css"
+import AdminLogin from "../AdminLogin/adminLogin"
+import MentorLogin from "../MentorLogin/mentorLogin"
+import TraineeLogin from "../TraineeLogin/traineeLogin"
 function MultiUserLoginButtton() {
-  const navigate = useNavigate();
-  const [adminLogin, setAdminLogin] = useState(true);
-  const [mentorLogin, setMentorLogin] = useState(false);
-  const [traineeLogin, setTraineeLogin] = useState(false);
+  const [adminLogin, setAdminLogin] = useState(true)
+  const [mentorLogin, setMentorLogin] = useState(false)
+  const [traineeLogin, setTraineeLogin] = useState(false)
 
   const adminLoginActive = () => {
-    setAdminLogin(true);
-    setMentorLogin(false);
-    setTraineeLogin(false);
-  };
+    setAdminLogin(true)
+    setMentorLogin(false)
+    setTraineeLogin(false)
+  }
 
   const mentorLoginActive = () => {
-    setAdminLogin(false);
-    setMentorLogin(true);
-    setTraineeLogin(false);
-  };
+    setAdminLogin(false)
+    setMentorLogin(true)
+    setTraineeLogin(false)
+  }
 
   const traineeLoginActive = () => {
-    setAdminLogin(false);
-    setMentorLogin(false);
-    setTraineeLogin(true);
-  };
+    setAdminLogin(false)
+    setMentorLogin(false)
+    setTraineeLogin(true)
+  }
   return (
     <>
       <div className="container btn-container p-0 rounder-3 col-11 rounded-3 col-sm-11 col-lg-10 d-flex flex-row ">
@@ -55,11 +53,11 @@ function MultiUserLoginButtton() {
           </button>
         </div>
       </div>
-        {adminLogin && <AdminLogin />}
-        {mentorLogin && <MentorLogin />}
-        {traineeLogin && <TraineeLogin />}
+      {adminLogin && <AdminLogin />}
+      {mentorLogin && <MentorLogin />}
+      {traineeLogin && <TraineeLogin />}
     </>
-  );
+  )
 }
 
-export default MultiUserLoginButtton;
+export default MultiUserLoginButtton

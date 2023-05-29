@@ -26,12 +26,13 @@
   color: white;
 }
 tr td img:hover {
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; }
-#traineeTaskTooltipDeleteEditView{
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+#traineeTaskTooltipDeleteEditView {
   background-color: black;
   color: white;
 }
-.descriptionInTable{
+.descriptionInTable {
   overflow: hidden;
   max-width: 0ch;
   text-overflow: ellipsis;

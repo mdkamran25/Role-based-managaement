@@ -1,12 +1,12 @@
-import * as React from 'react';
-import Lottie from 'lottie-react';
-import animation from "./login.json";
+import * as React from "react"
+import Lottie from "lottie-react"
+import animation from "./login.json"
 function LoginPageAnimation() {
-    return ( 
-        <>
-            <Lottie  animationData={animation} />
-        </>
-     );
+  return (
+    <>
+      <Lottie animationData={animation} />
+    </>
+  )
 }
 
-export default  LoginPageAnimation;
+export default LoginPageAnimation

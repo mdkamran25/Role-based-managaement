@@ -1,24 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {useNavigate} from "react-router"
-import "./MentorPanel.css";
-import { onLogout } from "../../slice/loggedUserDetails/loggedUserSlice";
-import TraineeAssignedToMentor from "./TraineeAssignedToMentor/traineeAssignedToMentor";
-;
+import React from "react"
+import "./MentorPanel.css"
+
+import TraineeAssignedToMentor from "./TraineeAssignedToMentor/traineeAssignedToMentor"
 
 function MentorPanel() {
-    const loggedUser = useSelector((state)=> state.loggedUserReducer.loggedUserDetails)
-    const navigate = useNavigate();
-    const dispatch = useDispatch()
-    const logoutFunction = ()  => {
-        dispatch(onLogout());
-        navigate('/')
-    }  
-    return (
+  return (
     <>
       <TraineeAssignedToMentor />
     </>
-  );
+  )
 }
 
-export default MentorPanel;
+export default MentorPanel

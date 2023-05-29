@@ -1,120 +1,168 @@
-import React, { useState } from 'react';
-import './traineeTask.css'
+/* eslint-disable no-undef */
+import React, { useState } from "react"
+import "./traineeTask.css"
 import Lottie from "lottie-react"
-import { useDispatch } from 'react-redux';
-import view from "../../../Image/icons-eye.png";
+import { useDispatch } from "react-redux"
+import view from "../../../Image/icons-eye.png"
 import edit from "../../../Image/icons-edit.png"
-import deleteIcon from "../../../Image/icons-delete.svg";
-import noTaskAnimation from "./empty-box-blue.json";
-import TraineeTaskForm from './traineeTaskForm';
-import { deleteTask } from '../../../slice/trainee/traineeLoginSlice';
-import { Tooltip } from "react-tooltip";
-import TraineeEditTaskForm from '../traineeEditTaskForm/traineeEditTaskForm';
-import ViewAssignedTask from '../viewAssignedTask/viewAssignedTask';
+import deleteIcon from "../../../Image/icons-delete.svg"
+import noTaskAnimation from "./empty-box-blue.json"
+import TraineeTaskForm from "./traineeTaskForm"
+import { deleteTask } from "../../../slice/trainee/traineeLoginSlice"
+import { Tooltip } from "react-tooltip"
+import TraineeEditTaskForm from "../traineeEditTaskForm/traineeEditTaskForm"
+import ViewAssignedTask from "../viewAssignedTask/viewAssignedTask"
 function TraineeTask(props) {
-    const [modalOpen, setModalOpen] = useState(false);
-    const [editTaskForm, setEditTaskForm] = useState(false);
-    const [assignedTask, setAssignedTask] = useState(false);
-    const [selectedTask, setSelectedTask] = useState(null);
-    const openModal = () => {
-        setModalOpen(true);
-    };
-    const openTaskEditForm = () => {
-        setEditTaskForm(true);
-    }
-    const openAssigendTask = () => {
-        setAssignedTask(true)
-    }
-    const viewAssignedTask = (item) => {
-        setSelectedTask(item)
-        openAssigendTask();
-    }
-    const editAssignedTask = (item) => {
-        setSelectedTask(item)
-        openTaskEditForm();
-    }
-    const dispatch = useDispatch();
+  const [modalOpen, setModalOpen] = useState(false)
+  const [editTaskForm, setEditTaskForm] = useState(false)
+  const [assignedTask, setAssignedTask] = useState(false)
+  const [selectedTask, setSelectedTask] = useState(null)
+  const openModal = () => {
+    setModalOpen(true)
+  }
+  const openTaskEditForm = () => {
+    setEditTaskForm(true)
+  }
+  const openAssigendTask = () => {
+    setAssignedTask(true)
+  }
+  const viewAssignedTask = (item) => {
+    setSelectedTask(item)
+    openAssigendTask()
+  }
+  const editAssignedTask = (item) => {
+    setSelectedTask(item)
+    openTaskEditForm()
+  }
+  const dispatch = useDispatch()
 
-    const deleteAssignTask = (ItemId) => {
-        console.log("ItemId", ItemId);
+  const deleteAssignTask = (ItemId) => {
+    console.log("ItemId", ItemId)
 
-        props.matchingTrainee.forEach((trainee) => {
-            console.log(trainee.email)
-            dispatch(deleteTask({ TraineeEmail: trainee.email, TaskId: ItemId }))
-        })
-    }
-    return (
-        <>
-            <div className='noTaskImage d-flex flex-column align-items-center'>
-                {props.matchingTrainee[0].tasks.length !== 0 ? (
-                    <div className='table-conatiner w-100 h-100 overflow-auto border border-1 rounded-1' >
-                        <table className="table table-height table-striped table-hoverable">
-                            <thead>
-                                <tr className='tableHead'>
-                                    <th scope="col" className="px-4">Task</th>
-                                    <th scope="col" >Task Details</th>
-                                    <th scope="col">Task Assigned</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {props.matchingTrainee[0].tasks.map((item) => (
-                                    <tr key={item.id} className={item.complete?'bg-success':''}>
-                                        <td className="px-3"><img src={item.file} alt="task" width={80} height={50} /></td>
-                                        <td className='descriptionInTable'><span className='fw-bold'>{item.taskName}</span>
-                                            <br />
-                                            <span className='fw-light'>{item.description}</span>
-                                        </td>
-                                        <td>{item.time}
-                                            <br />
-                                            {item.date}
-                                        </td>
-                                        <td className={item.complete? "text-success":"text-danger"}>{item.complete? "Submitted":"Not Submitted"}</td>
-                                        <td className='align-middle justify'>
-                                            <img src={view} alt="edit" width={40}
-                                                data-tooltip-id="traineeTaskTooltipDeleteEditView"
-                                                data-tooltip-content="View Task"
-                                                data-tooltip-place="top"
-                                                onClick={() => viewAssignedTask(item)}
-                                            />  &nbsp;
-                                            <img src={edit} alt="edit" width={40}
-                                                data-tooltip-id="traineeTaskTooltipDeleteEditView"
-                                                data-tooltip-content="Edit Task"
-                                                data-tooltip-place="top"
-                                                onClick={() => editAssignedTask(item)}
-                                            />  &nbsp;
-                                            <img src={deleteIcon} alt="edit" width={40}
-                                                data-tooltip-id="traineeTaskTooltipDeleteEditView"
-                                                data-tooltip-content="Delete"
-                                                data-tooltip-place="top"
-                                                onClick={() => deleteAssignTask(item.id)}
-                                            /> 
-                                        </td>
-                                        
-                                        <Tooltip id="traineeTaskTooltipDeleteEditView" />
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                ) : (
-                    <>
-                        <Lottie animationData={noTaskAnimation} className="noTask" loop={false} />
-                        <div className="">
-                            <p className="fw-bold fs-3">No Task Added</p>
-                        </div>
-                    </>
-                )}
-                <button className='btn btn-primary text-light position-absolute addNewTask' onClick={openModal}>+ Add Task</button>
+    props.matchingTrainee.forEach((trainee) => {
+      console.log(trainee.email)
+      dispatch(deleteTask({ TraineeEmail: trainee.email, TaskId: ItemId }))
+    })
+  }
+  return (
+    <>
+      <div className="noTaskImage d-flex flex-column align-items-center">
+        {props.matchingTrainee[0].tasks.length !== 0 ? (
+          <div className="table-conatiner w-100 h-100 overflow-auto border border-1 rounded-1">
+            <table className="table table-height table-striped table-hoverable">
+              <thead>
+                <tr className="tableHead">
+                  <th scope="col" className="px-4">
+                    Task
+                  </th>
+                  <th scope="col">Task Details</th>
+                  <th scope="col">Task Assigned</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {props.matchingTrainee[0].tasks.map((item) => (
+                  <tr
+                    key={item.id}
+                    className={item.complete ? "bg-success" : ""}
+                  >
+                    <td className="px-3">
+                      <img src={item.file} alt="task" width={80} height={50} />
+                    </td>
+                    <td className="descriptionInTable">
+                      <span className="fw-bold">{item.taskName}</span>
+                      <br />
+                      <span className="fw-light">{item.description}</span>
+                    </td>
+                    <td>
+                      {item.time}
+                      <br />
+                      {item.date}
+                    </td>
+                    <td
+                      className={item.complete ? "text-success" : "text-danger"}
+                    >
+                      {item.complete ? "Submitted" : "Not Submitted"}
+                    </td>
+                    <td className="align-middle justify">
+                      <img
+                        src={view}
+                        alt="edit"
+                        width={40}
+                        data-tooltip-id="traineeTaskTooltipDeleteEditView"
+                        data-tooltip-content="View Task"
+                        data-tooltip-place="top"
+                        onClick={() => viewAssignedTask(item)}
+                      />{" "}
+                      &nbsp;
+                      <img
+                        src={edit}
+                        alt="edit"
+                        width={40}
+                        data-tooltip-id="traineeTaskTooltipDeleteEditView"
+                        data-tooltip-content="Edit Task"
+                        data-tooltip-place="top"
+                        onClick={() => editAssignedTask(item)}
+                      />{" "}
+                      &nbsp;
+                      <img
+                        src={deleteIcon}
+                        alt="edit"
+                        width={40}
+                        data-tooltip-id="traineeTaskTooltipDeleteEditView"
+                        data-tooltip-content="Delete"
+                        data-tooltip-place="top"
+                        onClick={() => deleteAssignTask(item.id)}
+                      />
+                    </td>
 
+                    <Tooltip id="traineeTaskTooltipDeleteEditView" />
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <>
+            <Lottie
+              animationData={noTaskAnimation}
+              className="noTask"
+              loop={false}
+            />
+            <div className="">
+              <p className="fw-bold fs-3">No Task Added</p>
             </div>
-            {modalOpen && <TraineeTaskForm setModalOpen={setModalOpen} matchingTrainee={props.matchingTrainee} />}
-            {editTaskForm && <TraineeEditTaskForm matchingTrainee={props.matchingTrainee}  item={selectedTask}  setEditTaskForm={setEditTaskForm}/>}
-            {assignedTask && <ViewAssignedTask item={selectedTask}  setAssignedTask={setAssignedTask}/>}
-
-        </>
-    );
+          </>
+        )}
+        <button
+          className="btn btn-primary text-light position-absolute addNewTask"
+          onClick={openModal}
+        >
+          + Add Task
+        </button>
+      </div>
+      {modalOpen && (
+        <TraineeTaskForm
+          setModalOpen={setModalOpen}
+          matchingTrainee={props.matchingTrainee}
+        />
+      )}
+      {editTaskForm && (
+        <TraineeEditTaskForm
+          matchingTrainee={props.matchingTrainee}
+          item={selectedTask}
+          setEditTaskForm={setEditTaskForm}
+        />
+      )}
+      {assignedTask && (
+        <ViewAssignedTask
+          item={selectedTask}
+          setAssignedTask={setAssignedTask}
+        />
+      )}
+    </>
+  )
 }
 
-export default TraineeTask;
+export default TraineeTask

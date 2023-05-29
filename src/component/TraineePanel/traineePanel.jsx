@@ -1,10 +1,6 @@
-import React from 'react'
+import React from "react"
 function TraineePanel() {
-    return ( 
-        <>
-            
-        </>
-     );
+  return <></>
 }
 
-export default TraineePanel;
+export default TraineePanel

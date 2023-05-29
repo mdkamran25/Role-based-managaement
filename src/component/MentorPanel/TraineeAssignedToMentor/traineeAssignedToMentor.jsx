@@ -1,26 +1,26 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import TraineeSubmission from "../TraineeSubmission/traineeSubmission";
-import TraineeTask from "../TraineeTask/traineeTask";
-import "./traineeAssignedToMentor.css";
-import ProfileCard from "../../ProfileCard/profileCard";
+import React, { useState } from "react"
+import { useSelector } from "react-redux"
+import TraineeSubmission from "../TraineeSubmission/traineeSubmission"
+import TraineeTask from "../TraineeTask/traineeTask"
+import "./traineeAssignedToMentor.css"
+import ProfileCard from "../../ProfileCard/profileCard"
 function TraineeAssignedToMentor() {
   const mentorDetail = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
-  );
+  )
 
-  const traineeData = useSelector((state) => state.traineeLoginReducer.login);
+  const traineeData = useSelector((state) => state.traineeLoginReducer.login)
 
   const matchingTrainees = traineeData.filter(
     (trainee) => trainee.mentor === mentorDetail.email
-  );
- 
+  )
+
   const [isSubmissionButtonClicked, setSubmissionButtonClicked] =
-    useState(false);
+    useState(false)
 
   const handleSubmissionButtonClick = () => {
-    setSubmissionButtonClicked(!isSubmissionButtonClicked);
-  };
+    setSubmissionButtonClicked(!isSubmissionButtonClicked)
+  }
 
   return (
     <>
@@ -32,12 +32,14 @@ function TraineeAssignedToMentor() {
             <div className="col-12 d-flex flex-wrap traineeProfileCard justify-content-evenly pb-3">
               {matchingTrainees &&
                 matchingTrainees.map((item) => (
-                  <div className="col-12 col-sm-10 col-md-10 col-lg-5 mb-3" key={item.id}>
+                  <div
+                    className="col-12 col-sm-10 col-md-10 col-lg-5 mb-3"
+                    key={item.id}
+                  >
                     <ProfileCard item={item} />
                   </div>
                 ))}
             </div>
-
           </div>
         </div>
         <div className="col-11 col-md-5 mb-3 mt-3 mt-md-0 rounded-3 d-flex flex-column task-submission rounded-3">
@@ -59,12 +61,16 @@ function TraineeAssignedToMentor() {
           </div>
           <hr className="mt-0" />
           <div className="col-12 position-relative">
-            {isSubmissionButtonClicked ? <TraineeSubmission /> : <TraineeTask matchingTrainee={matchingTrainees} />}
+            {isSubmissionButtonClicked ? (
+              <TraineeSubmission />
+            ) : (
+              <TraineeTask matchingTrainee={matchingTrainees} />
+            )}
           </div>
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default TraineeAssignedToMentor;
+export default TraineeAssignedToMentor
