@@ -1,0 +1,40 @@
+.noTask {
+  width: 340px !important;
+}
+.noTaskImage {
+  height: 484px;
+}
+.addNewTask {
+  bottom: 0px !important;
+  width: 100%;
+  bottom: -0.2rem !important;
+}
+.table-container {
+  overflow: auto;
+}
+
+@media (min-width: 942px) {
+  .addNewTask {
+    bottom: unset !important;
+    top: -60px;
+    right: 5px;
+    width: unset;
+  }
+}
+.tableHead {
+  background-color: rgb(13, 110, 253);
+  color: white;
+}
+tr td img:hover {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+#traineeTaskTooltipDeleteEditView {
+  background-color: black;
+  color: white;
+}
+.descriptionInTable {
+  overflow: hidden;
+  max-width: 0ch;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
