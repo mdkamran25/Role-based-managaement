@@ -1,8 +1,6 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { } from 'react';
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
 import './navbar.css';
-import AdminPanelSidebar from '../AdminPanel/adminPanelSidebar';
 import MentorPanelSidebar from '../MentorPanel/mentorPanelSideBar';
 import brandLogo from "../../Image/logo.png";
 import TraineePanelSidebar from '../TraineePanel/traineePanelSidebar';
@@ -20,7 +18,7 @@ const Navbar = () => {
             <nav className="navbar text-light bg-primary">
                 <div className="container-fluid">
                     <p className="navbar-brand text-light" >
-                        <img src={brandLogo} width={120} />
+                        <img src={brandLogo} width={120} alt="bellIcon"/>
                     </p>
                     <BellNotification task={LoggedUserData.tasks}/>
                     <button

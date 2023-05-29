@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 import TraineeSubmission from "../TraineeSubmission/traineeSubmission";
 import TraineeTask from "../TraineeTask/traineeTask";
 import "./traineeAssignedToMentor.css";
-import { Link } from "react-router-dom";
 import ProfileCard from "../../ProfileCard/profileCard";
 function TraineeAssignedToMentor() {
-  const navigate = useNavigate();
   const mentorDetail = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   );
@@ -17,10 +14,7 @@ function TraineeAssignedToMentor() {
   const matchingTrainees = traineeData.filter(
     (trainee) => trainee.mentor === mentorDetail.email
   );
-  // const ViewTraineeProfile = () => {
-  //   <Link to='/traineeProfile' />
-  // }
-
+ 
   const [isSubmissionButtonClicked, setSubmissionButtonClicked] =
     useState(false);
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './traineeTask.css'
 import Lottie from "lottie-react"
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import view from "../../../Image/icons-eye.png";
 import edit from "../../../Image/icons-edit.png"
 import deleteIcon from "../../../Image/icons-delete.svg";
@@ -61,7 +61,7 @@ function TraineeTask(props) {
                             <tbody>
                                 {props.matchingTrainee[0].tasks.map((item) => (
                                     <tr key={item.id} className={item.complete?'bg-success':''}>
-                                        <td className="px-3"><img src={item.file} alt="task image" width={80} height={50} /></td>
+                                        <td className="px-3"><img src={item.file} alt="task" width={80} height={50} /></td>
                                         <td className='descriptionInTable'><span className='fw-bold'>{item.taskName}</span>
                                             <br />
                                             <span className='fw-light'>{item.description}</span>
