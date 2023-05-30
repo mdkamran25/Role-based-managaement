@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from "react"
 import bell from "../../Image/bell.svg"
 import "./bellNotification.css"
+import { useDispatch, useSelector } from "react-redux"
+import { setNotification } from "../../slice/trainee/traineeLoginSlice"
 const SmallBox = React.memo((props) => {
   return (
     <>
@@ -42,19 +44,32 @@ const SmallBox = React.memo((props) => {
 
 function BellNotification(props) {
   const [isBoxVisible, setIsBoxVisible] = useState(false)
+  const dispatch = useDispatch()
+  const trainees = useSelector((state) => state.traineeLoginReducer.login)
+
+  const matchedTrainee = trainees.find(
+    (trainee) => trainee.email === props.task.email
+  )
 
   const handleNotificationClick = useCallback(() => {
     setIsBoxVisible((prevState) => !prevState)
-  }, [])
+    if (matchedTrainee) {
+      dispatch(setNotification(matchedTrainee.email))
+    }
+  }, [dispatch, matchedTrainee])
 
   return (
     <div
-      className="bell-notification ms-auto me-4 position-relative"
+      className={`bell-notification ${
+        matchedTrainee && matchedTrainee.ShowNotification ? "redDot" : ""
+      } ms-auto me-4 position-relative`}
       onClick={handleNotificationClick}
-      current-count="8"
+      {...(matchedTrainee && matchedTrainee.ShowNotification
+        ? { "current-count": "8" }
+        : {})}
     >
       <img src={bell} className="bell" width={40} alt="bell-notification" />
-      {isBoxVisible && <SmallBox task={props.task} />}
+      {isBoxVisible && <SmallBox task={props.task.tasks} />}
     </div>
   )
 }

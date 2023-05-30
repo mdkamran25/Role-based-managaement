@@ -1,5 +1,4 @@
 import { createSlice, current } from "@reduxjs/toolkit"
-
 const initialState = {
   login: [
     {
@@ -16,6 +15,7 @@ const initialState = {
       college: "Parul University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 2,
@@ -31,6 +31,7 @@ const initialState = {
       college: "Parul University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 3,
@@ -46,6 +47,7 @@ const initialState = {
       college: "Marwadi University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 4,
@@ -61,6 +63,7 @@ const initialState = {
       college: "Diu University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 5,
@@ -77,6 +80,7 @@ const initialState = {
       college: "Dawarka University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 6,
@@ -92,6 +96,7 @@ const initialState = {
       college: "L.D College of Engineering",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 7,
@@ -107,6 +112,7 @@ const initialState = {
       college: "Rajkot University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 8,
@@ -122,6 +128,7 @@ const initialState = {
       college: "Nirma University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 9,
@@ -137,6 +144,7 @@ const initialState = {
       college: "L.K.U University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
   ],
 }
@@ -179,6 +187,7 @@ const traineeLoginSlice = createSlice({
           completed: false,
           id: trainee.tasks.length + 1,
         })
+        trainee.ShowNotification = true
       }
     },
 
@@ -208,11 +217,28 @@ const traineeLoginSlice = createSlice({
             ...Task,
           }
         }
+        trainee.ShowNotification = true
+      }
+    },
+    setNotification: (state, action) => {
+      const traineeEmail = action.payload
+      const trainee = state.login.find(
+        (trainee) => trainee.email === traineeEmail
+      )
+      console.log(trainee, trainee?.ShowNotification, "notification")
+      if (trainee) {
+        trainee.ShowNotification = false
       }
     },
   },
 })
 
-export const { addTrainee, updateTrainee, addTask, deleteTask, updateTask } =
-  traineeLoginSlice.actions
+export const {
+  addTrainee,
+  updateTrainee,
+  addTask,
+  deleteTask,
+  updateTask,
+  setNotification,
+} = traineeLoginSlice.actions
 export default traineeLoginSlice.reducer

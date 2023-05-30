@@ -17,7 +17,7 @@ const Navbar = () => {
         <p className="navbar-brand text-light">
           <img src={brandLogo} width={120} alt="bellIcon" />
         </p>
-        <BellNotification task={LoggedUserData.tasks} />
+        <BellNotification task={LoggedUserData} />
         <button
           className="navbar-toggler"
           type="button"
