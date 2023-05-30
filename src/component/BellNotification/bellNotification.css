@@ -11,6 +11,9 @@
 .close-box {
   display: none;
 }
+.notificationRow{
+  background-color: #cfe2ff !important;
+}
 .bell-notification {
     color: #fff;
     position: relative;

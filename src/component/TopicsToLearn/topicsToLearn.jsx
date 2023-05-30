@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useSelector } from "react-redux"
 import nothingfind from "../../Image/nothingfind.svg"
 import "./topicsToLearn.css"
@@ -12,14 +12,32 @@ import {
   MDBCol,
 } from "mdb-react-ui-kit"
 import { Link } from "react-router-dom"
+import NewTopicsForm from "./newTopicsAdditionForm"
 function TopicsToLearn() {
   const topics = useSelector((state) => state.topicsToLearnReducer.topics)
+  const loggedUser = useSelector(
+    (state) => state.loggedUserReducer.loggedUserDetails
+  )
+  const [showForm, setShowForm] = useState(false)
+  const openModal = () => {
+    setShowForm(true)
+  }
   return (
     <>
       <div className="container d-flex flex-column justify-content-center align-items-center">
         <div className="row w-100 g-0">
-          <div className="col-12 pt-3">
+          <div className="col-12 pt-3 d-flex pb-2 align-items-center">
             <h3 className="mb-0">Topics To Learn</h3>
+            {loggedUser.role === "Lead" ? (
+              <button
+                className="ms-auto btn btn-primary text-light"
+                onClick={openModal}
+              >
+                + Add new Topics
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className="row g-0 pb-3">
@@ -45,7 +63,7 @@ function TopicsToLearn() {
                             {topic.topicName}
                           </Link>
                         </MDBCardTitle>
-                        <MDBCardText>Description</MDBCardText>
+                        <MDBCardText>{topic.description}</MDBCardText>
                       </MDBCardBody>
                     </MDBCard>
                   </MDBCol>
@@ -54,6 +72,7 @@ function TopicsToLearn() {
           </MDBRow>
         </div>
       </div>
+      {showForm && <NewTopicsForm setShowForm={setShowForm} />}
     </>
   )
 }

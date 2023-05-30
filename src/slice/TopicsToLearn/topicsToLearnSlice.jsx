@@ -5,6 +5,8 @@ import github from "../../Image/github.jpg"
 import react from "../../Image/react.svg"
 import microsoft_azure from "../../Image/microsoft_azure.svg"
 import aws from "../../Image/aws.svg"
+// import { useDispatch } from "react-redux"
+import { setNotificationForall } from "../trainee/traineeLoginSlice"
 
 const initialState = {
   topics: [
@@ -12,55 +14,64 @@ const initialState = {
       id: 1,
       topicName: "HTML & CSS",
       img: htmlcss,
+      description: "Description",
       subTopics: {},
     },
     {
       id: 2,
       topicName: "Javascript",
       img: javascript,
-      subTopics: "",
+      description: "Description",
+      subTopics: {},
     },
     {
       id: 3,
       topicName: "Fundamental For Everyone",
       img: undefined,
-      subTopics: "",
+      description: "Description",
+      subTopics: {},
     },
     {
       id: 4,
       topicName: "Fundamentals of web programming",
       img: undefined,
-      subTopics: "",
+      description: "Description",
+      subTopics: {},
     },
     {
       id: 5,
       topicName: "React",
       img: react,
-      subTopics: "",
+      description: "Description",
+      subTopics: {},
     },
     {
       id: 6,
       topicName: "Typescript",
       img: undefined,
-      subTopics: "",
+      description: "Description",
+      subTopics: {},
     },
     {
       id: 6,
       topicName: "Amazon Web Service",
       img: aws,
-      subTopics: "",
+      description: "Description",
+      subTopics: {},
     },
     {
       id: 7,
       topicName: "Microsoft Azure",
       img: microsoft_azure,
-      subTopics: "",
+      description: "Description",
+      subTopics: {},
     },
     {
       id: 8,
       topicName: "Basics Of Git",
       img: github,
-      subTopics: "",
+      description: "Description",
+      subTopics: {},
     },
   ],
 }
@@ -68,8 +79,27 @@ const initialState = {
 const topicsToLearnSlice = createSlice({
   name: "traineeLogin",
   initialState,
-  reducers: {},
+  reducers: {
+    addNewTopics: (state, action) => {
+      const { topicName, img, description } = action.payload
+      const id = state.topics.length + 1
+      const subTopics = {}
+      state.topics.push({
+        id,
+        topicName,
+        img,
+        description,
+        subTopics,
+      })
+    },
+  },
 })
 
-// export const {} = topicsToLearnSlice.actions;
+export const { addNewTopics } = topicsToLearnSlice.actions
+
+export const addNewTopicWithNotification = (topicData) => (dispatch) => {
+  dispatch(addNewTopics(topicData))
+  dispatch(setNotificationForall())
+}
+
 export default topicsToLearnSlice.reducer

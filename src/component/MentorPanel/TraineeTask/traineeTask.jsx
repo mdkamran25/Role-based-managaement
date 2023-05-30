@@ -148,6 +148,10 @@ function TraineeTask(props) {
           matchingTrainee={props.matchingTrainee}
         />
       )}
+
+      {/* Edit Taskform isfor edit the assigned task and item props is passed with
+      the current data */}
+
       {editTaskForm && (
         <TraineeEditTaskForm
           matchingTrainee={props.matchingTrainee}
@@ -155,6 +159,9 @@ function TraineeTask(props) {
           setEditTaskForm={setEditTaskForm}
         />
       )}
+
+      {/* assignedTask Show the already assigned task with popup modal */}
+
       {assignedTask && (
         <ViewAssignedTask
           item={selectedTask}

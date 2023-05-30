@@ -65,7 +65,7 @@ function BellNotification(props) {
       } ms-auto me-4 position-relative`}
       onClick={handleNotificationClick}
       {...(matchedTrainee && matchedTrainee.ShowNotification
-        ? { "current-count": "8" }
+        ? { "current-count": "" }
         : {})}
     >
       <img src={bell} className="bell" width={40} alt="bell-notification" />

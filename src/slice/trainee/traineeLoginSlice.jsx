@@ -190,7 +190,6 @@ const traineeLoginSlice = createSlice({
         trainee.ShowNotification = true
       }
     },
-
     deleteTask: (state, action) => {
       const { TraineeEmail, TaskId } = action.payload
       console.log(TraineeEmail, "traineeEmail", TaskId)
@@ -230,6 +229,13 @@ const traineeLoginSlice = createSlice({
         trainee.ShowNotification = false
       }
     },
+    setNotificationForall: (state) => {
+      console.log("data added")
+      state.login.map((trainee) => {
+        console.log(trainee.ShowNotification, "notification")
+        trainee.ShowNotification = true
+      })
+    },
   },
 })
 
@@ -240,5 +246,6 @@ export const {
   deleteTask,
   updateTask,
   setNotification,
+  setNotificationForall,
 } = traineeLoginSlice.actions
 export default traineeLoginSlice.reducer
