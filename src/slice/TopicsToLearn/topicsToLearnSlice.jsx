@@ -7,6 +7,7 @@ import microsoft_azure from "../../Image/microsoft_azure.svg"
 import aws from "../../Image/aws.svg"
 // import { useDispatch } from "react-redux"
 import { setNotificationForall } from "../trainee/traineeLoginSlice"
+import { addNewModule } from "../notificationData/notificationDataSlice"
 
 const initialState = {
   topics: [
@@ -100,6 +101,7 @@ export const { addNewTopics } = topicsToLearnSlice.actions
 export const addNewTopicWithNotification = (topicData) => (dispatch) => {
   dispatch(addNewTopics(topicData))
   dispatch(setNotificationForall())
+  dispatch(addNewModule(topicData))
 }
 
 export default topicsToLearnSlice.reducer
