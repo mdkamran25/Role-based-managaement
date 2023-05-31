@@ -4,6 +4,10 @@ import "./bellNotification.css"
 import { useDispatch, useSelector } from "react-redux"
 import { setNotification } from "../../slice/trainee/traineeLoginSlice"
 const SmallBox = React.memo((props) => {
+  const moduleNotification = useSelector(
+    (state) => state.notificationDataReducer.moduleNotificationData
+  )
+  console.log(moduleNotification, "modile")
   return (
     <>
       <div className="small-box position-absolute rounded-2">
@@ -37,6 +41,25 @@ const SmallBox = React.memo((props) => {
           </p>
         </div>
         <hr />
+
+        {moduleNotification &&
+          moduleNotification.map((item) => {
+            return (
+              <>
+                <div className="submissionNotification d-flex position-relative justify-content-between pt-2 pb-4 px-3">
+                  <p className="text-dark fw-bold mb-0">New Module Added</p>
+                  <p className="text-dark fw-normal mb-0 position-absolute taskName">
+                    {item}
+                  </p>
+                  <p className="text-dark fw-normal">Task Time</p>
+                  <p className="text-dark fw-normal mb-0 position-absolute taskDate">
+                    Task Date
+                  </p>
+                </div>
+                <hr />
+              </>
+            )
+          })}
       </div>
     </>
   )

@@ -99,9 +99,10 @@ const topicsToLearnSlice = createSlice({
 export const { addNewTopics } = topicsToLearnSlice.actions
 
 export const addNewTopicWithNotification = (topicData) => (dispatch) => {
+  const { topicName, id } = topicData
   dispatch(addNewTopics(topicData))
   dispatch(setNotificationForall())
-  dispatch(addNewModule(topicData))
+  dispatch(addNewModule(topicName, id))
 }
 
 export default topicsToLearnSlice.reducer

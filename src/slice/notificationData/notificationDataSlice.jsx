@@ -10,8 +10,8 @@ const notificationDataSlice = createSlice({
   name: "notificationData",
   initialState,
   reducers: {
-    addNewTask: (state, action) => {},
-    addNewSubmissionData: (state, action) => {},
+    addNewTask: () => {},
+    addNewSubmissionData: () => {},
     addNewModule: (state, action) => {
       const newModuleData = action.payload
       state.moduleNotificationData.unshift(newModuleData)
