@@ -7,12 +7,13 @@ const SmallBox = React.memo((props) => {
   const moduleNotification = useSelector(
     (state) => state.notificationDataReducer.moduleNotificationData
   )
-  console.log(moduleNotification, "modile")
+  // console.log(props.task, "modile")
   return (
     <>
       <div className="small-box position-absolute rounded-2">
-        {props.task &&
-          props.task.map((item, index) => {
+        {props.task.role !== "Lead" &&
+          props.task.tasks &&
+          props.task.tasks.map((item, index) => {
             return (
               <React.Fragment key={index}>
                 <div className="taskNotification d-flex position-relative justify-content-between pt-2 pb-4 px-3">
@@ -42,7 +43,8 @@ const SmallBox = React.memo((props) => {
         </div>
         <hr />
 
-        {moduleNotification &&
+        {props.task.role !== "Lead" &&
+          moduleNotification &&
           moduleNotification.map((item) => {
             return (
               <>
@@ -92,7 +94,7 @@ function BellNotification(props) {
         : {})}
     >
       <img src={bell} className="bell" width={40} alt="bell-notification" />
-      {isBoxVisible && <SmallBox task={props.task.tasks} />}
+      {isBoxVisible && <SmallBox task={props.task} />}
     </div>
   )
 }

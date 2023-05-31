@@ -2,23 +2,38 @@
 import React, { useState } from "react"
 import "./traineeTask.css"
 import Lottie from "lottie-react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import view from "../../../Image/icons-eye.png"
 import edit from "../../../Image/icons-edit.png"
 import deleteIcon from "../../../Image/icons-delete.svg"
 import noTaskAnimation from "./empty-box-blue.json"
+import submission from "../../../Image/submission.png"
 import TraineeTaskForm from "./traineeTaskForm"
 import { deleteTask } from "../../../slice/trainee/traineeLoginSlice"
 import { Tooltip } from "react-tooltip"
 import TraineeEditTaskForm from "../traineeEditTaskForm/traineeEditTaskForm"
 import ViewAssignedTask from "../viewAssignedTask/viewAssignedTask"
+import TaskSubmissionForm from "../../TraineePanel/TaskSubmissionForm/tasksubmissionForm"
 function TraineeTask(props) {
   const [modalOpen, setModalOpen] = useState(false)
   const [editTaskForm, setEditTaskForm] = useState(false)
   const [assignedTask, setAssignedTask] = useState(false)
+  const [submitTaskForm, setSubmitTaskForm] = useState(false)
+  const [selectedTaskForSubmit, setSelectedTaskForSubmit] = useState(null)
   const [selectedTask, setSelectedTask] = useState(null)
+  const loggedUser = useSelector(
+    (state) => state.loggedUserReducer.loggedUserDetails
+  )
+  const CurrentUser =
+    loggedUser.role && loggedUser.role === "Mentor"
+      ? props.matchingTrainee[0]
+      : props.matchingTrainee
   const openModal = () => {
     setModalOpen(true)
+  }
+  const openSubmitForm = (item) => {
+    setSelectedTaskForSubmit(item)
+    setSubmitTaskForm(true)
   }
   const openTaskEditForm = () => {
     setEditTaskForm(true)
@@ -36,18 +51,18 @@ function TraineeTask(props) {
   }
   const dispatch = useDispatch()
 
-  const deleteAssignTask = (ItemId) => {
-    console.log("ItemId", ItemId)
+  const deleteAssignTask = (taskName) => {
+    console.log("ItemId", taskName)
 
     props.matchingTrainee.forEach((trainee) => {
       console.log(trainee.email)
-      dispatch(deleteTask({ TraineeEmail: trainee.email, TaskId: ItemId }))
+      dispatch(deleteTask({ TraineeEmail: trainee.email, TaskName: taskName }))
     })
   }
   return (
     <>
       <div className="noTaskImage d-flex flex-column align-items-center">
-        {props.matchingTrainee[0].tasks.length !== 0 ? (
+        {CurrentUser.tasks.length !== 0 ? (
           <div className="table-conatiner w-100 h-100 overflow-auto border border-1 rounded-1">
             <table className="table table-height table-striped table-hoverable">
               <thead>
@@ -62,7 +77,7 @@ function TraineeTask(props) {
                 </tr>
               </thead>
               <tbody>
-                {props.matchingTrainee[0].tasks.map((item) => (
+                {CurrentUser.tasks.map((item) => (
                   <tr
                     key={item.id}
                     className={item.complete ? "bg-success" : ""}
@@ -85,6 +100,7 @@ function TraineeTask(props) {
                     >
                       {item.complete ? "Submitted" : "Not Submitted"}
                     </td>
+
                     <td className="align-middle justify">
                       <img
                         src={view}
@@ -96,25 +112,42 @@ function TraineeTask(props) {
                         onClick={() => viewAssignedTask(item)}
                       />{" "}
                       &nbsp;
-                      <img
-                        src={edit}
-                        alt="edit"
-                        width={40}
-                        data-tooltip-id="traineeTaskTooltipDeleteEditView"
-                        data-tooltip-content="Edit Task"
-                        data-tooltip-place="top"
-                        onClick={() => editAssignedTask(item)}
-                      />{" "}
-                      &nbsp;
-                      <img
-                        src={deleteIcon}
-                        alt="edit"
-                        width={40}
-                        data-tooltip-id="traineeTaskTooltipDeleteEditView"
-                        data-tooltip-content="Delete"
-                        data-tooltip-place="top"
-                        onClick={() => deleteAssignTask(item.id)}
-                      />
+                      {loggedUser.role === "Mentor" && (
+                        <>
+                          <img
+                            src={edit}
+                            alt="edit"
+                            width={40}
+                            data-tooltip-id="traineeTaskTooltipDeleteEditView"
+                            data-tooltip-content="Edit Task"
+                            data-tooltip-place="top"
+                            onClick={() => editAssignedTask(item)}
+                          />{" "}
+                          &nbsp;
+                          <img
+                            src={deleteIcon}
+                            alt="edit"
+                            width={40}
+                            data-tooltip-id="traineeTaskTooltipDeleteEditView"
+                            data-tooltip-content="Delete"
+                            data-tooltip-place="top"
+                            onClick={() => deleteAssignTask(item.taskName)}
+                          />
+                        </>
+                      )}
+                      {loggedUser.role === "Trainee" && (
+                        <>
+                          <img
+                            src={submission}
+                            alt="submission"
+                            width={40}
+                            data-tooltip-id="traineeTaskTooltipDeleteEditView"
+                            data-tooltip-content="Submit Task"
+                            data-tooltip-place="top"
+                            onClick={() => openSubmitForm(item)}
+                          />
+                        </>
+                      )}
                     </td>
 
                     <Tooltip id="traineeTaskTooltipDeleteEditView" />
@@ -136,12 +169,17 @@ function TraineeTask(props) {
           </>
         )}
         <button
-          className="btn btn-primary text-light position-absolute addNewTask"
+          className={`btn btn-primary ${
+            loggedUser.role === "Trainee" ? "d-none" : ""
+          } text-light position-absolute addNewTask`}
           onClick={openModal}
         >
           + Add Task
         </button>
       </div>
+
+      {/* Add New Task      */}
+
       {modalOpen && (
         <TraineeTaskForm
           setModalOpen={setModalOpen}
@@ -166,6 +204,15 @@ function TraineeTask(props) {
         <ViewAssignedTask
           item={selectedTask}
           setAssignedTask={setAssignedTask}
+        />
+      )}
+
+      {/* submission */}
+
+      {submitTaskForm && (
+        <TaskSubmissionForm
+          setSubmitTaskForm={setSubmitTaskForm}
+          item={selectedTaskForSubmit}
         />
       )}
     </>

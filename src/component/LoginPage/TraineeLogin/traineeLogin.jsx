@@ -19,19 +19,15 @@ function TraineeLogin() {
     // password: "",
   })
 
-  console.log(userDetails.email, "email")
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const validate = (e) => {
     e.preventDefault()
     const validation = loginData.find((user) => {
-      console.log(user.email)
       return user.email === userDetails.email
     })
 
-    console.log(validation, "validation")
     if (validation) {
       dispatch(getLoginUserData(validation))
       navigate("traineePanel")

@@ -1,44 +1,23 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import React from "react"
 import { Formik, Field, Form, ErrorMessage } from "formik"
-import { addTask } from "../../../slice/trainee/traineeLoginSlice"
+import { addSubmission } from "../../../slice/trainee/traineeLoginSlice"
 import { useDispatch } from "react-redux"
 import * as Yup from "yup"
 
 const validationSchema = Yup.object().shape({
-  taskName: Yup.string()
-    .matches(
-      /^[a-zA-Z0-9\s]*$/,
-      "Task Name can only contain alphabets & number"
-    )
-    .min(2, "Task Name must be at least 2 characters")
-    .max(100, "Task Name must not exceed 100 characters")
-    .required("Task Name is required"),
-  description: Yup.string()
-    .matches(
-      /^[a-zA-Z0-9\s]*$/,
-      "Description can only contain alphabets and numbers"
-    )
-    .min(10, "Description must be at least 10 characters")
-    .max(2000, "Description must not exceed 2000 characters")
-    .required("Description is required"),
-
-  file: Yup.mixed()
-    .test(
-      "fileType",
-      "Only PNG, TXT, JPG, JPEG, and SVG file types are allowed",
-      (value) => value || (value && /(png|txt|jpg|jpeg|svg)$/.test(value.type))
-    )
-    .test(
-      "fileSize",
-      "File size should be less than or equal to 1MB",
-      (value) => value || (value && value.size >= 1048576)
-    ),
+  repo: Yup.string()
+    .url("Invalid Git Repo Link")
+    .required("Git Repo Link is required"),
+  //   description: Yup.string().required("Additional Information is required"),
 })
 
-function TraineeTaskForm(props) {
+function TaskSubmissionForm(props) {
   const closeModal = () => {
-    props.setModalOpen(false)
+    props.setSubmitTaskForm(false)
   }
+
   const date = new Date()
   const options = { hour12: false }
   const time = date.toLocaleTimeString("en-US", options)
@@ -48,31 +27,21 @@ function TraineeTaskForm(props) {
     year: "numeric",
   })
 
-  // console.log("matchingTrainee= ", props.matchingTrainee)
-
   const dispatch = useDispatch()
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, { resetForm }) => {
     console.log(values)
-    let image = document.getElementById("file")
-    console.log(image.files[0], "values as file")
-    const fr = new FileReader()
-    fr.readAsDataURL(image.files[0])
-    fr.onload = () => {
-      let url = fr.result
-      values.file = url
-      values = {
-        ...values,
-        time: time,
-        date: dates,
-      }
-      props.matchingTrainee.forEach((trainee) => {
-        console.log(trainee.email, "traineeEmail")
-        dispatch(addTask({ traineeEmail: trainee.email, task: values }))
-      })
+    values = {
+      ...values,
+      time: time,
+      date: dates,
     }
+    dispatch(addSubmission())
+
+    resetForm()
     closeModal()
   }
+
   return (
     <>
       <div>
@@ -92,7 +61,7 @@ function TraineeTaskForm(props) {
             <div className="modal-content">
               <div className="modal-header">
                 <h1 className="modal-title fs-5" id="exampleModalToggleLabel">
-                  Add New Task
+                  Submit Task
                 </h1>
                 <button
                   type="button"
@@ -105,7 +74,7 @@ function TraineeTaskForm(props) {
               <div className="modal-body">
                 <Formik
                   initialValues={{
-                    taskName: "",
+                    repo: "",
                     description: "",
                     file: undefined,
                   }}
@@ -113,35 +82,20 @@ function TraineeTaskForm(props) {
                   onSubmit={handleSubmit}
                 >
                   <Form className="pt-0">
-                    <div className="mb-3">
-                      <label htmlFor="taskName" className="form-label">
-                        Task Name
-                      </label>
-                      <Field
-                        type="text"
-                        id="taskName"
-                        name="taskName"
-                        className="form-control"
-                      />
-                      <ErrorMessage
-                        name="taskName"
-                        component="div"
-                        className="text-danger"
-                      />
-                    </div>
+                    <span className="fw-bold fs-5">{props.item.taskName}</span>
 
-                    <div className="mb-3">
-                      <label htmlFor="file" className="form-label">
-                        Add File
+                    <div className="my-3">
+                      <label htmlFor="repo" className="form-label">
+                        Git Repo Link
                       </label>
                       <Field
-                        type="file"
-                        id="file"
-                        name="file"
+                        type="url"
+                        id="repo"
+                        name="repo"
                         className="form-control"
                       />
                       <ErrorMessage
-                        name="file"
+                        name="repo"
                         component="div"
                         className="text-danger"
                       />
@@ -149,7 +103,7 @@ function TraineeTaskForm(props) {
 
                     <div className="mb-3">
                       <label htmlFor="description" className="form-label">
-                        Task Description
+                        Additional Information
                       </label>
                       <Field
                         as="textarea"
@@ -167,7 +121,7 @@ function TraineeTaskForm(props) {
                     <button type="submit" className="btn btn-primary">
                       Submit
                     </button>
-                    <button type="reset" className=" ms-2 btn btn-warning">
+                    <button type="reset" className="btn btn-warning ms-2">
                       Reset
                     </button>
                   </Form>
@@ -181,4 +135,4 @@ function TraineeTaskForm(props) {
   )
 }
 
-export default TraineeTaskForm
+export default TaskSubmissionForm

@@ -1,4 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit"
+import uuid from "react-uuid"
 const initialState = {
   login: [
     {
@@ -9,6 +10,7 @@ const initialState = {
       designation: "Trainee",
       mentor: "mentor@gmail.com",
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "8969385731",
       address: "Ara, Bihar",
@@ -25,6 +27,7 @@ const initialState = {
       designation: "Trainee",
       mentor: "mentor@gmail.com",
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "8969385731",
       address: "Ara, Bihar",
@@ -41,6 +44,7 @@ const initialState = {
       designation: "Trainee",
       mentor: null,
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "9769385739",
       address: "Rajkot, Gujarat",
@@ -57,6 +61,7 @@ const initialState = {
       designation: "Trainee",
       mentor: null,
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "7569385734",
       address: "Daman",
@@ -90,6 +95,7 @@ const initialState = {
       designation: "Trainee",
       mentor: null,
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "8769385731",
       address: "GandhiNagar",
@@ -106,6 +112,7 @@ const initialState = {
       designation: "Trainee",
       mentor: null,
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "9569385730",
       address: "Rajkot",
@@ -122,6 +129,7 @@ const initialState = {
       designation: "Trainee",
       mentor: null,
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "6869385731",
       address: "Ahmedabad",
@@ -138,6 +146,7 @@ const initialState = {
       designation: "Trainee",
       mentor: null,
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "9012885738",
       address: "Ahmedabad",
@@ -155,12 +164,11 @@ const traineeLoginSlice = createSlice({
   reducers: {
     addTrainee: (state, action) => {
       const newTrainee = {
-        id: state.login.length + 1,
+        id: uuid().substring(0, 8),
         ...action.payload,
         mentor: null,
       }
       state.login.push(newTrainee)
-      console.log(current(state), "login state")
     },
     updateTrainee: (state, action) => {
       const { traineeId, mentor } = action.payload
@@ -169,15 +177,15 @@ const traineeLoginSlice = createSlice({
       if (trainee) {
         trainee.mentor = mentor
       }
-
-      console.log(current(state.login), "Update login")
     },
     addTask: (state, action) => {
       const { traineeEmail, task } = action.payload
-
+      console.log(traineeEmail, "trainee")
       const trainee = state.login.find(
         (trainee) => trainee.email === traineeEmail
       )
+      console.log(trainee, "trainee")
+
       if (trainee) {
         if (!trainee.tasks) {
           trainee.tasks = []
@@ -185,21 +193,25 @@ const traineeLoginSlice = createSlice({
         trainee.tasks.unshift({
           ...task,
           completed: false,
-          id: trainee.tasks.length + 1,
+          id: uuid().substring(0, 8),
         })
         trainee.ShowNotification = true
+        console.log(current(state.login), "state.login")
       }
     },
     deleteTask: (state, action) => {
-      const { TraineeEmail, TaskId } = action.payload
-      console.log(TraineeEmail, "traineeEmail", TaskId)
+      const { TraineeEmail, TaskName } = action.payload
 
       const trainee = state.login.find(
         (trainee) => trainee.email === TraineeEmail
       )
+      console.log("delete", trainee)
       if (trainee) {
-        trainee.tasks = trainee.tasks.filter((task) => task.id !== TaskId)
+        trainee.tasks = trainee.tasks.filter(
+          (task) => task.taskName !== TaskName
+        )
       }
+      console.log(current(state.login), "state.delete.login")
     },
     updateTask: (state, action) => {
       const { TraineeEmail, TaskId, Task } = action.payload
@@ -224,18 +236,17 @@ const traineeLoginSlice = createSlice({
       const trainee = state.login.find(
         (trainee) => trainee.email === traineeEmail
       )
-      console.log(trainee, trainee?.ShowNotification, "notification")
       if (trainee) {
         trainee.ShowNotification = false
       }
     },
     setNotificationForall: (state) => {
-      console.log("data added")
       state.login.map((trainee) => {
         console.log(trainee.ShowNotification, "notification")
         trainee.ShowNotification = true
       })
     },
+    addSubmission: () => {},
   },
 })
 
@@ -247,5 +258,6 @@ export const {
   updateTask,
   setNotification,
   setNotificationForall,
+  addSubmission,
 } = traineeLoginSlice.actions
 export default traineeLoginSlice.reducer

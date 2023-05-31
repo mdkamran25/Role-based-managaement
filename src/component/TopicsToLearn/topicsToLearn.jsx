@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import { useSelector } from "react-redux"
 import nothingfind from "../../Image/nothingfind.svg"
 import "./topicsToLearn.css"
@@ -22,6 +22,7 @@ function TopicsToLearn() {
   const openModal = () => {
     setShowForm(true)
   }
+  const bottomRef = useRef(null)
   return (
     <>
       <div className="container d-flex flex-column justify-content-center align-items-center">
@@ -72,7 +73,8 @@ function TopicsToLearn() {
           </MDBRow>
         </div>
       </div>
-      {showForm && <NewTopicsForm setShowForm={setShowForm} />}
+      <div ref={bottomRef}></div>
+      {showForm && <NewTopicsForm setShowForm={setShowForm} ref={bottomRef} />}
     </>
   )
 }

@@ -1,4 +1,7 @@
 .ProfileCard {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  height: 496px;
+  height: 423px;
+}
+.traineeLoginheight{
+  height: 550px !important;
 }

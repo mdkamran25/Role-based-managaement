@@ -1,10 +1,11 @@
 /* eslint-disable no-undef */
-import React from "react"
+import React, { forwardRef } from "react"
 import { Formik, Field, Form, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import { useDispatch } from "react-redux"
 import nothingfind from "../../Image/nothingfind.svg"
 import { addNewTopicWithNotification } from "../../slice/TopicsToLearn/topicsToLearnSlice"
+
 const validationSchema = Yup.object().shape({
   topicName: Yup.string()
     .matches(
@@ -54,7 +55,8 @@ const validationSchema = Yup.object().shape({
     }
   ),
 })
-function NewTopicsForm(props) {
+
+const NewTopicsForm = forwardRef((props, ref) => {
   const closeModal = () => {
     props.setShowForm(false)
   }
@@ -84,7 +86,9 @@ function NewTopicsForm(props) {
 
     resetForm()
     closeModal()
+    setTimeout(() => ref.current.scrollIntoView({ behavior: "smooth" }), 10)
   }
+
   return (
     <>
       <div>
@@ -191,6 +195,6 @@ function NewTopicsForm(props) {
       </div>
     </>
   )
-}
+})
 
 export default NewTopicsForm
