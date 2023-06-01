@@ -44,7 +44,10 @@ function TaskSubmissionForm(props) {
       id: props.item.id,
       taskName: props.item.taskName,
       checked: false,
+      marks: null,
+      feedback: null,
     }
+
     dispatch(addSubmission(values))
 
     resetForm()

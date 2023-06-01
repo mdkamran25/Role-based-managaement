@@ -278,6 +278,21 @@ const traineeLoginSlice = createSlice({
         task.completed = false
       }
     },
+    updatedSubmitted: (state, action) => {
+      const { email, id, ...submission } = action.payload
+
+      const trainee = state.login.find((trainee) => trainee.email === email)
+
+      if (trainee) {
+        const taskIndex = trainee.submission.findIndex((item) => item.id === id)
+        if (taskIndex !== -1) {
+          trainee.submission[taskIndex] = {
+            ...trainee.submission[taskIndex],
+            ...submission,
+          }
+        }
+      }
+    },
   },
 })
 
@@ -291,5 +306,6 @@ export const {
   setNotificationForall,
   addSubmission,
   deleteSubmissions,
+  updatedSubmitted,
 } = traineeLoginSlice.actions
 export default traineeLoginSlice.reducer

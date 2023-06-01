@@ -1,3 +1,44 @@
 .noSubmission {
   width: 340px !important;
 }
+.trainee-segmented-buttons{
+  background-color: #cfe2ff;
+    height: 43px;
+}
+.trainee-segmented-buttons button {
+  flex-grow: 1;
+  border-radius: 0;
+  border: none;
+  outline: none;
+  padding: 10px;
+  cursor: pointer;
+  
+}
+.no-hover{
+  background-color: inherit;
+  color: inherit;
+}
+.trainee-segmented-buttons button:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.trainee-segmented-buttons button:last-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  left: 130px;
+}
+#firstTraineeButton {
+  background-color: #0d6efd;
+  color: black;
+  transition: background-color 0.9s ease;
+  color: white;
+  z-index: 10;
+}
+#secondTraineeButton {
+  background-color: #0d6efd;
+  color: black;
+  transition: background-color 0.9s ease;
+  color: white;
+  z-index: 10;
+}

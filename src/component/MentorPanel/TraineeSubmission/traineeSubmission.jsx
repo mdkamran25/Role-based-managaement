@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import "./TraineeSubmission.css"
 import Lottie from "lottie-react"
 import noDataAnimation from "./no-data.json"
@@ -8,10 +8,15 @@ import deleteIcon from "../../../Image/icons-delete.svg"
 import { useSelector, useDispatch } from "react-redux"
 import { deleteSubmissions } from "../../../slice/trainee/traineeLoginSlice"
 import { Tooltip } from "react-tooltip"
+import SubmissionEditForm from "../../TraineePanel/submissionEditForm/submissionEditForm"
+import ViewSubmissionData from "../../TraineePanel/viewSubmissionData/viewSubmissionData"
 function TraineeSubmission() {
-  const dispatch = useDispatch()
-  // const [editTaskForm, setEditTaskForm] = useState(false)
+  const [isSubmissionButtonClicked, setSubmissionButtonClicked] = useState(true)
+  const [openSubmissionView, setOpenSubmissionView] = useState(false)
+  const [openEditForm, setOpenEditForm] = useState(false)
+  const [submissionEditFormData, setsubmissionEditFormData] = useState(null)
   // const [assignedTask, setAssignedTask] = useState(false)
+  const dispatch = useDispatch()
   const loggedUser = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
@@ -21,12 +26,24 @@ function TraineeSubmission() {
   // console.log(loggedUserUpdatedData, "loggedUserUpdatedData")
   const CurrentUser =
     loggedUser.role && loggedUser.role === "Mentor"
-      ? loggedUser.SecondTraineeEmail
+      ? isSubmissionButtonClicked
+        ? loggedUser.FirstTraineeEmail
+        : loggedUser.SecondTraineeEmail
       : loggedUser.email
 
   loggedUserUpdatedData = loggedUserUpdatedData.filter(
     (trainee) => trainee.email === CurrentUser
   )
+
+  const viewSubmission = (item) => {
+    setOpenSubmissionView(true)
+    setsubmissionEditFormData(item)
+  }
+
+  const editSubmission = (item) => {
+    setOpenEditForm(true)
+    setsubmissionEditFormData(item)
+  }
 
   const deleteSubmission = (submissionID, submissionEmail) => {
     dispatch(
@@ -37,11 +54,33 @@ function TraineeSubmission() {
     )
   }
 
+  const handleSubmissionButtonClick = () => {
+    setSubmissionButtonClicked(!isSubmissionButtonClicked)
+  }
+
   return (
     <>
       <div className="noTaskImage d-flex flex-column align-items-center">
+        {loggedUser.role === "Mentor" && (
+          <div className="trainee-segmented-buttons position-relative col-12 rounded-top ">
+            <button
+              className={`btn px-4 position-absolute  no-hover`}
+              id={`${isSubmissionButtonClicked ? "firstTraineeButton" : ""}`}
+              onClick={handleSubmissionButtonClick}
+            >
+              First Trainee
+            </button>
+            <button
+              className={`btn px-5 position-absolute  no-hover`}
+              onClick={handleSubmissionButtonClick}
+              id={`${isSubmissionButtonClicked ? "" : "secondTraineeButton"}`}
+            >
+              Second Trainee
+            </button>
+          </div>
+        )}
         {loggedUserUpdatedData[0].submission.length !== 0 ? (
-          <div className="table-conatiner w-100 h-100 overflow-auto border border-1 rounded-1">
+          <div className="table-conatiner w-100 h-100 overflow-auto border border-top ">
             <table className="table table-height table-striped table-hoverable">
               <thead>
                 <tr className="tableHead">
@@ -95,7 +134,7 @@ function TraineeSubmission() {
                         data-tooltip-id="traineeTaskTooltipDeleteEditView"
                         data-tooltip-content="View Submission"
                         data-tooltip-place="top"
-                        // onClick={() => viewSubmission(item)}
+                        onClick={() => viewSubmission(item)}
                       />{" "}
                       &nbsp;
                       {loggedUser.role === "Trainee" && !item.checked && (
@@ -107,7 +146,7 @@ function TraineeSubmission() {
                             data-tooltip-id="traineeTaskTooltipDeleteEditView"
                             data-tooltip-content="Edit Submission"
                             data-tooltip-place="top"
-                            // onClick={() => editSubmission(item)}
+                            onClick={() => editSubmission(item)}
                           />{" "}
                           &nbsp;
                           <img
@@ -144,24 +183,23 @@ function TraineeSubmission() {
         )}
       </div>
 
-      {/* Edit Taskform is for edit the assigned task and item props is passed with
-      the current data */}
+      {/* Edit submitted task  */}
 
-      {/* {editTaskForm && (
-        <TraineeEditTaskForm
-          item={selectedTask}
-          setEditTaskForm={setEditTaskForm}
+      {openEditForm && (
+        <SubmissionEditForm
+          item={submissionEditFormData}
+          setOpenEditForm={setOpenEditForm}
         />
-      )} */}
+      )}
 
       {/* assignedTask Show the already assigned task with popup modal */}
 
-      {/* {assignedTask && (
-        <ViewAssignedTask
-          item={selectedTask}
-          setAssignedTask={setAssignedTask}
+      {openSubmissionView && (
+        <ViewSubmissionData
+          item={submissionEditFormData}
+          setOpenSubmissionView={setOpenSubmissionView}
         />
-      )}  */}
+      )}
     </>
   )
 }

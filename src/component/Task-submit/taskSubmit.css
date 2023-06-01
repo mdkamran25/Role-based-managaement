@@ -6,6 +6,7 @@
     background-color: rgb(227, 227, 227);
     height: 49px;
   }
+  
   .segmented-buttons button {
     flex-grow: 1;
     border-radius: 0;
