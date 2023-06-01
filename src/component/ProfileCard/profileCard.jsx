@@ -1,13 +1,18 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
 import "./profileCard.css"
 const ProfileCard = (props) => {
   const item = props.item
-  // console.log("ITEM p", item)
+  const loggedUser = useSelector(
+    (state) => state.loggedUserReducer.loggedUserDetails
+  )
   return (
     <div
       className={`ProfileCard ${
-        item.role && item.role === "Trainee" ? "traineeLoginheight" : ""
+        loggedUser.role && loggedUser.role === "Trainee"
+          ? "traineeLoginheight"
+          : "ProfileCardInMentorPanel"
       } text-center 
     flex-column d-flex align-items-center justify-content-center 
     rounded-4 py-5`}
