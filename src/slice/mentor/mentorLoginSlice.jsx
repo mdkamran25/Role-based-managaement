@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 
 export const STATUSES = Object.freeze({
   IDLE: "idle",
@@ -37,7 +37,7 @@ const mentorLoginSlice = createSlice({
         ...action.payload,
       }
       state.login.push(newMentor)
-      console.log(current(state.login))
+      // console.log(current(state.login))
     },
     // addTask(state, action){
 

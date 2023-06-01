@@ -4,7 +4,7 @@ function ViewAssignedTask(props) {
   const closeModal = () => {
     props.setAssignedTask(false)
   }
-
+  // console.log(props, "view")
   return (
     <>
       <div>
@@ -51,6 +51,7 @@ function ViewAssignedTask(props) {
                   alt={`${props.item.taskName} image`}
                 />
               </div>
+              {props.item.submission && props.item.su}
 
               {/* <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

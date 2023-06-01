@@ -53,7 +53,7 @@ function TraineeTaskForm(props) {
   const dispatch = useDispatch()
 
   const handleSubmit = (values) => {
-    console.log(values)
+    // console.log(values)
     let image = document.getElementById("file")
     console.log(image.files[0], "values as file")
     const fr = new FileReader()

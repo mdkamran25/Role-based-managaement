@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 import uuid from "react-uuid"
 const initialState = {
   login: [
@@ -180,11 +180,11 @@ const traineeLoginSlice = createSlice({
     },
     addTask: (state, action) => {
       const { traineeEmail, task } = action.payload
-      console.log(traineeEmail, "trainee")
+      // console.log(traineeEmail, "trainee")
       const trainee = state.login.find(
         (trainee) => trainee.email === traineeEmail
       )
-      console.log(trainee, "trainee")
+      // console.log(trainee, "trainee")
 
       if (trainee) {
         if (!trainee.tasks) {
@@ -196,7 +196,7 @@ const traineeLoginSlice = createSlice({
           id: uuid().substring(0, 8),
         })
         trainee.ShowNotification = true
-        console.log(current(state.login), "state.login")
+        // console.log(current(state.login), "state.login")
       }
     },
     deleteTask: (state, action) => {
@@ -205,13 +205,13 @@ const traineeLoginSlice = createSlice({
       const trainee = state.login.find(
         (trainee) => trainee.email === TraineeEmail
       )
-      console.log("delete", trainee)
+      // console.log("delete", trainee)
       if (trainee) {
         trainee.tasks = trainee.tasks.filter(
           (task) => task.taskName !== TaskName
         )
       }
-      console.log(current(state.login), "state.delete.login")
+      // console.log(current(state.login), "state.delete.login")
     },
     updateTask: (state, action) => {
       const { TraineeEmail, TaskId, Task } = action.payload
@@ -242,11 +242,42 @@ const traineeLoginSlice = createSlice({
     },
     setNotificationForall: (state) => {
       state.login.map((trainee) => {
-        console.log(trainee.ShowNotification, "notification")
+        // console.log(trainee.ShowNotification, "notification")
         trainee.ShowNotification = true
       })
     },
-    addSubmission: () => {},
+    addSubmission: (state, action) => {
+      const { email, id, ...submission } = action.payload
+
+      const trainee = state.login.find((trainee) => trainee.email === email)
+
+      if (trainee) {
+        if (!trainee.submission) {
+          trainee.submission = []
+        }
+        trainee.submission.push({ ...submission, id, email })
+        const task = trainee.tasks.find((task) => task.id === id)
+        if (task) {
+          task.completed = true
+        }
+      }
+      // console.log(current(state.login), "after Submission")
+    },
+    deleteSubmissions: (state, action) => {
+      const { TraineeEmail, TaskId } = action.payload
+      const trainee = state.login.find(
+        (trainee) => trainee.email === TraineeEmail
+      )
+      if (trainee) {
+        trainee.submission = trainee.submission.filter(
+          (submission) => submission.id !== TaskId
+        )
+      }
+      const task = trainee.tasks.find((task) => task.id === TaskId)
+      if (task) {
+        task.completed = false
+      }
+    },
   },
 })
 
@@ -259,5 +290,6 @@ export const {
   setNotification,
   setNotificationForall,
   addSubmission,
+  deleteSubmissions,
 } = traineeLoginSlice.actions
 export default traineeLoginSlice.reducer

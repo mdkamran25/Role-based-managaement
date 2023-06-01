@@ -24,10 +24,19 @@ function TraineeTask(props) {
   const loggedUser = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
+  let loggedUserUpdatedData = useSelector(
+    (state) => state.traineeLoginReducer.login
+  )
+  // console.log(loggedUserUpdatedData, "loggedUSerUPdates traineeTAsk")
   const CurrentUser =
     loggedUser.role && loggedUser.role === "Mentor"
       ? props.matchingTrainee[0]
       : props.matchingTrainee
+
+  loggedUserUpdatedData = loggedUserUpdatedData.filter(
+    (trainee) => trainee.email === CurrentUser.email
+  )
+
   const openModal = () => {
     setModalOpen(true)
   }
@@ -52,17 +61,17 @@ function TraineeTask(props) {
   const dispatch = useDispatch()
 
   const deleteAssignTask = (taskName) => {
-    console.log("ItemId", taskName)
+    // console.log("ItemId", taskName)
 
     props.matchingTrainee.forEach((trainee) => {
-      console.log(trainee.email)
+      // console.log(trainee.email)
       dispatch(deleteTask({ TraineeEmail: trainee.email, TaskName: taskName }))
     })
   }
   return (
     <>
       <div className="noTaskImage d-flex flex-column align-items-center">
-        {CurrentUser.tasks.length !== 0 ? (
+        {loggedUserUpdatedData[0].tasks.length !== 0 ? (
           <div className="table-conatiner w-100 h-100 overflow-auto border border-1 rounded-1">
             <table className="table table-height table-striped table-hoverable">
               <thead>
@@ -76,8 +85,9 @@ function TraineeTask(props) {
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
+
               <tbody>
-                {CurrentUser.tasks.map((item) => (
+                {loggedUserUpdatedData[0].tasks.map((item) => (
                   <tr
                     key={item.id}
                     className={item.complete ? "bg-success" : ""}
@@ -95,13 +105,16 @@ function TraineeTask(props) {
                       <br />
                       {item.date}
                     </td>
+                    {/* {console.log(item.completed, "complete", item, "item")} */}
                     <td
-                      className={item.complete ? "text-success" : "text-danger"}
+                      className={
+                        item.completed ? "text-success" : "text-danger"
+                      }
                     >
-                      {item.complete ? "Submitted" : "Not Submitted"}
+                      {item.completed ? "Submitted" : "Not Submitted"}
                     </td>
 
-                    <td className="align-middle justify">
+                    <td className="align-middle">
                       <img
                         src={view}
                         alt="edit"
@@ -112,7 +125,7 @@ function TraineeTask(props) {
                         onClick={() => viewAssignedTask(item)}
                       />{" "}
                       &nbsp;
-                      {loggedUser.role === "Mentor" && (
+                      {loggedUser.role === "Mentor" && !item.completed && (
                         <>
                           <img
                             src={edit}
@@ -135,7 +148,7 @@ function TraineeTask(props) {
                           />
                         </>
                       )}
-                      {loggedUser.role === "Trainee" && (
+                      {loggedUser.role === "Trainee" && !item.completed && (
                         <>
                           <img
                             src={submission}
