@@ -1,25 +1,34 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useCallback } from "react"
-import bell from "../../Image/bell.svg"
+import bell from "../../Image/bell.png"
 import "./bellNotification.css"
 import { useDispatch, useSelector } from "react-redux"
 import { setNotification } from "../../slice/trainee/traineeLoginSlice"
-const SmallBox = React.memo((props) => {
-  const moduleNotification = useSelector(
-    (state) => state.notificationDataReducer.moduleNotificationData
+
+const SmallBox = React.memo(() => {
+  const loggedUserData = useSelector(
+    (state) => state.loggedUserReducer.loggedUserDetails || []
   )
-  // console.log(props.task, "modile")
+  const notificationData = useSelector(
+    (state) => state.notificationDataReducer.notifications
+  )
+  // console.log(notificationData, "data")
   return (
     <>
       <div className="small-box position-absolute rounded-2">
-        {props.task.role !== "Lead" &&
-          props.task.tasks &&
-          props.task.tasks.map((item, index) => {
-            return (
+        {loggedUserData.role !== "Lead" &&
+          notificationData.map((item, index) => {
+            return loggedUserData.role === "Mentor" &&
+              item.notificationType === "Task" ? (
+              ""
+            ) : (
               <React.Fragment key={index}>
                 <div className="taskNotification d-flex position-relative justify-content-between pt-2 pb-4 px-3">
-                  <p className="text-dark mb-0 fw-bold">Task</p>
+                  <p className="text-dark mb-0 fw-bold">
+                    {item.notificationMessage}
+                  </p>
                   <p className="text-dark fw-normal mb-0 position-absolute taskName">
-                    {item.taskName}
+                    {item.notificationDetails}
                   </p>
                   <p className="text-dark fw-normal">{item.time}</p>
                   <p className="text-dark mb-0 fw-normal position-absolute taskDate">
@@ -30,50 +39,21 @@ const SmallBox = React.memo((props) => {
               </React.Fragment>
             )
           })}
-
-        <div className="submissionNotification d-flex position-relative justify-content-between pt-2 pb-4 px-3">
-          <p className="text-dark fw-bold mb-0">Submission</p>
-          <p className="text-dark fw-normal mb-0 position-absolute taskName">
-            Task Name
-          </p>
-          <p className="text-dark fw-normal">Task Time</p>
-          <p className="text-dark fw-normal mb-0 position-absolute taskDate">
-            Task Date
-          </p>
-        </div>
-        <hr />
-
-        {props.task.role !== "Lead" &&
-          moduleNotification &&
-          moduleNotification.map((item) => {
-            return (
-              <>
-                <div className="submissionNotification d-flex position-relative justify-content-between pt-2 pb-4 px-3">
-                  <p className="text-dark fw-bold mb-0">New Module Added</p>
-                  <p className="text-dark fw-normal mb-0 position-absolute taskName">
-                    {item}
-                  </p>
-                  <p className="text-dark fw-normal">Task Time</p>
-                  <p className="text-dark fw-normal mb-0 position-absolute taskDate">
-                    Task Date
-                  </p>
-                </div>
-                <hr />
-              </>
-            )
-          })}
       </div>
     </>
   )
 })
 
-function BellNotification(props) {
+function BellNotification() {
+  const loggedUserData = useSelector(
+    (state) => state.loggedUserReducer.loggedUserDetails || []
+  )
   const [isBoxVisible, setIsBoxVisible] = useState(false)
   const dispatch = useDispatch()
   const trainees = useSelector((state) => state.traineeLoginReducer.login)
 
   const matchedTrainee = trainees.find(
-    (trainee) => trainee.email === props.task.email
+    (trainee) => trainee.email === loggedUserData.email
   )
 
   const handleNotificationClick = useCallback(() => {
@@ -94,7 +74,7 @@ function BellNotification(props) {
         : {})}
     >
       <img src={bell} className="bell" width={40} alt="bell-notification" />
-      {isBoxVisible && <SmallBox task={props.task} />}
+      {isBoxVisible && <SmallBox />}
     </div>
   )
 }

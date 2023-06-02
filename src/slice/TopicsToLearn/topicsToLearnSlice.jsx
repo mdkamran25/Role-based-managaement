@@ -7,8 +7,9 @@ import microsoft_azure from "../../Image/microsoft_azure.svg"
 import aws from "../../Image/aws.svg"
 // import { useDispatch } from "react-redux"
 import { setNotificationForall } from "../trainee/traineeLoginSlice"
-import { addNewModule } from "../notificationData/notificationDataSlice"
-
+import { addNotification } from "../notificationData/notificationDataSlice"
+import uuid from "react-uuid"
+import { showNotificationToAllMentor } from "../mentor/mentorLoginSlice"
 const initialState = {
   topics: [
     {
@@ -83,7 +84,7 @@ const topicsToLearnSlice = createSlice({
   reducers: {
     addNewTopics: (state, action) => {
       const { topicName, img, description } = action.payload
-      const id = state.topics.length + 1
+      const id = uuid().substring(0, 8)
       const subTopics = {}
       state.topics.push({
         id,
@@ -100,9 +101,16 @@ export const { addNewTopics } = topicsToLearnSlice.actions
 
 export const addNewTopicWithNotification = (topicData) => (dispatch) => {
   const { topicName, id } = topicData
+  const moduleNotification = {
+    notificationType: "Module",
+    notificationMessage: "New Module Added",
+    notificationDetails: topicName,
+    id: id,
+  }
   dispatch(addNewTopics(topicData))
+  dispatch(addNotification(moduleNotification))
   dispatch(setNotificationForall())
-  dispatch(addNewModule(topicName, id))
+  dispatch(showNotificationToAllMentor())
 }
 
 export default topicsToLearnSlice.reducer

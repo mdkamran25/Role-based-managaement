@@ -5,7 +5,7 @@ function ViewSubmissionData(props) {
   const closeModal = () => {
     props.setOpenSubmissionView(false)
   }
-
+  console.log(props, "propsitem")
   return (
     <>
       <div>
@@ -41,14 +41,24 @@ function ViewSubmissionData(props) {
                   <Link to={props.item.repo}>{props.item.repo}</Link>
                 </span>
                 <br />
-                <p className="fs-5 fw-semibold mb-0 mt-5">
+                <p className="fs-5 fw-semibold mb-0 mt-4">
                   Additional Information:{" "}
                 </p>
                 <span className="fs-6 fw-normal">
                   {props.item.description}{" "}
                 </span>
-
                 <br />
+                <p className="fs-5 fw-semibold mt-4 mb-0">Marks: </p>
+                <span className={`${props.item.marks ? "" : "text-danger"}`}>
+                  {`${
+                    props.item.marks ? props.item.marks + "/100" : "Not Checked"
+                  }`}
+                </span>
+                <br />
+                <p className="fs-5 fw-semibold mt-4 mb-0">Feedback: </p>
+                <span className={`${props.item.feedback ? "" : "text-danger"}`}>
+                  {`${props.item.marks ? props.item.feedback : "Not Checked"}`}
+                </span>
               </div>
             </div>
           </div>

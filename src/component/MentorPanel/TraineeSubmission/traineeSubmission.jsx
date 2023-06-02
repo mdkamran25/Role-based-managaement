@@ -5,15 +5,18 @@ import noDataAnimation from "./no-data.json"
 import view from "../../../Image/icons-eye.png"
 import edit from "../../../Image/icons-edit.png"
 import deleteIcon from "../../../Image/icons-delete.svg"
+import evaluation from "../../../Image/evaluation.png"
 import { useSelector, useDispatch } from "react-redux"
 import { deleteSubmissions } from "../../../slice/trainee/traineeLoginSlice"
 import { Tooltip } from "react-tooltip"
 import SubmissionEditForm from "../../TraineePanel/submissionEditForm/submissionEditForm"
 import ViewSubmissionData from "../../TraineePanel/viewSubmissionData/viewSubmissionData"
+import Evaluation from "../Evaluation/evaluation"
 function TraineeSubmission() {
   const [isSubmissionButtonClicked, setSubmissionButtonClicked] = useState(true)
   const [openSubmissionView, setOpenSubmissionView] = useState(false)
   const [openEditForm, setOpenEditForm] = useState(false)
+  const [openEvaluationForm, setOpenEvaluationForm] = useState(false)
   const [submissionEditFormData, setsubmissionEditFormData] = useState(null)
   // const [assignedTask, setAssignedTask] = useState(false)
   const dispatch = useDispatch()
@@ -37,6 +40,11 @@ function TraineeSubmission() {
 
   const viewSubmission = (item) => {
     setOpenSubmissionView(true)
+    setsubmissionEditFormData(item)
+  }
+
+  const evaluate = (item) => {
+    setOpenEvaluationForm(true)
     setsubmissionEditFormData(item)
   }
 
@@ -79,7 +87,9 @@ function TraineeSubmission() {
             </button>
           </div>
         )}
-        {loggedUserUpdatedData[0].submission.length !== 0 ? (
+        {console.log(loggedUserUpdatedData[0].submission, "length")}
+        {loggedUserUpdatedData[0].submission &&
+        loggedUserUpdatedData[0].submission.length !== 0 ? (
           <div className="table-conatiner w-100 h-100 overflow-auto border border-top ">
             <table className="table table-height table-striped table-hoverable">
               <thead>
@@ -123,9 +133,9 @@ function TraineeSubmission() {
                     <td
                       className={item.checked ? "text-success" : "text-danger"}
                     >
-                      {item.completed ? "Checked" : "Not Checked"}
+                      {item.checked ? "Checked" : "Not Checked"}
                     </td>
-                    <td>&nbsp;</td>
+                    <td>{item.checked ? item.marks : ""}</td>
                     <td className="align-middle">
                       <img
                         src={view}
@@ -137,6 +147,22 @@ function TraineeSubmission() {
                         onClick={() => viewSubmission(item)}
                       />{" "}
                       &nbsp;
+                      {loggedUser.role === "Mentor" && (
+                        <>
+                          <img
+                            src={evaluation}
+                            alt="evaluation"
+                            width={40}
+                            data-tooltip-id="traineeTaskTooltipDeleteEditView"
+                            data-tooltip-content={
+                              item.checked ? "Re-evaluate" : "Evaluate"
+                            }
+                            data-tooltip-place="top"
+                            onClick={() => evaluate(item)}
+                          />{" "}
+                          &nbsp;
+                        </>
+                      )}
                       {loggedUser.role === "Trainee" && !item.checked && (
                         <>
                           <img
@@ -183,6 +209,13 @@ function TraineeSubmission() {
         )}
       </div>
 
+      {/* open Evaluation Form */}
+      {openEvaluationForm && (
+        <Evaluation
+          setOpenEvaluationForm={setOpenEvaluationForm}
+          item={submissionEditFormData}
+        />
+      )}
       {/* Edit submitted task  */}
 
       {openEditForm && (

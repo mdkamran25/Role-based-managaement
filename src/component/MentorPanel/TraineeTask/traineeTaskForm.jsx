@@ -3,6 +3,8 @@ import { Formik, Field, Form, ErrorMessage } from "formik"
 import { addTask } from "../../../slice/trainee/traineeLoginSlice"
 import { useDispatch } from "react-redux"
 import * as Yup from "yup"
+import { addNotification } from "../../../slice/notificationData/notificationDataSlice"
+import uuid from "react-uuid"
 
 const validationSchema = Yup.object().shape({
   taskName: Yup.string()
@@ -36,6 +38,7 @@ const validationSchema = Yup.object().shape({
 })
 
 function TraineeTaskForm(props) {
+  console.log(props, "traineeTaskForm")
   const closeModal = () => {
     props.setModalOpen(false)
   }
@@ -61,15 +64,30 @@ function TraineeTaskForm(props) {
     fr.onload = () => {
       let url = fr.result
       values.file = url
+      console.log(props.matchingTrainee.mentor, "props.matchingTrainee.mentor")
       values = {
         ...values,
         time: time,
         date: dates,
       }
+      const taskNotification = {
+        notificationType: "Task",
+        notificationMessage: "New Task Added",
+        notificationDetails: values.taskName,
+        email: props.matchingTrainee.mentor,
+      }
       props.matchingTrainee.forEach((trainee) => {
-        console.log(trainee.email, "traineeEmail")
-        dispatch(addTask({ traineeEmail: trainee.email, task: values }))
+        console.log(values, "Above d")
+        dispatch(
+          addTask({
+            traineeEmail: trainee.email,
+            task: values,
+            id: uuid().substring(0, 8),
+            mentorEmail: trainee.mentor,
+          })
+        )
       })
+      dispatch(addNotification(taskNotification))
     }
     closeModal()
   }

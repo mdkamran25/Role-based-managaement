@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { addNotification } from "../notificationData/notificationDataSlice"
 import uuid from "react-uuid"
+
 const initialState = {
   login: [
     {
@@ -178,38 +180,36 @@ const traineeLoginSlice = createSlice({
         trainee.mentor = mentor
       }
     },
-    addTask: (state, action) => {
-      const { traineeEmail, task } = action.payload
+    addTaskWithNotification: (state, action) => {
+      const { traineeEmail, task, id } = action.payload
+      const { emails, ...taskValues } = task
       // console.log(traineeEmail, "trainee")
       const trainee = state.login.find(
         (trainee) => trainee.email === traineeEmail
       )
-      // console.log(trainee, "trainee")
 
       if (trainee) {
         if (!trainee.tasks) {
           trainee.tasks = []
         }
         trainee.tasks.unshift({
-          ...task,
+          ...taskValues,
           completed: false,
-          id: uuid().substring(0, 8),
+          id: id,
         })
         trainee.ShowNotification = true
         // console.log(current(state.login), "state.login")
       }
     },
     deleteTask: (state, action) => {
-      const { TraineeEmail, TaskName } = action.payload
+      const { TraineeEmail, TaskId } = action.payload
 
       const trainee = state.login.find(
         (trainee) => trainee.email === TraineeEmail
       )
       // console.log("delete", trainee)
       if (trainee) {
-        trainee.tasks = trainee.tasks.filter(
-          (task) => task.taskName !== TaskName
-        )
+        trainee.tasks = trainee.tasks.filter((task) => task.id !== TaskId)
       }
       // console.log(current(state.login), "state.delete.login")
     },
@@ -246,7 +246,7 @@ const traineeLoginSlice = createSlice({
         trainee.ShowNotification = true
       })
     },
-    addSubmission: (state, action) => {
+    addSubmissionWithNotification: (state, action) => {
       const { email, id, ...submission } = action.payload
 
       const trainee = state.login.find((trainee) => trainee.email === email)
@@ -299,13 +299,31 @@ const traineeLoginSlice = createSlice({
 export const {
   addTrainee,
   updateTrainee,
-  addTask,
+  addTaskWithNotification,
   deleteTask,
   updateTask,
   setNotification,
   setNotificationForall,
-  addSubmission,
+  addSubmissionWithNotification,
   deleteSubmissions,
   updatedSubmitted,
 } = traineeLoginSlice.actions
 export default traineeLoginSlice.reducer
+
+export const addTask = (taskData) => (dispatch) => {
+  dispatch(addTaskWithNotification(taskData))
+}
+
+export const addSubmission = (submissionData) => (dispatch) => {
+  const { taskName, id, email } = submissionData
+  const taskNotification = {
+    notificationType: "Submission",
+    notificationMessage: "New Submission",
+    notificationDetails: taskName,
+    id: id,
+    email: email,
+  }
+
+  dispatch(addSubmissionWithNotification(submissionData))
+  dispatch(addNotification(taskNotification))
+}

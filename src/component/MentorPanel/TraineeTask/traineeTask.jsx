@@ -60,12 +60,12 @@ function TraineeTask(props) {
   }
   const dispatch = useDispatch()
 
-  const deleteAssignTask = (taskName) => {
+  const deleteAssignTask = (id) => {
     // console.log("ItemId", taskName)
 
     props.matchingTrainee.forEach((trainee) => {
       // console.log(trainee.email)
-      dispatch(deleteTask({ TraineeEmail: trainee.email, TaskName: taskName }))
+      dispatch(deleteTask({ TraineeEmail: trainee.email, TaskId: id }))
     })
   }
   return (
@@ -144,7 +144,7 @@ function TraineeTask(props) {
                             data-tooltip-id="traineeTaskTooltipDeleteEditView"
                             data-tooltip-content="Delete"
                             data-tooltip-place="top"
-                            onClick={() => deleteAssignTask(item.taskName)}
+                            onClick={() => deleteAssignTask(item.id)}
                           />
                         </>
                       )}
