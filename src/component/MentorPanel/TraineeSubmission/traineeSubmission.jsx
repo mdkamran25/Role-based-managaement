@@ -18,7 +18,6 @@ function TraineeSubmission() {
   const [openEditForm, setOpenEditForm] = useState(false)
   const [openEvaluationForm, setOpenEvaluationForm] = useState(false)
   const [submissionEditFormData, setsubmissionEditFormData] = useState(null)
-  // const [assignedTask, setAssignedTask] = useState(false)
   const dispatch = useDispatch()
   const loggedUser = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
@@ -26,7 +25,6 @@ function TraineeSubmission() {
   let loggedUserUpdatedData = useSelector(
     (state) => state.traineeLoginReducer.login
   )
-  // console.log(loggedUserUpdatedData, "loggedUserUpdatedData")
   const CurrentUser =
     loggedUser.role && loggedUser.role === "Mentor"
       ? isSubmissionButtonClicked
@@ -79,7 +77,7 @@ function TraineeSubmission() {
               First Trainee
             </button>
             <button
-              className={`btn px-5 position-absolute  no-hover`}
+              className={`btn px-4 position-absolute  no-hover textOverflow`}
               onClick={handleSubmissionButtonClick}
               id={`${isSubmissionButtonClicked ? "" : "secondTraineeButton"}`}
             >
@@ -87,8 +85,8 @@ function TraineeSubmission() {
             </button>
           </div>
         )}
-        {console.log(loggedUserUpdatedData[0].submission, "length")}
-        {loggedUserUpdatedData[0].submission &&
+        {loggedUserUpdatedData[0] &&
+        loggedUserUpdatedData[0].submission &&
         loggedUserUpdatedData[0].submission.length !== 0 ? (
           <div className="table-conatiner w-100 h-100 overflow-auto border border-top ">
             <table className="table table-height table-striped table-hoverable">

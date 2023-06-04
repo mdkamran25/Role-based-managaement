@@ -10,7 +10,6 @@ function TaskSubmit(props) {
   const handleSubmissionButtonClick = () => {
     setSubmissionButtonClicked(!isSubmissionButtonClicked)
   }
-  //   console.log(props.matchingTrainee);
   return (
     <>
       <div className="segmented-buttons position-relative col-12 rounded-top">

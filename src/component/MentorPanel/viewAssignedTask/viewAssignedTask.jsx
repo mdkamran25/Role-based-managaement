@@ -4,7 +4,6 @@ function ViewAssignedTask(props) {
   const closeModal = () => {
     props.setAssignedTask(false)
   }
-  // console.log(props, "view")
   return (
     <>
       <div>

@@ -183,7 +183,6 @@ const traineeLoginSlice = createSlice({
     addTaskWithNotification: (state, action) => {
       const { traineeEmail, task, id } = action.payload
       const { emails, ...taskValues } = task
-      // console.log(traineeEmail, "trainee")
       const trainee = state.login.find(
         (trainee) => trainee.email === traineeEmail
       )
@@ -198,7 +197,6 @@ const traineeLoginSlice = createSlice({
           id: id,
         })
         trainee.ShowNotification = true
-        // console.log(current(state.login), "state.login")
       }
     },
     deleteTask: (state, action) => {
@@ -207,11 +205,9 @@ const traineeLoginSlice = createSlice({
       const trainee = state.login.find(
         (trainee) => trainee.email === TraineeEmail
       )
-      // console.log("delete", trainee)
       if (trainee) {
         trainee.tasks = trainee.tasks.filter((task) => task.id !== TaskId)
       }
-      // console.log(current(state.login), "state.delete.login")
     },
     updateTask: (state, action) => {
       const { TraineeEmail, TaskId, Task } = action.payload
@@ -242,7 +238,6 @@ const traineeLoginSlice = createSlice({
     },
     setNotificationForall: (state) => {
       state.login.map((trainee) => {
-        // console.log(trainee.ShowNotification, "notification")
         trainee.ShowNotification = true
       })
     },
@@ -261,7 +256,6 @@ const traineeLoginSlice = createSlice({
           task.completed = true
         }
       }
-      // console.log(current(state.login), "after Submission")
     },
     deleteSubmissions: (state, action) => {
       const { TraineeEmail, TaskId } = action.payload
@@ -315,10 +309,10 @@ export const addTask = (taskData) => (dispatch) => {
 }
 
 export const addSubmission = (submissionData) => (dispatch) => {
-  const { taskName, id, email } = submissionData
+  const { taskName, id, email, name } = submissionData
   const taskNotification = {
     notificationType: "Submission",
-    notificationMessage: "New Submission",
+    notificationMessage: name + " has submitted ",
     notificationDetails: taskName,
     id: id,
     email: email,

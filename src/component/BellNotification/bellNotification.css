@@ -1,7 +1,7 @@
 .small-box {
   z-index: 11;
   background-color: #ffffff;
-  max-height: 20rem;
+  height: 20rem;
   width: 19rem;
   left: -11rem;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.35);
@@ -11,20 +11,20 @@
 .close-box {
   display: none;
 }
-.notificationRow{
+.notificationRow {
   background-color: #cfe2ff !important;
 }
 .bell-notification {
-    color: #fff;
-    position: relative;
-    animation: bell 1s linear infinite alternate-reverse;
-    transform-origin: top;
-  }
-  .bell {
-    cursor: pointer;
-    font-size: 30px;
-  }
-  /* @keyframes redDot {
+  color: #fff;
+  position: relative;
+  animation: bell 1s linear infinite alternate-reverse;
+  transform-origin: top;
+}
+.bell {
+  cursor: pointer;
+  font-size: 30px;
+}
+/* @keyframes redDot {
       0% {
         transform: rotate(-20deg);
       }
@@ -32,22 +32,22 @@
         transform: rotate(20deg);
       }
     } */
-  
-  .redDot::after {
-    content: attr(current-count);
-    position: absolute;
-    top: 5px;
-    right: 5%;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: red !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 10px;
-    /* border: 10px solid #01111b; */
-  }
+
+.redDot::after {
+  content: attr(current-count);
+  position: absolute;
+  top: 5px;
+  right: 5%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: red !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  /* border: 10px solid #01111b; */
+}
 .bell-notification {
   position: relative;
 }

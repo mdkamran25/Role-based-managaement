@@ -1,9 +1,15 @@
 .noSubmission {
   width: 340px !important;
 }
-.trainee-segmented-buttons{
+/* .textOverflow{
+  overflow: hidden;
+  max-width: 0ch;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+} */
+.trainee-segmented-buttons {
   background-color: #cfe2ff;
-    height: 43px;
+  height: 43px;
 }
 .trainee-segmented-buttons button {
   flex-grow: 1;
@@ -12,9 +18,8 @@
   outline: none;
   padding: 10px;
   cursor: pointer;
-  
 }
-.no-hover{
+.no-hover {
   background-color: inherit;
   color: inherit;
 }

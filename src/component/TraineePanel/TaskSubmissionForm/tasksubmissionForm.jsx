@@ -3,6 +3,7 @@
 import React from "react"
 import { Formik, Field, Form, ErrorMessage } from "formik"
 import { addSubmission } from "../../../slice/trainee/traineeLoginSlice"
+import { ShowNotification } from "../../../slice/mentor/mentorLoginSlice"
 import { useDispatch, useSelector } from "react-redux"
 import * as Yup from "yup"
 
@@ -14,14 +15,12 @@ const validationSchema = Yup.object().shape({
 })
 
 function TaskSubmissionForm(props) {
-  // console.log(props, "props")
   const closeModal = () => {
     props.setSubmitTaskForm(false)
   }
   const loggedUser = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
-  // console.log(loggedUser, "loggedUser")
   const date = new Date()
   const options = { hour12: false }
   const time = date.toLocaleTimeString("en-US", options)
@@ -34,7 +33,6 @@ function TaskSubmissionForm(props) {
   const dispatch = useDispatch()
 
   const handleSubmit = (values, { resetForm }) => {
-    // console.log(values)
     values = {
       ...values,
       time: time,
@@ -47,9 +45,10 @@ function TaskSubmissionForm(props) {
       marks: null,
       feedback: null,
     }
-
     dispatch(addSubmission(values))
-
+    dispatch(
+      ShowNotification({ mentorEmail: loggedUser.mentor, decision: true })
+    )
     resetForm()
     closeModal()
   }

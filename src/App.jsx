@@ -12,6 +12,7 @@ import Navbar from "./component/Navbar/navbar"
 import TopicsToLearn from "./component/TopicsToLearn/topicsToLearn"
 import AllTraineeProfileCard from "./component/AllTraineeProfileCard/allTraineeProfileCard"
 import TraineePanel from "./component/TraineePanel/traineePanel"
+import SubTopics from "./component/TopicsToLearn/subtopics"
 
 function App() {
   const title = useLocation()
@@ -33,6 +34,7 @@ function App() {
               path="/allTraineesProfile"
               element={<AllTraineeProfileCard />}
             />
+            <Route path="/subtopics" element={<SubTopics />}></Route>
             <Route path="/traineeProfile" element={<TraineeProfile />} />
             <Route path="/module" element={<TopicsToLearn />} />
           </Routes>

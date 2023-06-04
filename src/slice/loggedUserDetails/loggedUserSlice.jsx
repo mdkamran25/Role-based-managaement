@@ -10,7 +10,6 @@ const loggedUserSlice = createSlice({
   reducers: {
     getLoginUserData(state, action) {
       state.loggedUserDetails = action.payload
-      // console.log(current(state), "loggedUserDetails")
     },
     onLogout(state) {
       state.loggedUserDetails = []

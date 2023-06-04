@@ -1,12 +1,13 @@
 import * as React from "react"
 import "./index.css"
+// #cfe2ff
 import LoginPageAnimation from "./LoginPageAnimation/LoginPageAnimation"
 import MultiUserLoginButtton from "./MultiUSerLoginButton/MultiUserLoginButton"
 function Index() {
   return (
     <>
       <div className="container d-flex align-items-center justify-content-center h-100">
-        <div className="row g-0 w-100 rounded-3 d-flex flex-column flex-sm-row align-items-center justify-content-center">
+        <div className="row g-0 w-100 rounded-3 loginPageComponentContainer d-flex flex-column flex-sm-row align-items-center justify-content-center">
           <div className="col-12 rounded-start LoginPageAnimation col-sm-6">
             <LoginPageAnimation />
           </div>

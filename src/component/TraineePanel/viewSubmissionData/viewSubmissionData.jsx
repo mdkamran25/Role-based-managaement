@@ -5,7 +5,6 @@ function ViewSubmissionData(props) {
   const closeModal = () => {
     props.setOpenSubmissionView(false)
   }
-  console.log(props, "propsitem")
   return (
     <>
       <div>

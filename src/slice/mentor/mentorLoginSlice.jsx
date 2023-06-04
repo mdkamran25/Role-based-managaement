@@ -28,19 +28,32 @@ const mentorLoginSlice = createSlice({
         ...action.payload,
       }
       state.login.push(newMentor)
-      // console.log(current(state.login))
     },
     showNotificationToAllMentor: (state) => {
       state.login.map((mentor) => {
         mentor.showNotification = true
       })
     },
+    ShowNotification: (state, action) => {
+      const { mentorEmail, decision } = action.payload
+      const mentor = state.login.find((mentor) => {
+        return mentor.email === mentorEmail
+      })
+      if (mentor) {
+        mentor.showNotification = decision
+      }
+    },
+
     onLogout(state) {
       state.loggedUserDetails = []
     },
   },
 })
 
-export const { addMentor, onLogout, showNotificationToAllMentor } =
-  mentorLoginSlice.actions
+export const {
+  addMentor,
+  onLogout,
+  showNotificationToAllMentor,
+  ShowNotification,
+} = mentorLoginSlice.actions
 export default mentorLoginSlice.reducer

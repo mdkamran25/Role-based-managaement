@@ -143,7 +143,7 @@ function TraineeLogin() {
         </div>
         <button
           type="submit"
-          className="btn mb-4 mt-3 btn-primary"
+          className="btn mb-4 mt-3 btn-primary text-white"
           onClick={validate}
         >
           Trainee Login

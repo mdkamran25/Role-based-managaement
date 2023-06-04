@@ -60,7 +60,7 @@ function TopicsToLearn() {
                       />
                       <MDBCardBody>
                         <MDBCardTitle>
-                          <Link navigate="nav-link active">
+                          <Link className="nav-link active" to="/subtopics">
                             {topic.topicName}
                           </Link>
                         </MDBCardTitle>

@@ -28,7 +28,6 @@ function AdminLogin() {
     const validation = loginData.find(
       (user) => user.email === userDetails.email
     )
-    console.log(validation, "validation")
     if (validation) {
       dispatch(getLoginUserData(validation))
       navigate("adminPanel")
@@ -150,7 +149,7 @@ function AdminLogin() {
         </div>
         <button
           type="submit"
-          className="btn mb-4 mt-3 btn-primary"
+          className="btn mb-4 mt-3 btn-primary text-white"
           onClick={validate}
         >
           Admin Login

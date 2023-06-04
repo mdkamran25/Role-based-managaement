@@ -61,13 +61,9 @@ const NewTopicsForm = forwardRef((props, ref) => {
     props.setShowForm(false)
   }
 
-  console.log("matchingTrainee= ", props.matchingTrainee)
-
   const dispatch = useDispatch()
 
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values)
-
     let image = document.getElementById("img")
 
     if (image && image.files && image.files[0]) {

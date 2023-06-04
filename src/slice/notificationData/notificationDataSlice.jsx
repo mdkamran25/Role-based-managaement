@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   notifications: [], // Change to an array
@@ -26,7 +26,6 @@ const notificationDataSlice = createSlice({
       }
       state.notifications.unshift(newNotification) // Update to state.notifications
       state.notificationStatus = true
-      console.log(current(state.notifications), data, "notification")
     },
   },
 })

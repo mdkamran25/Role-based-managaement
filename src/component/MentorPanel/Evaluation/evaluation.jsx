@@ -13,7 +13,6 @@ const validationSchema = Yup.object().shape({
 })
 
 function Evaluation(props) {
-  console.log(props, "propsdatas")
   const closeModal = () => {
     props.setOpenEvaluationForm(false)
   }
@@ -29,7 +28,6 @@ function Evaluation(props) {
   })
 
   const handleSubmit = (values, { resetForm }) => {
-    // console.log(values)
     values = {
       ...values,
       evaluationTime: time,

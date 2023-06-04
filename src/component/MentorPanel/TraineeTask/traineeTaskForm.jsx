@@ -38,7 +38,6 @@ const validationSchema = Yup.object().shape({
 })
 
 function TraineeTaskForm(props) {
-  console.log(props, "traineeTaskForm")
   const closeModal = () => {
     props.setModalOpen(false)
   }
@@ -51,20 +50,15 @@ function TraineeTaskForm(props) {
     year: "numeric",
   })
 
-  // console.log("matchingTrainee= ", props.matchingTrainee)
-
   const dispatch = useDispatch()
 
   const handleSubmit = (values) => {
-    // console.log(values)
     let image = document.getElementById("file")
-    console.log(image.files[0], "values as file")
     const fr = new FileReader()
     fr.readAsDataURL(image.files[0])
     fr.onload = () => {
       let url = fr.result
       values.file = url
-      console.log(props.matchingTrainee.mentor, "props.matchingTrainee.mentor")
       values = {
         ...values,
         time: time,
@@ -74,10 +68,9 @@ function TraineeTaskForm(props) {
         notificationType: "Task",
         notificationMessage: "New Task Added",
         notificationDetails: values.taskName,
-        email: props.matchingTrainee.mentor,
+        email: props.matchingTrainee[0].mentor,
       }
       props.matchingTrainee.forEach((trainee) => {
-        console.log(values, "Above d")
         dispatch(
           addTask({
             traineeEmail: trainee.email,

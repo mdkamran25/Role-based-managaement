@@ -27,7 +27,6 @@ function SubmissionEditForm(props) {
   })
 
   const handleSubmit = (values, { resetForm }) => {
-    // console.log(values)
     values = {
       ...values,
       time: time,

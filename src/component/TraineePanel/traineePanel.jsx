@@ -8,7 +8,6 @@ function TraineePanel() {
   const traineeData = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
-  // console.log(traineeData, "trainee")
   return (
     <>
       <div className="container-fluid h-75">

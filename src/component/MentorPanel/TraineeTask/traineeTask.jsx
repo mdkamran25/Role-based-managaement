@@ -27,7 +27,6 @@ function TraineeTask(props) {
   let loggedUserUpdatedData = useSelector(
     (state) => state.traineeLoginReducer.login
   )
-  // console.log(loggedUserUpdatedData, "loggedUSerUPdates traineeTAsk")
   const CurrentUser =
     loggedUser.role && loggedUser.role === "Mentor"
       ? props.matchingTrainee[0]
@@ -61,17 +60,15 @@ function TraineeTask(props) {
   const dispatch = useDispatch()
 
   const deleteAssignTask = (id) => {
-    // console.log("ItemId", taskName)
-
     props.matchingTrainee.forEach((trainee) => {
-      // console.log(trainee.email)
       dispatch(deleteTask({ TraineeEmail: trainee.email, TaskId: id }))
     })
   }
   return (
     <>
       <div className="noTaskImage d-flex flex-column align-items-center">
-        {loggedUserUpdatedData[0].tasks.length !== 0 ? (
+        {loggedUserUpdatedData[0] &&
+        loggedUserUpdatedData[0].tasks.length !== 0 ? (
           <div className="table-conatiner w-100 h-100 overflow-auto border border-1 rounded-1">
             <table className="table table-height table-striped table-hoverable">
               <thead>
@@ -87,85 +84,90 @@ function TraineeTask(props) {
               </thead>
 
               <tbody>
-                {loggedUserUpdatedData[0].tasks.map((item) => (
-                  <tr
-                    key={item.id}
-                    className={item.complete ? "bg-success" : ""}
-                  >
-                    <td className="px-3">
-                      <img src={item.file} alt="task" width={80} height={50} />
-                    </td>
-                    <td className="descriptionInTable">
-                      <span className="fw-bold">{item.taskName}</span>
-                      <br />
-                      <span className="fw-light">{item.description}</span>
-                    </td>
-                    <td>
-                      {item.time}
-                      <br />
-                      {item.date}
-                    </td>
-                    {/* {console.log(item.completed, "complete", item, "item")} */}
-                    <td
-                      className={
-                        item.completed ? "text-success" : "text-danger"
-                      }
+                {loggedUserUpdatedData[0].tasks &&
+                  loggedUserUpdatedData[0].tasks.map((item) => (
+                    <tr
+                      key={item.id}
+                      className={item.complete ? "bg-success" : ""}
                     >
-                      {item.completed ? "Submitted" : "Not Submitted"}
-                    </td>
+                      <td className="px-3">
+                        <img
+                          src={item.file}
+                          alt="task"
+                          width={80}
+                          height={50}
+                        />
+                      </td>
+                      <td className="descriptionInTable">
+                        <span className="fw-bold">{item.taskName}</span>
+                        <br />
+                        <span className="fw-light">{item.description}</span>
+                      </td>
+                      <td>
+                        {item.time}
+                        <br />
+                        {item.date}
+                      </td>
+                      <td
+                        className={
+                          item.completed ? "text-success" : "text-danger"
+                        }
+                      >
+                        {item.completed ? "Submitted" : "Not Submitted"}
+                      </td>
 
-                    <td className="align-middle">
-                      <img
-                        src={view}
-                        alt="edit"
-                        width={40}
-                        data-tooltip-id="traineeTaskTooltipDeleteEditView"
-                        data-tooltip-content="View Task"
-                        data-tooltip-place="top"
-                        onClick={() => viewAssignedTask(item)}
-                      />{" "}
-                      &nbsp;
-                      {loggedUser.role === "Mentor" && !item.completed && (
-                        <>
-                          <img
-                            src={edit}
-                            alt="edit"
-                            width={40}
-                            data-tooltip-id="traineeTaskTooltipDeleteEditView"
-                            data-tooltip-content="Edit Task"
-                            data-tooltip-place="top"
-                            onClick={() => editAssignedTask(item)}
-                          />{" "}
-                          &nbsp;
-                          <img
-                            src={deleteIcon}
-                            alt="edit"
-                            width={40}
-                            data-tooltip-id="traineeTaskTooltipDeleteEditView"
-                            data-tooltip-content="Delete"
-                            data-tooltip-place="top"
-                            onClick={() => deleteAssignTask(item.id)}
-                          />
-                        </>
-                      )}
-                      {loggedUser.role === "Trainee" && !item.completed && (
-                        <>
-                          <img
-                            src={submission}
-                            alt="submission"
-                            width={40}
-                            data-tooltip-id="traineeTaskTooltipDeleteEditView"
-                            data-tooltip-content="Submit Task"
-                            data-tooltip-place="top"
-                            onClick={() => openSubmitForm(item)}
-                          />
-                        </>
-                      )}
-                    </td>
+                      <td className="align-middle">
+                        <img
+                          src={view}
+                          alt="edit"
+                          width={40}
+                          data-tooltip-id="traineeTaskTooltipDeleteEditView"
+                          data-tooltip-content="View Task"
+                          data-tooltip-place="top"
+                          onClick={() => viewAssignedTask(item)}
+                        />{" "}
+                        &nbsp;
+                        {loggedUser.role === "Mentor" && !item.completed && (
+                          <>
+                            <img
+                              src={edit}
+                              alt="edit"
+                              width={40}
+                              data-tooltip-id="traineeTaskTooltipDeleteEditView"
+                              data-tooltip-content="Edit Task"
+                              data-tooltip-place="top"
+                              onClick={() => editAssignedTask(item)}
+                            />{" "}
+                            &nbsp;
+                            <img
+                              src={deleteIcon}
+                              alt="edit"
+                              width={40}
+                              data-tooltip-id="traineeTaskTooltipDeleteEditView"
+                              data-tooltip-content="Delete"
+                              data-tooltip-place="top"
+                              onClick={() => deleteAssignTask(item.id)}
+                            />
+                          </>
+                        )}
+                        {loggedUser.role === "Trainee" && !item.completed && (
+                          <>
+                            <img
+                              src={submission}
+                              alt="submission"
+                              width={40}
+                              data-tooltip-id="traineeTaskTooltipDeleteEditView"
+                              data-tooltip-content="Submit Task"
+                              data-tooltip-place="top"
+                              onClick={() => openSubmitForm(item)}
+                            />
+                          </>
+                        )}
+                      </td>
 
-                    <Tooltip id="traineeTaskTooltipDeleteEditView" />
-                  </tr>
-                ))}
+                      <Tooltip id="traineeTaskTooltipDeleteEditView" />
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
