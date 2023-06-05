@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useCallback } from "react"
 import bell from "../../Image/bell.png"
 import "./bellNotification.css"

@@ -29,16 +29,29 @@ function TopicsToLearn() {
         <div className="row w-100 g-0">
           <div className="col-12 pt-3 d-flex pb-2 align-items-center">
             <h3 className="mb-0">Topics To Learn</h3>
-            {loggedUser.role === "Lead" ? (
-              <button
-                className="ms-auto btn btn-primary text-light"
-                onClick={openModal}
-              >
-                + Add new Topics
-              </button>
-            ) : (
-              ""
-            )}
+          </div>
+          <div className="row w-100 g-0">
+            <div className="col-12">
+              <div className="input-group w-50 mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Recipient's username"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                />
+              </div>
+              {loggedUser.role === "Lead" ? (
+                <button
+                  className="ms-auto btn btn-primary text-light"
+                  onClick={openModal}
+                >
+                  + Add new Topics
+                </button>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
         <div className="row g-0 pb-3">
