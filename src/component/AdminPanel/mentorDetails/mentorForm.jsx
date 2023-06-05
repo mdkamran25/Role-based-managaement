@@ -162,7 +162,7 @@ function MentorForm(props) {
                           touched.email && errors.email ? "is-invalid" : ""
                         }`}
                       />
-                      {console.log(errors.email, "Error email")}
+
                       {touched.email && errors.email && (
                         <div className="text-danger">{errors.email}</div>
                       )}

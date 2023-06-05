@@ -8,6 +8,7 @@ import mentorLoginSlice from "../slice/mentor/mentorLoginSlice"
 import "react-tooltip/dist/react-tooltip.css"
 import loggedUserSlice from "../slice/loggedUserDetails/loggedUserSlice"
 import topicsToLearnSlice from "../slice/TopicsToLearn/topicsToLearnSlice"
+import notificationDataSlice from "../slice/notificationData/notificationDataSlice"
 
 const rootReducer = combineReducers({
   adminLoginReducer: adminLoginSlice,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   mentorLoginReducer: mentorLoginSlice,
   loggedUserReducer: loggedUserSlice,
   topicsToLearnReducer: topicsToLearnSlice,
+  notificationDataReducer: notificationDataSlice,
 })
 
 const persistConfig = {
@@ -27,6 +29,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: [thunk],
+  devTools: process.env.NODE_ENV !== "production",
 })
 
 export const persistor = persistStore(store)

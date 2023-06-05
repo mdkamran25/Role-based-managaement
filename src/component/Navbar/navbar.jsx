@@ -5,11 +5,21 @@ import MentorPanelSidebar from "../MentorPanel/mentorPanelSideBar"
 import brandLogo from "../../Image/logo.png"
 import TraineePanelSidebar from "../TraineePanel/traineePanelSidebar"
 import BellNotification from "../BellNotification/bellNotification"
+import AdminPanelSidebar from "../AdminPanel/adminPanelSidebar"
 
 const Navbar = () => {
   const LoggedUserData = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails || []
   )
+
+  let sidebarComponent
+  if (LoggedUserData.role === "Trainee") {
+    sidebarComponent = <TraineePanelSidebar />
+  } else if (LoggedUserData.role === "Lead") {
+    sidebarComponent = <AdminPanelSidebar />
+  } else {
+    sidebarComponent = <MentorPanelSidebar />
+  }
 
   return (
     <nav className="navbar text-light bg-primary">
@@ -17,7 +27,7 @@ const Navbar = () => {
         <p className="navbar-brand text-light">
           <img src={brandLogo} width={120} alt="bellIcon" />
         </p>
-        <BellNotification task={LoggedUserData.tasks} />
+        <BellNotification />
         <button
           className="navbar-toggler"
           type="button"
@@ -41,11 +51,7 @@ const Navbar = () => {
               aria-label="Close"
             ></button>
           </div>
-          {LoggedUserData.role === "Trainee" ? (
-            <TraineePanelSidebar />
-          ) : (
-            <MentorPanelSidebar />
-          )}
+          {sidebarComponent}
         </div>
       </div>
     </nav>

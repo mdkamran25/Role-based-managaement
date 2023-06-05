@@ -30,7 +30,6 @@ function TraineeForm(props) {
   const dispatch = useDispatch()
 
   const handleSubmit = (values) => {
-    console.log(values)
     dispatch(addTrainee(values))
     closeModal()
   }

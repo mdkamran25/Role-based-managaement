@@ -1,13 +1,13 @@
-import React from "react"
+/* eslint-disable no-undef */
+import React, { forwardRef } from "react"
 import { Formik, Field, Form, ErrorMessage } from "formik"
-import { addTask } from "../../../slice/trainee/traineeLoginSlice"
-import { useDispatch } from "react-redux"
 import * as Yup from "yup"
-import { addNotification } from "../../../slice/notificationData/notificationDataSlice"
-import uuid from "react-uuid"
+import { useDispatch } from "react-redux"
+import nothingfind from "../../Image/nothingfind.svg"
+import { addNewTopicWithNotification } from "../../slice/TopicsToLearn/topicsToLearnSlice"
 
 const validationSchema = Yup.object().shape({
-  taskName: Yup.string()
+  topicName: Yup.string()
     .matches(
       /^[a-zA-Z0-9\s]*$/,
       "Task Name can only contain alphabets & number"
@@ -24,66 +24,67 @@ const validationSchema = Yup.object().shape({
     .max(2000, "Description must not exceed 2000 characters")
     .required("Description is required"),
 
-  file: Yup.mixed()
-    .test(
-      "fileType",
-      "Only PNG, TXT, JPG, JPEG, and SVG file types are allowed",
-      (value) => value || (value && /(png|txt|jpg|jpeg|svg)$/.test(value.type))
-    )
-    .test(
-      "fileSize",
-      "File size should be less than or equal to 1MB",
-      (value) => value || (value && value.size >= 1048576)
-    ),
+  img: Yup.mixed().test(
+    "img",
+    "img must be either absent or a valid img",
+    function (value) {
+      if (!value) {
+        return true
+      }
+      // Perform additional img validation here
+      // For example, img type and size checks
+      let image = document.getElementById("img")
+      let rules = /[^\s]+(.*?).(jpg|jpeg|png|svg|txt)$/i
+
+      if (!image || !image.value.match(rules)) {
+        // Invalid img type
+        return this.createError({
+          message: "Only PNG, JPG, JPEG, SVG, and TXT img types are allowed",
+          path: "img",
+        })
+      }
+
+      if (image.files[0].size > 1024 * 1024) {
+        return this.createError({
+          message: "img size should be less than or equal to 1MB",
+          path: "img",
+        })
+      }
+
+      return true
+    }
+  ),
 })
 
-function TraineeTaskForm(props) {
+const NewTopicsForm = forwardRef((props, ref) => {
   const closeModal = () => {
-    props.setModalOpen(false)
+    props.setShowForm(false)
   }
-  const date = new Date()
-  const options = { hour12: false }
-  const time = date.toLocaleTimeString("en-US", options)
-  const dates = date.toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  })
 
   const dispatch = useDispatch()
 
-  const handleSubmit = (values) => {
-    let image = document.getElementById("file")
-    const fr = new FileReader()
-    fr.readAsDataURL(image.files[0])
-    fr.onload = () => {
-      let url = fr.result
-      values.file = url
-      values = {
-        ...values,
-        time: time,
-        date: dates,
+  const handleSubmit = (values, { resetForm }) => {
+    let image = document.getElementById("img")
+
+    if (image && image.files && image.files[0]) {
+      const fr = new FileReader()
+      fr.readAsDataURL(image.files[0])
+      fr.onload = () => {
+        let url = fr.result
+        values.img = url
+        dispatch(addNewTopicWithNotification(values))
       }
-      const taskNotification = {
-        notificationType: "Task",
-        notificationMessage: "New Task Added",
-        notificationDetails: values.taskName,
-        email: props.matchingTrainee[0].mentor,
-      }
-      props.matchingTrainee.forEach((trainee) => {
-        dispatch(
-          addTask({
-            traineeEmail: trainee.email,
-            task: values,
-            id: uuid().substring(0, 8),
-            mentorEmail: trainee.mentor,
-          })
-        )
-      })
-      dispatch(addNotification(taskNotification))
+    } else {
+      values.img = nothingfind
+      dispatch(addNewTopicWithNotification(values))
     }
+    //   dispatch(addNewTopics(values))
+
+    resetForm()
     closeModal()
+    setTimeout(() => ref.current.scrollIntoView({ behavior: "smooth" }), 10)
   }
+
   return (
     <>
       <div>
@@ -103,7 +104,7 @@ function TraineeTaskForm(props) {
             <div className="modal-content">
               <div className="modal-header">
                 <h1 className="modal-title fs-5" id="exampleModalToggleLabel">
-                  Add New Task
+                  Add New Topics
                 </h1>
                 <button
                   type="button"
@@ -116,43 +117,43 @@ function TraineeTaskForm(props) {
               <div className="modal-body">
                 <Formik
                   initialValues={{
-                    taskName: "",
+                    topicName: "",
                     description: "",
-                    file: undefined,
+                    img: undefined,
                   }}
                   validationSchema={validationSchema}
                   onSubmit={handleSubmit}
                 >
                   <Form className="pt-0">
                     <div className="mb-3">
-                      <label htmlFor="taskName" className="form-label">
-                        Task Name
+                      <label htmlFor="topicName" className="form-label">
+                        Topic Name
                       </label>
                       <Field
                         type="text"
-                        id="taskName"
-                        name="taskName"
+                        id="topicName"
+                        name="topicName"
                         className="form-control"
                       />
                       <ErrorMessage
-                        name="taskName"
+                        name="topicName"
                         component="div"
                         className="text-danger"
                       />
                     </div>
 
                     <div className="mb-3">
-                      <label htmlFor="file" className="form-label">
-                        Add File
+                      <label htmlFor="img" className="form-label">
+                        Add img
                       </label>
                       <Field
                         type="file"
-                        id="file"
-                        name="file"
+                        id="img"
+                        name="img"
                         className="form-control"
                       />
                       <ErrorMessage
-                        name="file"
+                        name="img"
                         component="div"
                         className="text-danger"
                       />
@@ -160,7 +161,7 @@ function TraineeTaskForm(props) {
 
                     <div className="mb-3">
                       <label htmlFor="description" className="form-label">
-                        Task Description
+                        Topic Description
                       </label>
                       <Field
                         as="textarea"
@@ -190,6 +191,6 @@ function TraineeTaskForm(props) {
       </div>
     </>
   )
-}
+})
 
-export default TraineeTaskForm
+export default NewTopicsForm

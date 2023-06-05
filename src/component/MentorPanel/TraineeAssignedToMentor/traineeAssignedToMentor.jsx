@@ -1,9 +1,10 @@
-import React, { useState } from "react"
+import React from "react"
 import { useSelector } from "react-redux"
-import TraineeSubmission from "../TraineeSubmission/traineeSubmission"
-import TraineeTask from "../TraineeTask/traineeTask"
+// import TraineeSubmission from "../TraineeSubmission/traineeSubmission"
+// import TraineeTask from "../TraineeTask/traineeTask"
 import "./traineeAssignedToMentor.css"
 import ProfileCard from "../../ProfileCard/profileCard"
+import TaskSubmit from "../../Task-submit/taskSubmit"
 function TraineeAssignedToMentor() {
   const mentorDetail = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
@@ -15,12 +16,12 @@ function TraineeAssignedToMentor() {
     (trainee) => trainee.mentor === mentorDetail.email
   )
 
-  const [isSubmissionButtonClicked, setSubmissionButtonClicked] =
-    useState(false)
+  // const [isSubmissionButtonClicked, setSubmissionButtonClicked] =
+  //   useState(false)
 
-  const handleSubmissionButtonClick = () => {
-    setSubmissionButtonClicked(!isSubmissionButtonClicked)
-  }
+  // const handleSubmissionButtonClick = () => {
+  //   setSubmissionButtonClicked(!isSubmissionButtonClicked)
+  // }
 
   return (
     <>
@@ -28,12 +29,12 @@ function TraineeAssignedToMentor() {
         <div className="col-11 col-md-5 TraineeDetail rounded-3 d-flex flex-row">
           <div className="col-12 pt-3">
             <span className="table-name pt-1 ps-2">Trainee Assigned</span>
-            <hr />
-            <div className="col-12 d-flex flex-wrap traineeProfileCard justify-content-evenly pb-3">
+            <hr className="pb-0 mb-0" />
+            <div className="col-12 pt-3 d-flex flex-wrap traineeProfileCard align-items-center justify-content-evenly pb-3">
               {matchingTrainees &&
                 matchingTrainees.map((item) => (
                   <div
-                    className="col-12 col-sm-10 col-md-10 col-lg-5 mb-3"
+                    className="col-11 col-sm-10 col-md-10 col-lg-5 mb-3"
                     key={item.id}
                   >
                     <ProfileCard item={item} />
@@ -43,30 +44,7 @@ function TraineeAssignedToMentor() {
           </div>
         </div>
         <div className="col-11 col-md-5 mb-3 mt-3 mt-md-0 rounded-3 d-flex flex-column task-submission rounded-3">
-          <div className="segmented-buttons position-relative col-12 rounded-top">
-            <button
-              className={`btn pt-3 px-4 position-absolute`}
-              id={`${isSubmissionButtonClicked ? "submissionButton" : ""}`}
-              onClick={handleSubmissionButtonClick}
-            >
-              Submission
-            </button>
-            <button
-              className={`btn pt-3 px-5 position-absolute`}
-              onClick={handleSubmissionButtonClick}
-              id={`${isSubmissionButtonClicked ? "" : "taskButton"}`}
-            >
-              Task
-            </button>
-          </div>
-          <hr className="mt-0" />
-          <div className="col-12 position-relative">
-            {isSubmissionButtonClicked ? (
-              <TraineeSubmission />
-            ) : (
-              <TraineeTask matchingTrainee={matchingTrainees} />
-            )}
-          </div>
+          <TaskSubmit matchingTrainees={matchingTrainees} />
         </div>
       </div>
     </>

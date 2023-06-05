@@ -1,8 +1,9 @@
 import React from "react"
+import { Link } from "react-router-dom"
 
-function ViewAssignedTask(props) {
+function ViewSubmissionData(props) {
   const closeModal = () => {
-    props.setAssignedTask(false)
+    props.setOpenSubmissionView(false)
   }
   return (
     <>
@@ -23,7 +24,7 @@ function ViewAssignedTask(props) {
             <div className="modal-content">
               <div className="modal-header">
                 <h1 className="modal-title fs-5" id="exampleModalToggleLabel">
-                  Task
+                  Submission
                 </h1>
                 <button
                   type="button"
@@ -34,28 +35,30 @@ function ViewAssignedTask(props) {
                 ></button>
               </div>
               <div className="modal-body">
-                <p className="fs-5 fw-semibold my-0">Task Name: </p>
-                <span className="fs-6 fw-normal">{props.item.taskName} </span>
+                <p className="fs-5 fw-semibold my-0">Git Repo: </p>
+                <span className="fs-6 fw-normal">
+                  <Link to={props.item.repo}>{props.item.repo}</Link>
+                </span>
                 <br />
-                <p className="fs-5 fw-semibold mb-0 mt-5">Task Description: </p>
+                <p className="fs-5 fw-semibold mb-0 mt-4">
+                  Additional Information:{" "}
+                </p>
                 <span className="fs-6 fw-normal">
                   {props.item.description}{" "}
                 </span>
-
                 <br />
-
-                <img
-                  className="w-75 mt-5"
-                  src={props.item.file}
-                  alt={`${props.item.taskName} image`}
-                />
+                <p className="fs-5 fw-semibold mt-4 mb-0">Marks: </p>
+                <span className={`${props.item.marks ? "" : "text-danger"}`}>
+                  {`${
+                    props.item.marks ? props.item.marks + "/100" : "Not Checked"
+                  }`}
+                </span>
+                <br />
+                <p className="fs-5 fw-semibold mt-4 mb-0">Feedback: </p>
+                <span className={`${props.item.feedback ? "" : "text-danger"}`}>
+                  {`${props.item.marks ? props.item.feedback : "Not Checked"}`}
+                </span>
               </div>
-              {/* {props.item.submission && props.item.su} */}
-
-              {/* <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div> */}
             </div>
           </div>
         </div>
@@ -64,4 +67,4 @@ function ViewAssignedTask(props) {
   )
 }
 
-export default ViewAssignedTask
+export default ViewSubmissionData

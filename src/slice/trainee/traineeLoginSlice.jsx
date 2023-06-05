@@ -1,4 +1,6 @@
-import { createSlice, current } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
+import { addNotification } from "../notificationData/notificationDataSlice"
+import uuid from "react-uuid"
 
 const initialState = {
   login: [
@@ -10,12 +12,14 @@ const initialState = {
       designation: "Trainee",
       mentor: "mentor@gmail.com",
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "8969385731",
       address: "Ara, Bihar",
       college: "Parul University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 2,
@@ -25,12 +29,14 @@ const initialState = {
       designation: "Trainee",
       mentor: "mentor@gmail.com",
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "8969385731",
       address: "Ara, Bihar",
       college: "Parul University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 3,
@@ -40,12 +46,14 @@ const initialState = {
       designation: "Trainee",
       mentor: null,
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "9769385739",
       address: "Rajkot, Gujarat",
       college: "Marwadi University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 4,
@@ -55,12 +63,14 @@ const initialState = {
       designation: "Trainee",
       mentor: null,
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "7569385734",
       address: "Daman",
       college: "Diu University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 5,
@@ -77,6 +87,7 @@ const initialState = {
       college: "Dawarka University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 6,
@@ -86,12 +97,14 @@ const initialState = {
       designation: "Trainee",
       mentor: null,
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "8769385731",
       address: "GandhiNagar",
       college: "L.D College of Engineering",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 7,
@@ -101,12 +114,14 @@ const initialState = {
       designation: "Trainee",
       mentor: null,
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "9569385730",
       address: "Rajkot",
       college: "Rajkot University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 8,
@@ -116,12 +131,14 @@ const initialState = {
       designation: "Trainee",
       mentor: null,
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "6869385731",
       address: "Ahmedabad",
       college: "Nirma University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
     {
       id: 9,
@@ -131,12 +148,14 @@ const initialState = {
       designation: "Trainee",
       mentor: null,
       tasks: [],
+      submission: [],
       role: "Trainee",
       phone: "9012885738",
       address: "Ahmedabad",
       college: "L.K.U University",
       github: undefined,
       linkdin: undefined,
+      ShowNotification: false,
     },
   ],
 }
@@ -147,12 +166,11 @@ const traineeLoginSlice = createSlice({
   reducers: {
     addTrainee: (state, action) => {
       const newTrainee = {
-        id: state.login.length + 1,
+        id: uuid().substring(0, 8),
         ...action.payload,
         mentor: null,
       }
       state.login.push(newTrainee)
-      console.log(current(state), "login state")
     },
     updateTrainee: (state, action) => {
       const { traineeId, mentor } = action.payload
@@ -161,30 +179,28 @@ const traineeLoginSlice = createSlice({
       if (trainee) {
         trainee.mentor = mentor
       }
-
-      console.log(current(state.login), "Update login")
     },
-    addTask: (state, action) => {
-      const { traineeEmail, task } = action.payload
-
+    addTaskWithNotification: (state, action) => {
+      const { traineeEmail, task, id } = action.payload
+      const { emails, ...taskValues } = task
       const trainee = state.login.find(
         (trainee) => trainee.email === traineeEmail
       )
+
       if (trainee) {
         if (!trainee.tasks) {
           trainee.tasks = []
         }
         trainee.tasks.unshift({
-          ...task,
+          ...taskValues,
           completed: false,
-          id: trainee.tasks.length + 1,
+          id: id,
         })
+        trainee.ShowNotification = true
       }
     },
-
     deleteTask: (state, action) => {
       const { TraineeEmail, TaskId } = action.payload
-      console.log(TraineeEmail, "traineeEmail", TaskId)
 
       const trainee = state.login.find(
         (trainee) => trainee.email === TraineeEmail
@@ -208,11 +224,100 @@ const traineeLoginSlice = createSlice({
             ...Task,
           }
         }
+        trainee.ShowNotification = true
+      }
+    },
+    setNotification: (state, action) => {
+      const traineeEmail = action.payload
+      const trainee = state.login.find(
+        (trainee) => trainee.email === traineeEmail
+      )
+      if (trainee) {
+        trainee.ShowNotification = false
+      }
+    },
+    setNotificationForall: (state) => {
+      state.login.map((trainee) => {
+        trainee.ShowNotification = true
+      })
+    },
+    addSubmissionWithNotification: (state, action) => {
+      const { email, id, ...submission } = action.payload
+
+      const trainee = state.login.find((trainee) => trainee.email === email)
+
+      if (trainee) {
+        if (!trainee.submission) {
+          trainee.submission = []
+        }
+        trainee.submission.push({ ...submission, id, email })
+        const task = trainee.tasks.find((task) => task.id === id)
+        if (task) {
+          task.completed = true
+        }
+      }
+    },
+    deleteSubmissions: (state, action) => {
+      const { TraineeEmail, TaskId } = action.payload
+      const trainee = state.login.find(
+        (trainee) => trainee.email === TraineeEmail
+      )
+      if (trainee) {
+        trainee.submission = trainee.submission.filter(
+          (submission) => submission.id !== TaskId
+        )
+      }
+      const task = trainee.tasks.find((task) => task.id === TaskId)
+      if (task) {
+        task.completed = false
+      }
+    },
+    updatedSubmitted: (state, action) => {
+      const { email, id, ...submission } = action.payload
+
+      const trainee = state.login.find((trainee) => trainee.email === email)
+
+      if (trainee) {
+        const taskIndex = trainee.submission.findIndex((item) => item.id === id)
+        if (taskIndex !== -1) {
+          trainee.submission[taskIndex] = {
+            ...trainee.submission[taskIndex],
+            ...submission,
+          }
+        }
       }
     },
   },
 })
 
-export const { addTrainee, updateTrainee, addTask, deleteTask, updateTask } =
-  traineeLoginSlice.actions
+export const {
+  addTrainee,
+  updateTrainee,
+  addTaskWithNotification,
+  deleteTask,
+  updateTask,
+  setNotification,
+  setNotificationForall,
+  addSubmissionWithNotification,
+  deleteSubmissions,
+  updatedSubmitted,
+} = traineeLoginSlice.actions
 export default traineeLoginSlice.reducer
+
+export const addTask = (taskData) => (dispatch) => {
+  dispatch(addTaskWithNotification(taskData))
+}
+
+export const addSubmission = (submissionData) => (dispatch) => {
+  const { taskName, id, email, name } = submissionData
+  const taskNotification = {
+    notificationType: "Submission",
+    notificationMessage: name + " has submitted ",
+    notificationDetails: taskName,
+    id: id,
+    email: email,
+  }
+
+  dispatch(addSubmissionWithNotification(submissionData))
+  dispatch(addNotification(taskNotification))
+}

@@ -17,6 +17,7 @@
     "react/jsx-uses-react": "error",
     "react/display-name": "off",
     "react/prop-types": "off",
+    // "no-restricted-syntax": ["error", "SpreadElement[argument.type="Identifier"][argument.name="values"]"],
     "react/no-unknown-property": [
       "error",
       {

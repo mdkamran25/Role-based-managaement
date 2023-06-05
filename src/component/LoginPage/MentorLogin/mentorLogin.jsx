@@ -10,14 +10,11 @@ function MentorLogin() {
 
   const loginData = useSelector((state) => state.mentorLoginReducer.login)
 
-  console.log(loginData, "loginData")
-
   const showPasswordToggle = () => {
     showPassword ? setShowPassword(false) : setShowPassword(true)
   }
   const [userDetails, setUserDetails] = useState({
     email: "",
-    // password: "",
   })
 
   const dispatch = useDispatch()
@@ -28,7 +25,6 @@ function MentorLogin() {
     const validation = loginData.find(
       (user) => user.email === userDetails.email
     )
-    console.log(validation, "validation")
     if (validation) {
       dispatch(getLoginUserData(validation))
       navigate("mentorPanel")
@@ -145,7 +141,7 @@ function MentorLogin() {
         </div>
         <button
           type="submit"
-          className="btn mb-4 mt-3 btn-primary"
+          className="btn mb-4 mt-3 btn-primary text-white"
           onClick={validate}
         >
           Mentor Login

@@ -7,7 +7,6 @@ import { useSelector } from "react-redux"
 function TraineeProfile() {
   const location = useLocation()
   const ProfileData = location.state
-  console.log(ProfileData, "user Profile")
   const topics = useSelector((state) => state.topicsToLearnReducer.topics)
   return (
     <>
@@ -94,7 +93,6 @@ function TraineeProfile() {
               <p className="fw-bold fs-5 pb-2 px-3">Topics To Learn</p>
               <div className="topics-container">
                 {topics.map((item) => {
-                  // console.log(item, "item");
                   return (
                     <>
                       <div className="col-12 px-3" key={item.id}>

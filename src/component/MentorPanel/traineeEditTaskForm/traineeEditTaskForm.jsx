@@ -67,13 +67,9 @@ function TraineeEditTaskForm(props) {
     year: "numeric",
   })
 
-  console.log("matchingTrainee= ", props.matchingTrainee)
-
   const dispatch = useDispatch()
 
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values)
-
     let image = document.getElementById("file")
 
     if (image.files[0]) {
