@@ -2,92 +2,86 @@ import React, { useState, useRef } from "react"
 import { useSelector } from "react-redux"
 import nothingfind from "../../Image/nothingfind.svg"
 import "./topicsToLearn.css"
-import {
-  MDBCard,
-  MDBCardImage,
-  MDBCardBody,
-  MDBCardTitle,
-  MDBCardText,
-  MDBRow,
-  MDBCol,
-} from "mdb-react-ui-kit"
 import { Link } from "react-router-dom"
 import NewTopicsForm from "./newTopicsAdditionForm"
+
 function TopicsToLearn() {
   const topics = useSelector((state) => state.topicsToLearnReducer.topics)
   const loggedUser = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
   const [showForm, setShowForm] = useState(false)
+  const [searchTerm, setSearchTerm] = useState("")
   const openModal = () => {
     setShowForm(true)
   }
   const bottomRef = useRef(null)
+
+  // Filter topics based on search term
+  const filteredTopics = topics.filter((topic) =>
+    topic.topicName.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
   return (
     <>
-      <div className="container d-flex flex-column justify-content-center align-items-center">
-        <div className="row w-100 g-0">
-          <div className="col-12 pt-3 d-flex pb-2 align-items-center">
+      <div className="container">
+        <div className="row">
+          <div className="col-12 col-sm-5 pt-3 d-flex align-items-center">
             <h3 className="mb-0">Topics To Learn</h3>
           </div>
-          <div className="row w-100 g-0">
-            <div className="col-12">
-              <div className="input-group w-50 mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Recipient's username"
-                  aria-label="Recipient's username"
-                  aria-describedby="basic-addon2"
-                />
-              </div>
-              {loggedUser.role === "Lead" ? (
-                <button
-                  className="ms-auto btn btn-primary text-light"
-                  onClick={openModal}
-                >
-                  + Add new Topics
-                </button>
-              ) : (
-                ""
-              )}
+          <div className="col-12 col-sm-7 d-flex flex-row my-3 align-items-center">
+            <div className="input-group w-75">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search Topic Name"
+                aria-label="Search Topic Name"
+                aria-describedby="basic-addon2"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
+            {loggedUser.role === "Lead" && (
+              <button className="btn btn-primary ms-3" onClick={openModal}>
+                + Add new Topics
+              </button>
+            )}
           </div>
         </div>
-        <div className="row g-0 pb-3">
-          <MDBRow className="row-cols-1 row-cols-sm-2 row-cols-md-3 g-1 mb-5">
-            {topics &&
-              topics.map((topic, index) => {
-                return (
-                  <MDBCol
-                    className="mb-5 d-flex justify-content-center align-items-center"
-                    key={index}
-                  >
-                    <MDBCard className="cardContain">
-                      <MDBCardImage
-                        className="pb-3"
-                        src={topic.img ? topic.img : nothingfind}
-                        alt="..."
-                        position="top"
-                        height={265}
-                      />
-                      <MDBCardBody>
-                        <MDBCardTitle>
-                          <Link
-                            className="nav-link active"
-                            to="/subtopics"
-                            state={{ topicId: topic.id }}
-                          >
-                            {topic.topicName}
-                          </Link>
-                        </MDBCardTitle>
-                        <MDBCardText>{topic.description}</MDBCardText>
-                      </MDBCardBody>
-                    </MDBCard>
-                  </MDBCol>
-                )
-              })}
-          </MDBRow>
+        <div className="row">
+          {filteredTopics.length > 0 ? (
+            filteredTopics.map((topic, index) => (
+              <div
+                className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
+                key={index}
+              >
+                <div className="card h-100">
+                  <img
+                    src={topic.img ? topic.img : nothingfind}
+                    className="card-img-top img-fluid"
+                    alt="..."
+                    style={{ height: "200px", objectFit: "cover" }}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">
+                      <Link
+                        className="nav-link active"
+                        to="/subtopics"
+                        state={{ topicId: topic.id }}
+                      >
+                        {topic.topicName}
+                      </Link>
+                    </h5>
+                    <p className="card-text">{topic.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="col-12 text-center">
+              <p>No topics found.</p>
+            </div>
+          )}
         </div>
       </div>
       <div ref={bottomRef}></div>

@@ -30,11 +30,17 @@ function AllTraineeProfileCard() {
         </div>
       </div>
       <div className="row g-3 pb-3">
-        {filteredTrainees.map((item) => (
-          <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={item.id}>
-            <ProfileCard item={item} />
+        {filteredTrainees.length > 0 ? (
+          filteredTrainees.map((item) => (
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={item.id}>
+              <ProfileCard item={item} />
+            </div>
+          ))
+        ) : (
+          <div className="col-12 text-center">
+            <p>No trainees found.</p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   )
