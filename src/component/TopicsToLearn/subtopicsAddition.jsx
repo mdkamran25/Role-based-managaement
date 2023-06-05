@@ -2,13 +2,19 @@ import React, { useState } from "react"
 import { Field, ErrorMessage, Formik, Form } from "formik"
 import * as Yup from "yup"
 import minus from "../../Image/minus.png"
-
+import { Tooltip } from "react-tooltip"
+import { useDispatch } from "react-redux"
+import { addNewSubtopics } from "../../slice/TopicsToLearn/topicsToLearnSlice"
+import { useLocation } from "react-router-dom"
 const SubtopicForm = (props) => {
+  const dispatch = useDispatch()
   const closeModal = () => {
     props.setShowForm(false)
   }
+  const location = useLocation()
+  const topic_id = location.state.topicId
 
-  const [inputs, setInputs] = useState([{ id: 1, value: "" }])
+  const [inputs, setInputs] = useState([])
 
   const handleInputChange = (index, event) => {
     const newInputs = [...inputs]
@@ -29,9 +35,11 @@ const SubtopicForm = (props) => {
   }
 
   const handleSubmit = (values, { resetForm }) => {
-    // Do something with the input values
-    console.log("va")
-    console.log(values, "values")
+    values = {
+      ...values,
+      link: inputs,
+    }
+    dispatch(addNewSubtopics({ topicId: topic_id, value: values }))
     resetForm()
     closeModal()
   }
@@ -41,7 +49,7 @@ const SubtopicForm = (props) => {
     additionalInformation: Yup.string().required(
       "Additional Information is required"
     ),
-    link: Yup.string().url("Invalid URL").required("Link is required"),
+    // inputs: Yup.string().url("Invalid URL"),
   })
 
   return (
@@ -77,7 +85,7 @@ const SubtopicForm = (props) => {
                 initialValues={{
                   topicName: "",
                   additionalInformation: "",
-                  link: [],
+                  link: inputs,
                 }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
@@ -130,6 +138,7 @@ const SubtopicForm = (props) => {
                           name={`link-${index}`}
                           className="form-control"
                           onChange={(event) => handleInputChange(index, event)}
+                          required
                         />
                         <ErrorMessage
                           name={`link-${index}`}
@@ -150,18 +159,22 @@ const SubtopicForm = (props) => {
                   <button
                     type="button"
                     className="btn btn-primary text-white"
+                    data-tooltip-id="LinkRelatedToTopics"
+                    data-tooltip-content="Add Related Link For The Topic"
+                    data-tooltip-place="top"
                     onClick={handleAddInput}
                   >
                     + Add Link
                   </button>
                   <button
                     type="submit"
-                    className="ms-2 btn btn-primary text-white"
+                    className="ms-2 btn btn-success text-white"
                   >
                     Submit
                   </button>
                 </Form>
               </Formik>
+              <Tooltip id="LinkRelatedToTopics" />
             </div>
           </div>
         </div>

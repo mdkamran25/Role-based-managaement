@@ -17,7 +17,12 @@ const SmallBox = React.memo(() => {
   return (
     <>
       <div className="small-box position-absolute rounded-2">
-        {loggedUserData.role !== "Lead" &&
+        {loggedUserData.role === "Lead" ? (
+          <div className="col-12 text-center fs-6 fw-bold pt-3 text-dark">
+            No notification yet
+          </div>
+        ) : (
+          loggedUserData.role !== "Lead" &&
           notificationData.map((item, index) => {
             return (
               <React.Fragment key={index}>
@@ -66,7 +71,8 @@ const SmallBox = React.memo(() => {
                 )}
               </React.Fragment>
             )
-          })}
+          })
+        )}
       </div>
     </>
   )
@@ -103,7 +109,9 @@ function BellNotification() {
   return (
     <div
       className={`bell-notification ${
-        (matchedTrainee && matchedTrainee.ShowNotification) ||
+        (loggedUserData.role === "Trainee" &&
+          matchedTrainee &&
+          matchedTrainee.ShowNotification) ||
         (loggedUserData.role === "Mentor" && matchedMentor.showNotification)
           ? "redDot"
           : ""

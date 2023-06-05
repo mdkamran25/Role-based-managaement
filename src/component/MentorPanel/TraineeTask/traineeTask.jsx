@@ -141,7 +141,7 @@ function TraineeTask(props) {
                             &nbsp;
                             <img
                               src={deleteIcon}
-                              alt="edit"
+                              alt="delete"
                               width={40}
                               data-tooltip-id="traineeTaskTooltipDeleteEditView"
                               data-tooltip-content="Delete"

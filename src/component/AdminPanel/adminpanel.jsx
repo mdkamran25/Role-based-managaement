@@ -11,7 +11,7 @@ function AdminPanel() {
   }
   return (
     <div className="col-12 d-flex flex-column mt-5 justify-content-center align-items-center">
-      <div className="segmented-buttons position-relative col-11 rounded-top ">
+      <div className="segmented-buttons position-relative col-11 rounded-top border-bottom-0 border ">
         <button
           className={`btn pt-3 px-4 position-absolute`}
           id={`${isTraineeButtonClicked ? "submissionButton" : ""}`}
