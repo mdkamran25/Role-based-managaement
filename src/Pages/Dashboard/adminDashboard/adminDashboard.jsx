@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import "./adminpanel.css"
-import MentorDetails from "./mentorDetails/mentorDetails"
-import TraineeDetails from "./traineeDetails/traineeDetails"
+import "./adminDashboard.css"
+import MentorDetails from "../../../component/AdminDashboard/mentorDetails/mentorDetails"
+import TraineeDetails from "../../../component/AdminDashboard/traineeDetails/traineeDetails"
 
 function AdminPanel() {
   const [isTraineeButtonClicked, setTraineeButtonClicked] = useState(true)
@@ -11,7 +11,7 @@ function AdminPanel() {
   }
   return (
     <div className="col-12 d-flex flex-column mt-5 justify-content-center align-items-center">
-      <div className="segmented-buttons position-relative col-11 rounded-top border-bottom-0 border ">
+      <div className="segmented-buttons position-relative col-11 rounded-top">
         <button
           className={`btn pt-3 px-4 position-absolute`}
           id={`${isTraineeButtonClicked ? "submissionButton" : ""}`}
@@ -36,7 +36,6 @@ function AdminPanel() {
           </div>
         )}
       </div>
-      {/* <MentorDetails /> */}
     </div>
   )
 }

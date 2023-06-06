@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import SubtopicForm from "./subtopicsAddition"
+import SubtopicForm from "../../component/TopicsToLearn/subtopicsAddition"
 import deleteIcon from "../../Image/icons-delete.svg"
 import "./topicsToLearn.css"
 import { useSelector, useDispatch } from "react-redux"

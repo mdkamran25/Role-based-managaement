@@ -13,7 +13,7 @@ import { deleteTask } from "../../../slice/trainee/traineeLoginSlice"
 import { Tooltip } from "react-tooltip"
 import TraineeEditTaskForm from "../traineeEditTaskForm/traineeEditTaskForm"
 import ViewAssignedTask from "../viewAssignedTask/viewAssignedTask"
-import TaskSubmissionForm from "../../TraineePanel/TaskSubmissionForm/tasksubmissionForm"
+import TaskSubmissionForm from "../../TraineeDashboard/TaskSubmissionForm/tasksubmissionForm"
 function TraineeTask(props) {
   const [modalOpen, setModalOpen] = useState(false)
   const [editTaskForm, setEditTaskForm] = useState(false)

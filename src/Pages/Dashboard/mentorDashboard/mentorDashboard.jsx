@@ -2,10 +2,10 @@ import React from "react"
 import { useSelector } from "react-redux"
 // import TraineeSubmission from "../TraineeSubmission/traineeSubmission"
 // import TraineeTask from "../TraineeTask/traineeTask"
-import "./traineeAssignedToMentor.css"
-import ProfileCard from "../../ProfileCard/profileCard"
-import TaskSubmit from "../../Task-submit/taskSubmit"
-function TraineeAssignedToMentor() {
+import "./mentorDashboard.css"
+import ProfileCard from "../../../component/ProfileCard/profileCard"
+import TaskSubmit from "../../../component/Task-submit/taskSubmit"
+function mentorDashboard() {
   const mentorDetail = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
@@ -15,13 +15,6 @@ function TraineeAssignedToMentor() {
   const matchingTrainees = traineeData.filter(
     (trainee) => trainee.mentor === mentorDetail.email
   )
-
-  // const [isSubmissionButtonClicked, setSubmissionButtonClicked] =
-  //   useState(false)
-
-  // const handleSubmissionButtonClick = () => {
-  //   setSubmissionButtonClicked(!isSubmissionButtonClicked)
-  // }
 
   return (
     <>
@@ -51,4 +44,4 @@ function TraineeAssignedToMentor() {
   )
 }
 
-export default TraineeAssignedToMentor
+export default mentorDashboard

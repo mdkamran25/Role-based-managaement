@@ -15,6 +15,7 @@ function MentorLogin() {
   }
   const [userDetails, setUserDetails] = useState({
     email: "",
+    password: "",
   })
 
   const dispatch = useDispatch()
@@ -22,15 +23,18 @@ function MentorLogin() {
 
   const validate = (e) => {
     e.preventDefault()
-    const validation = loginData.find(
-      (user) => user.email === userDetails.email
+
+    const foundUser = loginData.find(
+      (user) =>
+        user.email === userDetails.email &&
+        user.password === userDetails.password
     )
-    if (validation) {
-      dispatch(getLoginUserData(validation))
-      navigate("mentorPanel")
+
+    if (foundUser) {
+      dispatch(getLoginUserData(foundUser))
+      navigate("mentorDashboard")
     } else {
-      toast.error("Invalid ID.")
-      return false
+      toast.error("Invalid email or password.")
     }
   }
 
@@ -96,6 +100,12 @@ function MentorLogin() {
                 type={showPassword ? "password" : "text"}
                 className="bg-transparent border-0 outline-0"
                 placeholder="Enter Password"
+                onChange={(e) =>
+                  setUserDetails((prevState) => ({
+                    ...prevState,
+                    password: e.target.value,
+                  }))
+                }
                 required
               />
             </div>

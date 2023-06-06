@@ -1,11 +1,11 @@
 import React from "react"
 import { useSelector } from "react-redux"
 import "./navbar.css"
-import MentorPanelSidebar from "../MentorPanel/mentorPanelSideBar"
+import MentorPanelSidebar from "../sidebar/mentorPanelSideBar"
 import brandLogo from "../../Image/logo.png"
-import TraineePanelSidebar from "../TraineePanel/traineePanelSidebar"
+import TraineePanelSidebar from "../sidebar/traineePanelSidebar"
 import BellNotification from "../BellNotification/bellNotification"
-import AdminPanelSidebar from "../AdminPanel/adminPanelSidebar"
+import AdminPanelSidebar from "../sidebar/adminPanelSidebar"
 
 const Navbar = () => {
   const LoggedUserData = useSelector(
@@ -22,7 +22,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="navbar text-light bg-primary">
+    <nav className="navbar text-light bg-primary sticky-top">
       <div className="container-fluid">
         <p className="navbar-brand text-light">
           <img src={brandLogo} width={120} alt="bellIcon" />

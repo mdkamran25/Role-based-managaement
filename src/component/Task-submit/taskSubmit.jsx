@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import TraineeSubmission from "../MentorPanel/TraineeSubmission/traineeSubmission"
-import TraineeTask from "../MentorPanel/TraineeTask/traineeTask"
+import TraineeSubmission from "../MentorDashboard/TraineeSubmission/traineeSubmission"
+import TraineeTask from "../MentorDashboard/TraineeTask/traineeTask"
 import "./taskSubmit.css"
 
 function TaskSubmit(props) {

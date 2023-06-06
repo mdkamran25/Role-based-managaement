@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import uuid from "react-uuid"
 
 const initialState = {
   login: [
@@ -12,6 +13,7 @@ const initialState = {
       SecondTraineeEmail: "mdkamran12310@gmail.com",
       role: "Mentor",
       showNotification: false,
+      password: "mentor@123",
     },
   ],
 }
@@ -22,7 +24,7 @@ const mentorLoginSlice = createSlice({
   reducers: {
     addMentor: (state, action) => {
       const newMentor = {
-        id: state.login.length + 1,
+        id: uuid().substring(0, 8),
         role: "Mentor",
         showNotification: false,
         ...action.payload,

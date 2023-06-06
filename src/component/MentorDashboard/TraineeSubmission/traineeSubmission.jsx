@@ -9,8 +9,8 @@ import evaluation from "../../../Image/evaluation.png"
 import { useSelector, useDispatch } from "react-redux"
 import { deleteSubmissions } from "../../../slice/trainee/traineeLoginSlice"
 import { Tooltip } from "react-tooltip"
-import SubmissionEditForm from "../../TraineePanel/submissionEditForm/submissionEditForm"
-import ViewSubmissionData from "../../TraineePanel/viewSubmissionData/viewSubmissionData"
+import SubmissionEditForm from "../../TraineeDashboard/submissionEditForm/submissionEditForm"
+import ViewSubmissionData from "../../TraineeDashboard/viewSubmissionData/viewSubmissionData"
 import Evaluation from "../Evaluation/evaluation"
 function TraineeSubmission() {
   const [isSubmissionButtonClicked, setSubmissionButtonClicked] = useState(true)

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 import nothingfind from "../../Image/nothingfind.svg"
 import "./topicsToLearn.css"
 import { Link } from "react-router-dom"
-import NewTopicsForm from "./newTopicsAdditionForm"
+import NewTopicsForm from "../../component/TopicsToLearn/newTopicsAdditionForm"
 
 function TopicsToLearn() {
   const topics = useSelector((state) => state.topicsToLearnReducer.topics)
@@ -30,7 +30,7 @@ function TopicsToLearn() {
             <h3 className="mb-0">Topics To Learn</h3>
           </div>
           <div className="col-12 col-sm-7 d-flex flex-row my-3 align-items-center">
-            <div className="input-group w-75">
+            <div className="input-group ms-sm-auto w-75">
               <input
                 type="text"
                 className="form-control"
@@ -42,7 +42,10 @@ function TopicsToLearn() {
               />
             </div>
             {loggedUser.role === "Lead" && (
-              <button className="btn btn-primary ms-3" onClick={openModal}>
+              <button
+                className="btn btn-primary ms-3 text-white"
+                onClick={openModal}
+              >
                 + Add new Topics
               </button>
             )}

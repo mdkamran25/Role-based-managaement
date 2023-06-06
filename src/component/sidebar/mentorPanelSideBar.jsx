@@ -30,7 +30,7 @@ function MentorPanelSidebar() {
           <li className="nav-item">
             <Link
               className="nav-link active"
-              to="mentorPanel"
+              to="mentorDashboard"
               onClick={handleLinkClick}
             >
               Dashboard

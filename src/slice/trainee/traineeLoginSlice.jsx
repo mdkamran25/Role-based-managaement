@@ -20,6 +20,7 @@ const initialState = {
       github: undefined,
       linkdin: undefined,
       ShowNotification: false,
+      password: "kamran@123",
     },
     {
       id: 2,
@@ -37,6 +38,7 @@ const initialState = {
       github: undefined,
       linkdin: undefined,
       ShowNotification: false,
+      password: "khan@123",
     },
     {
       id: 3,
@@ -54,6 +56,7 @@ const initialState = {
       github: undefined,
       linkdin: undefined,
       ShowNotification: false,
+      password: "dipak@123",
     },
     {
       id: 4,
@@ -71,6 +74,7 @@ const initialState = {
       github: undefined,
       linkdin: undefined,
       ShowNotification: false,
+      password: "rishi@123",
     },
     {
       id: 5,
@@ -88,6 +92,7 @@ const initialState = {
       github: undefined,
       linkdin: undefined,
       ShowNotification: false,
+      password: "anjali@123",
     },
     {
       id: 6,
@@ -105,6 +110,7 @@ const initialState = {
       github: undefined,
       linkdin: undefined,
       ShowNotification: false,
+      password: "prashant@123",
     },
     {
       id: 7,
@@ -122,6 +128,7 @@ const initialState = {
       github: undefined,
       linkdin: undefined,
       ShowNotification: false,
+      password: "chetan@123",
     },
     {
       id: 8,
@@ -139,6 +146,7 @@ const initialState = {
       github: undefined,
       linkdin: undefined,
       ShowNotification: false,
+      password: "ashish@123",
     },
     {
       id: 9,
@@ -156,6 +164,7 @@ const initialState = {
       github: undefined,
       linkdin: undefined,
       ShowNotification: false,
+      password: "vipul@123",
     },
   ],
 }

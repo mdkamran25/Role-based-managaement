@@ -1,9 +1,9 @@
 import React, { useState } from "react"
-import ProfileCard from "../ProfileCard/profileCard"
+import ProfileCard from "../../component/ProfileCard/profileCard"
 import { useSelector } from "react-redux"
-import "./allTraineeProfileCard.css"
+import "./allTraineeProfile.css"
 
-function AllTraineeProfileCard() {
+function AllTraineeProfile() {
   const traineeData = useSelector((state) => state.traineeLoginReducer.login)
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -46,4 +46,4 @@ function AllTraineeProfileCard() {
   )
 }
 
-export default AllTraineeProfileCard
+export default AllTraineeProfile

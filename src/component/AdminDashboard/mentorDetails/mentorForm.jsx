@@ -28,6 +28,12 @@ const validationSchema = Yup.object().shape({
   SecondTraineeEmail: Yup.string()
     .email("Invalid email")
     .required("Trainee Email is required"),
+  password: Yup.string()
+    .matches(
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,10}$/,
+      "Password must contain at least one letter, one number, one special character, and be 5-10 characters long"
+    )
+    .required("Password is required"),
 })
 function MentorForm(props) {
   const trainees = useSelector((state) => state.traineeLoginReducer.login || [])
@@ -90,6 +96,7 @@ function MentorForm(props) {
                   department: "",
                   designation: "",
                   email: "",
+                  password: "",
                 }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
@@ -213,6 +220,24 @@ function MentorForm(props) {
                             {errors.SecondTraineeEmail}
                           </div>
                         )}
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="password" className="form-label">
+                        Password
+                      </label>
+                      <Field
+                        type="password"
+                        id="password"
+                        name="password"
+                        className={`form-control ${
+                          touched.password && errors.password
+                            ? "is-invalid"
+                            : ""
+                        }`}
+                      />
+                      {touched.password && errors.password && (
+                        <div className="text-danger">{errors.password}</div>
+                      )}
                     </div>
 
                     <button type="submit" className="btn btn-primary">

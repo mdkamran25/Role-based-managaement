@@ -1,8 +1,7 @@
 import * as React from "react"
 import "./index.css"
-// #cfe2ff
-import LoginPageAnimation from "./LoginPageAnimation/LoginPageAnimation"
-import MultiUserLoginButtton from "./MultiUSerLoginButton/MultiUserLoginButton"
+import LoginPageAnimation from "../../component/LoginPage/LoginPageAnimation/LoginPageAnimation"
+import MultiUserLoginButtton from "../../component/LoginPage/MultiUSerLoginButton/MultiUserLoginButton"
 function Index() {
   return (
     <>

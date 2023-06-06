@@ -16,7 +16,7 @@ function TraineeLogin() {
 
   const [userDetails, setUserDetails] = useState({
     email: "",
-    // password: "",
+    password: "",
   })
 
   const dispatch = useDispatch()
@@ -24,16 +24,19 @@ function TraineeLogin() {
 
   const validate = (e) => {
     e.preventDefault()
-    const validation = loginData.find((user) => {
-      return user.email === userDetails.email
-    })
 
-    if (validation) {
-      dispatch(getLoginUserData(validation))
-      navigate("traineePanel")
+    const foundUser = loginData.find(
+      (user) =>
+        user.email === userDetails.email &&
+        user.mentor &&
+        user.password === userDetails.password
+    )
+
+    if (foundUser) {
+      dispatch(getLoginUserData(foundUser))
+      navigate("traineeProfile")
     } else {
-      toast.error("Invalid ID.")
-      return false
+      toast.error("Invalid email or password.")
     }
   }
   return (
@@ -98,6 +101,12 @@ function TraineeLogin() {
                 type={showPassword ? "password" : "text"}
                 className="bg-transparent border-0 outline-0"
                 placeholder="Enter Password"
+                onChange={(e) =>
+                  setUserDetails((prevState) => ({
+                    ...prevState,
+                    password: e.target.value,
+                  }))
+                }
                 required
               />
             </div>
