@@ -3,9 +3,9 @@ import { useSelector } from "react-redux"
 // import TraineeSubmission from "../TraineeSubmission/traineeSubmission"
 // import TraineeTask from "../TraineeTask/traineeTask"
 import "./mentorDashboard.css"
-import ProfileCard from "../../../component/ProfileCard/profileCard"
-import TaskSubmit from "../../../component/Task-submit/taskSubmit"
-function mentorDashboard() {
+import ProfileCard from "../ProfileCard/profileCard"
+import TaskSubmit from "../Task-submit/taskSubmit"
+function MentorDashboard() {
   const mentorDetail = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
@@ -44,4 +44,4 @@ function mentorDashboard() {
   )
 }
 
-export default mentorDashboard
+export default MentorDashboard

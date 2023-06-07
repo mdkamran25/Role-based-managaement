@@ -30,7 +30,7 @@ function TraineePanelSidebar() {
           <li className="nav-item">
             <Link
               className="nav-link active"
-              to="traineePanel"
+              to="dashboard"
               onClick={handleLinkClick}
             >
               Dashboard

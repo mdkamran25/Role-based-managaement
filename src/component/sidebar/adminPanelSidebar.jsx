@@ -31,7 +31,7 @@ function AdminPanelSidebar() {
           <li className="nav-item">
             <Link
               className="nav-link active"
-              to="adminPanel"
+              to="dashboard"
               onClick={handleLinkClick}
             >
               Dashboard

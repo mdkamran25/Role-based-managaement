@@ -1,10 +1,10 @@
 import React from "react"
 import { useSelector } from "react-redux"
 // import TraineeTask from "../MentorPanel/TraineeTask/traineeTask"
-import ProfileCard from "../../../component/ProfileCard/profileCard"
-import TaskSubmit from "../../../component/Task-submit/taskSubmit"
+import ProfileCard from "../ProfileCard/profileCard"
+import TaskSubmit from "../Task-submit/taskSubmit"
 
-function traineeDashboard() {
+function TraineeDashboard() {
   const traineeData = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
@@ -26,4 +26,4 @@ function traineeDashboard() {
   )
 }
 
-export default traineeDashboard
+export default TraineeDashboard

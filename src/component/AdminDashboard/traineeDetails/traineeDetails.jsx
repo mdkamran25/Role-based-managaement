@@ -6,23 +6,23 @@ import "./traineeDetails.css"
 function TraineeDetails() {
   const traineeDetail = useSelector((state) => state.traineeLoginReducer.login)
   const [modalOpen, setModalOpen] = useState(false)
-  const openModal = () => {
-    setModalOpen(true)
-  }
+  // const openModal = () => {
+  //   setModalOpen(true)
+  // }
 
   return (
     <>
       <div className="col-12 pt-3 pe-2">
-        <span className="table-name ps-1">Trainee Details</span>
-        <button
+        <span className="table-name ps-1 ">Trainee Details</span>
+        {/* <button
           className="btn btn-primary float-end text-light"
           onClick={openModal}
         >
           + Add Trainee
-        </button>
+        </button> */}
       </div>
       <hr />
-      <div className="col-12 traineeTable">
+      <div className="col-12 traineeTable ">
         <table className="table table-striped table-hover">
           <thead>
             <tr>

@@ -1,7 +1,10 @@
 import * as React from "react"
 import "./index.css"
+// import { Route } from "react-router-dom"
+// import { useSelector } from "react-redux"
 import LoginPageAnimation from "../../component/LoginPage/LoginPageAnimation/LoginPageAnimation"
 import MultiUserLoginButtton from "../../component/LoginPage/MultiUSerLoginButton/MultiUserLoginButton"
+// import TraineeProfile from "../TraineeProfile/TraineeProfile"
 function Index() {
   return (
     <>

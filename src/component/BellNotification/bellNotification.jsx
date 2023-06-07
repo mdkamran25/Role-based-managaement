@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-constant-condition */
 import React, { useState, useCallback } from "react"
 import bell from "../../Image/bell.png"
 import "./bellNotification.css"
@@ -133,7 +135,7 @@ function BellNotification() {
         ? { "current-count": "" }
         : {})}
     >
-      <img src={bell} className="bell" width={40} alt="bell-notification" />
+      <img src={bell} className="bell" width={30} alt="bell-notification" />
       {isBoxVisible && <SmallBox />}
     </div>
   )

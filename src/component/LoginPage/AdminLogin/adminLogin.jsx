@@ -30,7 +30,7 @@ function AdminLogin() {
     )
     if (validation) {
       dispatch(getLoginUserData(validation))
-      navigate("adminPanel")
+      navigate("dashboard")
     } else {
       toast.error("Invalid ID.")
       return false
@@ -60,6 +60,8 @@ function AdminLogin() {
             </div>
             <div className="col-11 align-self-center ps-lg-0 ps-2">
               <input
+                autoComplete="off"
+                required
                 type="text"
                 className="bg-transparent border-0 outline-0"
                 placeholder="Enter Email"
@@ -69,7 +71,6 @@ function AdminLogin() {
                     email: e.target.value,
                   }))
                 }
-                required
               />
             </div>
           </div>
@@ -95,6 +96,8 @@ function AdminLogin() {
             </div>
             <div className="col-10 align-self-center ps-lg-0 ps-2">
               <input
+                autoComplete="off"
+                required
                 type={showPassword ? "password" : "text"}
                 className="bg-transparent border-0 outline-0"
                 placeholder="Enter Password"
@@ -104,7 +107,6 @@ function AdminLogin() {
                     password: e.target.value,
                   }))
                 }
-                required
               />
             </div>
             <div className="col-1" onClick={() => showPasswordToggle()}>

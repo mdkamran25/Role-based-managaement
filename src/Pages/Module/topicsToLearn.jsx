@@ -27,15 +27,15 @@ function TopicsToLearn() {
       <div className="container">
         <div className="row">
           <div className="col-12 col-sm-5 pt-3 d-flex align-items-center">
-            <h3 className="mb-0">Topics To Learn</h3>
+            <h3 className="mb-0">Modules To Learn</h3>
           </div>
           <div className="col-12 col-sm-7 d-flex flex-row my-3 align-items-center">
             <div className="input-group ms-sm-auto w-75">
               <input
                 type="text"
                 className="form-control"
-                placeholder="Search Topic Name"
-                aria-label="Search Topic Name"
+                placeholder="Search Module Name"
+                aria-label="Search Module Name"
                 aria-describedby="basic-addon2"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -46,7 +46,7 @@ function TopicsToLearn() {
                 className="btn btn-primary ms-3 text-white"
                 onClick={openModal}
               >
-                + Add new Topics
+                + Add new Module
               </button>
             )}
           </div>
@@ -69,8 +69,7 @@ function TopicsToLearn() {
                     <h5 className="card-title">
                       <Link
                         className="nav-link active"
-                        to="/subtopics"
-                        state={{ topicId: topic.id }}
+                        to={`/module/${topic.id}`}
                       >
                         {topic.topicName}
                       </Link>
@@ -82,7 +81,7 @@ function TopicsToLearn() {
             ))
           ) : (
             <div className="col-12 text-center">
-              <p>No topics found.</p>
+              <p>No module found.</p>
             </div>
           )}
         </div>

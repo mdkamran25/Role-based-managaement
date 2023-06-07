@@ -41,9 +41,9 @@ function MentorDetails() {
               </tr>
             </thead>
             <tbody>
-              {mentorDetail.map((item) => (
+              {mentorDetail.map((item, index) => (
                 <tr key={item.id}>
-                  <th>{item.id}</th>
+                  <th>{index}</th>
                   <td>{item.name}</td>
                   <td>{item.email}</td>
                   <td>{item.designation}</td>

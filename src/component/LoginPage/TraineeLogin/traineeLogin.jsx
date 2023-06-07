@@ -34,7 +34,7 @@ function TraineeLogin() {
 
     if (foundUser) {
       dispatch(getLoginUserData(foundUser))
-      navigate("traineeProfile")
+      navigate("dashboard")
     } else {
       toast.error("Invalid email or password.")
     }
@@ -108,6 +108,7 @@ function TraineeLogin() {
                   }))
                 }
                 required
+                autoComplete="off"
               />
             </div>
             <div className="col-1" onClick={() => showPasswordToggle()}>

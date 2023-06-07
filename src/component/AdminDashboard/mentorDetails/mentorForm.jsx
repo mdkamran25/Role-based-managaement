@@ -2,7 +2,7 @@ import React from "react"
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
 import { updateTrainee } from "../../../slice/trainee/traineeLoginSlice"
-import { addMentor } from "../../../slice/mentor/mentorLoginSlice"
+import { addMentor, mentorStatus } from "../../../slice/mentor/mentorLoginSlice"
 import { useDispatch, useSelector } from "react-redux"
 
 const validationSchema = Yup.object().shape({
@@ -25,19 +25,25 @@ const validationSchema = Yup.object().shape({
   FirstTraineeEmail: Yup.string()
     .email("Invalid email")
     .required("Trainee Email is required"),
-  SecondTraineeEmail: Yup.string()
-    .email("Invalid email")
-    .required("Trainee Email is required"),
-  password: Yup.string()
-    .matches(
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,10}$/,
-      "Password must contain at least one letter, one number, one special character, and be 5-10 characters long"
-    )
-    .required("Password is required"),
+  SecondTraineeEmail: Yup.string().email("Invalid email"),
+  // .required("Trainee Email is required"),
+  // password: Yup.string()
+  //   .matches(
+  //     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,10}$/,
+  //     "Password must contain at least one letter, one number, one special character, and be 5-10 characters long"
+  //   )
+  //   .required("Password is required"),
 })
 function MentorForm(props) {
   const trainees = useSelector((state) => state.traineeLoginReducer.login || [])
+  const allMentorInReactDepartment = useSelector(
+    (state) => state.mentorLoginReducer.allMentorsInReactDepartment || []
+  )
 
+  const mentorOptions = allMentorInReactDepartment.filter(
+    (mentor) => !mentor.assigned
+  )
+  console.log(mentorOptions, allMentorInReactDepartment)
   const closeModal = () => {
     props.setModalOpen(false)
   }
@@ -46,6 +52,7 @@ function MentorForm(props) {
 
   const handleSubmit = async (values) => {
     dispatch(addMentor(values))
+    dispatch(mentorStatus(values.email))
 
     const mentor = values
     const matchingTrainees = trainees.filter(
@@ -96,7 +103,7 @@ function MentorForm(props) {
                   department: "",
                   designation: "",
                   email: "",
-                  password: "",
+                  // password: "",
                 }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}
@@ -108,6 +115,8 @@ function MentorForm(props) {
                         Name
                       </label>
                       <Field
+                        autoComplete="off"
+                        required
                         type="text"
                         id="name"
                         name="name"
@@ -125,6 +134,8 @@ function MentorForm(props) {
                         Department
                       </label>
                       <Field
+                        autoComplete="off"
+                        required
                         type="text"
                         id="department"
                         name="department"
@@ -143,6 +154,8 @@ function MentorForm(props) {
                         Designation
                       </label>
                       <Field
+                        autoComplete="off"
+                        required
                         type="text"
                         id="designation"
                         name="designation"
@@ -162,13 +175,22 @@ function MentorForm(props) {
                         Mentor Email
                       </label>
                       <Field
-                        type="email"
+                        autoComplete="off"
+                        required
+                        as="select"
                         id="email"
                         name="email"
                         className={`form-control ${
                           touched.email && errors.email ? "is-invalid" : ""
                         }`}
-                      />
+                      >
+                        <option value="">Select Mentor Email</option>
+                        {mentorOptions.map((mentor) => (
+                          <option key={mentor.id} value={mentor.mentor}>
+                            {mentor.mentor}
+                          </option>
+                        ))}
+                      </Field>
 
                       {touched.email && errors.email && (
                         <div className="text-danger">{errors.email}</div>
@@ -180,6 +202,8 @@ function MentorForm(props) {
                         First Trainee Email
                       </label>
                       <Field
+                        autoComplete="off"
+                        required
                         type="email"
                         id="FirstTraineeEmail"
                         name="FirstTraineeEmail"
@@ -204,6 +228,7 @@ function MentorForm(props) {
                         Second Trainee Email
                       </label>
                       <Field
+                        autoComplete="off"
                         type="email"
                         id="SecondTraineeEmail"
                         name="SecondTraineeEmail"
@@ -221,11 +246,13 @@ function MentorForm(props) {
                           </div>
                         )}
                     </div>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                       <label htmlFor="password" className="form-label">
                         Password
                       </label>
                       <Field
+                        autoComplete="off"
+                        required
                         type="password"
                         id="password"
                         name="password"
@@ -238,7 +265,7 @@ function MentorForm(props) {
                       {touched.password && errors.password && (
                         <div className="text-danger">{errors.password}</div>
                       )}
-                    </div>
+                    </div> */}
 
                     <button type="submit" className="btn btn-primary">
                       Submit

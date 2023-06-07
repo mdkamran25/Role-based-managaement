@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import "./adminDashboard.css"
-import MentorDetails from "../../../component/AdminDashboard/mentorDetails/mentorDetails"
-import TraineeDetails from "../../../component/AdminDashboard/traineeDetails/traineeDetails"
+import MentorDetails from "./mentorDetails/mentorDetails"
+import TraineeDetails from "./traineeDetails/traineeDetails"
 
-function AdminPanel() {
+function AdminDashboard() {
   const [isTraineeButtonClicked, setTraineeButtonClicked] = useState(true)
 
   const handleTraineefButtonClick = () => {
@@ -31,7 +31,7 @@ function AdminPanel() {
         {isTraineeButtonClicked ? (
           <MentorDetails />
         ) : (
-          <div className="col-11 traineeDetailsMainContainer rounded-bottom d-flex flex-column">
+          <div className="col-11 mb-3 traineeDetailsMainContainer rounded-bottom d-flex flex-column">
             <TraineeDetails />
           </div>
         )}
@@ -40,4 +40,4 @@ function AdminPanel() {
   )
 }
 
-export default AdminPanel
+export default AdminDashboard
