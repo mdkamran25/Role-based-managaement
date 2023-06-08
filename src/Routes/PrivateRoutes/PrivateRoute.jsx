@@ -1,16 +1,15 @@
 import React from "react"
-import { Navigate } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
 import { useSelector } from "react-redux"
 
-const ProtectedLogin = ({ children }) => {
+const PrivateRoute = ({ children }) => {
   const loggedUser = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
-
-  if (!loggedUser) {
+  if (loggedUser.length === 0) {
     return <Navigate to="/" replace />
   }
-  return children
+  return children ? children : <Outlet />
 }
 
-export default ProtectedLogin
+export default PrivateRoute

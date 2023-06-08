@@ -164,4 +164,4 @@ function AdminLogin() {
   )
 }
 
-export default AdminLogin
+export default React.memo(AdminLogin)

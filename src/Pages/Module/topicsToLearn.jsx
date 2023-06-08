@@ -3,7 +3,7 @@ import { useSelector } from "react-redux"
 import nothingfind from "../../Image/nothingfind.svg"
 import "./topicsToLearn.css"
 import { Link } from "react-router-dom"
-import NewTopicsForm from "../../component/TopicsToLearn/newTopicsAdditionForm"
+import NewTopicsForm from "../../component/Module/newTopicsAdditionForm"
 
 function TopicsToLearn() {
   const topics = useSelector((state) => state.topicsToLearnReducer.topics)

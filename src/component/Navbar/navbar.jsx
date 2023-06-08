@@ -1,11 +1,11 @@
 import React from "react"
 import { useSelector } from "react-redux"
 import "./navbar.css"
-import MentorPanelSidebar from "../sidebar/mentorPanelSideBar"
+import MentorPanelSidebar from "../Sidebar/mentorPanelSideBar"
 import brandLogo from "../../Image/logo.png"
-import TraineePanelSidebar from "../sidebar/traineePanelSidebar"
+import TraineePanelSidebar from "../Sidebar/traineePanelSidebar"
 import BellNotification from "../BellNotification/bellNotification"
-import AdminPanelSidebar from "../sidebar/adminPanelSidebar"
+import AdminPanelSidebar from "../Sidebar/adminPanelSidebar"
 
 const Navbar = () => {
   const LoggedUserData = useSelector(

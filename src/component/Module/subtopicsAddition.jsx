@@ -5,14 +5,14 @@ import minus from "../../Image/minus.png"
 import { Tooltip } from "react-tooltip"
 import { useDispatch } from "react-redux"
 import { addNewSubtopics } from "../../slice/TopicsToLearn/topicsToLearnSlice"
-import { useLocation } from "react-router-dom"
+import { useParams } from "react-router-dom"
 const SubtopicForm = (props) => {
   const dispatch = useDispatch()
   const closeModal = () => {
     props.setShowForm(false)
   }
-  const location = useLocation()
-  const topic_id = location.state.topicId
+  let { topic_id } = useParams()
+  topic_id = parseInt(topic_id)
 
   const [inputs, setInputs] = useState([])
 

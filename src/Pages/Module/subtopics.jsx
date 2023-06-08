@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import SubtopicForm from "../../component/TopicsToLearn/subtopicsAddition"
+import SubtopicForm from "../../component/Module/subtopicsAddition"
 import deleteIcon from "../../Image/icons-delete.svg"
 import "./topicsToLearn.css"
 import { useSelector, useDispatch } from "react-redux"
@@ -63,12 +63,14 @@ const SubTopics = () => {
                   className="row w-100 g-0 position-relative"
                   key={subtopic.id}
                 >
-                  <img
-                    src={deleteIcon}
-                    alt="delete"
-                    className="deleteSubtopics position-absolute end-0 me-sm-5"
-                    onClick={() => dltSubtopics(subtopic.id)}
-                  />
+                  {loggedUser.role === "Lead" && (
+                    <img
+                      src={deleteIcon}
+                      alt="delete"
+                      className="deleteSubtopics position-absolute end-0 me-sm-5"
+                      onClick={() => dltSubtopics(subtopic.id)}
+                    />
+                  )}
                   <div className="col-12 ps-2">
                     <h5>{subtopic.topicName}</h5>
 

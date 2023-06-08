@@ -32,6 +32,10 @@ function MentorLogin() {
 
     if (foundUser) {
       dispatch(getLoginUserData(foundUser))
+      setUserDetails({
+        email: "",
+        password: "",
+      })
       navigate("dashboard")
     } else {
       toast.error("Invalid email or password.")
@@ -62,11 +66,13 @@ function MentorLogin() {
             </div>
             <div className="col-11 align-self-center ps-lg-0 ps-2">
               <input
-                autoComplete="off"
+                // autoComplete="off"
+                autoComplete="new-password"
                 required
-                type="text"
+                type="email"
                 className="bg-transparent border-0 outline-0"
                 placeholder="Enter Email"
+                value={userDetails.email}
                 onChange={(e) =>
                   setUserDetails((prevState) => ({
                     ...prevState,

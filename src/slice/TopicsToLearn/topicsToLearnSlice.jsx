@@ -104,11 +104,14 @@ const topicsToLearnSlice = createSlice({
         }
         topic.subTopics.push({ ...value, id: uuid().substring(0, 8) })
       }
-      console.log(current(state.topics), "topics")
     },
     deleteSubtopics: (state, action) => {
       const { topicId, subtopic_id } = action.payload
-      const topic = state.topics.find((topic) => topicId === topic.id)
+
+      const topic = state.topics.find(
+        (topic) => topicId === topic.id.toString()
+      )
+
       if (topic) {
         topic.subTopics = topic.subTopics.filter(
           (subtopic) => subtopic.id !== subtopic_id
