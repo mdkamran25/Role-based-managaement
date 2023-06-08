@@ -34,9 +34,9 @@ function TraineeProfile() {
                 <p className="fw-bold fs-2">{ProfileData.name}</p>
                 <p className="fw-light fs-5 mb-0">{ProfileData.role}</p>
                 <p className="fw-light fs-5">{ProfileData.college}</p>
-                <button className="btn btn-primary text-light px-3">
+                {/* <button className="btn btn-primary text-light px-3">
                   Message
-                </button>
+                </button> */}
               </div>
               {/* Personal-Details */}
               <div className="col-10 mt-3 mt-md-0 col-md-8 Personal-Detail rounded-4 py-5">

@@ -29,9 +29,9 @@ const ProfileCard = (props) => {
       <p className="fw-light fs-5 mb-0">{item.role}</p>
       <p className="fw-light fs-5">{item.college}</p>
       <div className="col-12 d-flex flex-sm-column flex-xl-row justify-content-evenly">
-        <Link>
+        {/* <Link>
           <button className="btn bg-primary text-light  px-3">Message</button>
-        </Link>
+        </Link> */}
         <Link to={`/traineeProfile/id=/${item.id}`} className="text-center">
           <button className="btn text-primary border border-primary mt-sm-2 mt-xl-0 px-3">
             View Profile
