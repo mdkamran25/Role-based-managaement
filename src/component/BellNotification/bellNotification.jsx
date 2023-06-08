@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-constant-condition */
 import React, { useState, useCallback } from "react"
-import bell from "../../Image/bell.png"
+import bell from "../../assets/Image/bell.png"
 import "./bellNotification.css"
 import { useDispatch, useSelector } from "react-redux"
 import { setNotification } from "../../slice/trainee/traineeLoginSlice"

@@ -8,12 +8,13 @@ import Navbar from "./component/Navbar/navbar"
 import TopicsToLearn from "./Pages/Module/topicsToLearn"
 import AllTraineeProfile from "./Pages/AllTraineeProfile/allTraineeProfile"
 import SubTopics from "./Pages/Module/subtopics"
-import Dashboard from "./Pages/Dashboard/dashboard"
+const Dashboard = React.lazy(() => import("./Pages/Dashboard/dashboard"))
 import NoPageFound from "./component/NoPageFound/pageNotFound"
 import PrivateRoute from "./Routes/PrivateRoutes/PrivateRoute"
 import PublicRoute from "./Routes/PublicRoutes/PublicRoutes"
 import ProtectedTraineeProfile from "./Routes/ProtectedRoutes/ProtectedTraineeProfileRoute"
 import ProtectedAllTraineeProfile from "./Routes/ProtectedRoutes/ProtectedAllTraineeProfileRoute"
+import Loader from "./component/Loader/Loader"
 function App() {
   const title = useLocation()
   let showNavbar = true
@@ -26,12 +27,20 @@ function App() {
       {showNavbar ? <Navbar /> : null}
 
       <Routes>
+        {/* <Route path="/" element={<Loader />} /> */}
         <Route element={<PublicRoute />}>
           <Route path="/" element={<Index />} />
         </Route>
 
         <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route
+            path="/dashboard"
+            element={
+              <React.Suspense fallback={<Loader />}>
+                <Dashboard />
+              </React.Suspense>
+            }
+          />
 
           <Route path={`/module/:topic_id`} element={<SubTopics />} />
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import SubtopicForm from "../../component/Module/subtopicsAddition"
-import deleteIcon from "../../Image/icons-delete.svg"
+import deleteIcon from "../../assets/Image/icons-delete.svg"
 import "./topicsToLearn.css"
 import { useSelector, useDispatch } from "react-redux"
 

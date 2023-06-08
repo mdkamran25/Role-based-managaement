@@ -31,7 +31,6 @@ const mentorLoginSlice = createSlice({
   initialState,
   reducers: {
     addMentor: (state, action) => {
-      console.log(action.payload.name, "name")
       const newMentor = {
         id: uuid().substring(0, 8),
         role: "Mentor",

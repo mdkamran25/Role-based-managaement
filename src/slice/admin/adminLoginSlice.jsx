@@ -1,11 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-export const STATUSES = Object.freeze({
-  IDLE: "idle",
-  ERROR: "error",
-  LOADING: "loading",
-})
-
 const initialState = {
   login: [
     {
@@ -22,12 +16,8 @@ const initialState = {
 const adminLoginSlice = createSlice({
   name: "adminLogin",
   initialState,
-  reducers: {
-    setStatus(state, action) {
-      state.status = action.payload
-    },
-  },
+  reducers: {},
 })
 
-export const { setStatus } = adminLoginSlice.actions
+// export const {} = adminLoginSlice.actions
 export default adminLoginSlice.reducer

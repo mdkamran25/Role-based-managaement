@@ -26,6 +26,7 @@ function ViewSubmissionData(props) {
                 <h1 className="modal-title fs-5" id="exampleModalToggleLabel">
                   Submission
                 </h1>
+
                 <button
                   type="button"
                   className="btn-close"
@@ -35,7 +36,12 @@ function ViewSubmissionData(props) {
                 ></button>
               </div>
               <div className="modal-body">
-                <p className="fs-5 fw-semibold my-0">Git Repo: </p>
+                <p className="fs-5 fw-semibold mb-0 mt-1">
+                  Task Name: <br />
+                </p>
+                <span className="fs-6 fw-normal"> {props.item.taskName}</span>
+                <br />
+                <p className="fs-5 fw-semibold mt-4 mb-0">Git Repo: </p>
                 <span className="fs-6 fw-normal">
                   <Link to={props.item.repo}>{props.item.repo}</Link>
                 </span>

@@ -43,7 +43,7 @@ function MentorForm(props) {
   const mentorOptions = allMentorInReactDepartment.filter(
     (mentor) => !mentor.assigned
   )
-  console.log(mentorOptions, allMentorInReactDepartment)
+
   const closeModal = () => {
     props.setModalOpen(false)
   }

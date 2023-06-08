@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Field, ErrorMessage, Formik, Form } from "formik"
 import * as Yup from "yup"
-import minus from "../../Image/minus.png"
+import minus from "../../assets/Image/minus.png"
 import { Tooltip } from "react-tooltip"
 import { useDispatch } from "react-redux"
 import { addNewSubtopics } from "../../slice/TopicsToLearn/topicsToLearnSlice"

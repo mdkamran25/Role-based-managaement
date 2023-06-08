@@ -3,7 +3,7 @@ import React, { forwardRef } from "react"
 import { Formik, Field, Form, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import { useDispatch } from "react-redux"
-import nothingfind from "../../Image/nothingfind.svg"
+import nothingfind from "../../assets/Image/nothingfind.svg"
 import { addNewTopicWithNotification } from "../../slice/TopicsToLearn/topicsToLearnSlice"
 
 const validationSchema = Yup.object().shape({

@@ -2,7 +2,7 @@ import React from "react"
 import { useSelector } from "react-redux"
 import "./navbar.css"
 import MentorPanelSidebar from "../Sidebar/mentorPanelSideBar"
-import brandLogo from "../../Image/logo.png"
+import brandLogo from "../../assets/Image/logo.png"
 import TraineePanelSidebar from "../Sidebar/traineePanelSidebar"
 import BellNotification from "../BellNotification/bellNotification"
 import AdminPanelSidebar from "../Sidebar/adminPanelSidebar"
@@ -24,8 +24,8 @@ const Navbar = () => {
   return (
     <nav className="navbar text-light bg-primary sticky-top">
       <div className="container-fluid">
-        <p className="navbar-brand text-light">
-          <img src={brandLogo} width={120} alt="bellIcon" />
+        <p className="navbar-brand text-light mb-0">
+          <img src={brandLogo} width={144} alt="bellIcon" />
         </p>
         <BellNotification />
         <button
