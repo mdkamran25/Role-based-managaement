@@ -1,7 +1,7 @@
 import React from "react"
 import Lottie from "lottie-react"
 import "./pageNotFound.css"
-import PageNotFound from "../../assets/Image/page-not-found.json"
+import PageNotFound from "../../assets/LottieJsonFiles/page-not-found.json"
 function NoPageFound() {
   return (
     <>
