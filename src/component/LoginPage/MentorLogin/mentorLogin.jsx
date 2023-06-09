@@ -15,6 +15,7 @@ function MentorLogin() {
   }
   const [userDetails, setUserDetails] = useState({
     email: "",
+    password: "",
   })
 
   const dispatch = useDispatch()
@@ -22,15 +23,22 @@ function MentorLogin() {
 
   const validate = (e) => {
     e.preventDefault()
-    const validation = loginData.find(
-      (user) => user.email === userDetails.email
+
+    const foundUser = loginData.find(
+      (user) =>
+        user.email === userDetails.email &&
+        user.password === userDetails.password
     )
-    if (validation) {
-      dispatch(getLoginUserData(validation))
-      navigate("mentorPanel")
+
+    if (foundUser) {
+      dispatch(getLoginUserData(foundUser))
+      setUserDetails({
+        email: "",
+        password: "",
+      })
+      navigate("dashboard")
     } else {
-      toast.error("Invalid ID.")
-      return false
+      toast.error("Invalid email or password.")
     }
   }
 
@@ -58,16 +66,19 @@ function MentorLogin() {
             </div>
             <div className="col-11 align-self-center ps-lg-0 ps-2">
               <input
-                type="text"
+                // autoComplete="off"
+                autoComplete="new-password"
+                required
+                type="email"
                 className="bg-transparent border-0 outline-0"
                 placeholder="Enter Email"
+                value={userDetails.email}
                 onChange={(e) =>
                   setUserDetails((prevState) => ({
                     ...prevState,
                     email: e.target.value,
                   }))
                 }
-                required
               />
             </div>
           </div>
@@ -93,10 +104,17 @@ function MentorLogin() {
             </div>
             <div className="col-10 align-self-center ps-lg-0 ps-2">
               <input
+                autoComplete="off"
+                required
                 type={showPassword ? "password" : "text"}
                 className="bg-transparent border-0 outline-0"
                 placeholder="Enter Password"
-                required
+                onChange={(e) =>
+                  setUserDetails((prevState) => ({
+                    ...prevState,
+                    password: e.target.value,
+                  }))
+                }
               />
             </div>
             <div className="col-1" onClick={() => showPasswordToggle()}>

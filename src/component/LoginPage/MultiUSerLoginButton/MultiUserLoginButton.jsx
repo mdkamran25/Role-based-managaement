@@ -60,4 +60,4 @@ function MultiUserLoginButtton() {
   )
 }
 
-export default MultiUserLoginButtton
+export default React.memo(MultiUserLoginButtton)
