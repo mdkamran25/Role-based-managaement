@@ -1,26 +1,10 @@
 import React from "react"
-import { useSelector } from "react-redux"
 import "./navbar.css"
-import MentorPanelSidebar from "../Sidebar/mentorPanelSideBar"
 import brandLogo from "../../assets/Image/logo.png"
-import TraineePanelSidebar from "../Sidebar/traineePanelSidebar"
 import BellNotification from "../BellNotification/bellNotification"
-import AdminPanelSidebar from "../Sidebar/adminPanelSidebar"
+import Sidebar from "../Sidebar/Sidebar"
 
 const Navbar = () => {
-  const LoggedUserData = useSelector(
-    (state) => state.loggedUserReducer.loggedUserDetails || []
-  )
-
-  let sidebarComponent
-  if (LoggedUserData.role === "Trainee") {
-    sidebarComponent = <TraineePanelSidebar />
-  } else if (LoggedUserData.role === "Lead") {
-    sidebarComponent = <AdminPanelSidebar />
-  } else {
-    sidebarComponent = <MentorPanelSidebar />
-  }
-
   return (
     <nav className="navbar text-light bg-primary sticky-top">
       <div className="container-fluid">
@@ -51,7 +35,7 @@ const Navbar = () => {
               aria-label="Close"
             ></button>
           </div>
-          {sidebarComponent}
+          <Sidebar />
         </div>
       </div>
     </nav>

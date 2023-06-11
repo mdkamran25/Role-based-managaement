@@ -36,6 +36,7 @@ const validationSchema = Yup.object().shape({
 })
 function MentorForm(props) {
   const trainees = useSelector((state) => state.traineeLoginReducer.login || [])
+
   const allMentorInReactDepartment = useSelector(
     (state) => state.mentorLoginReducer.allMentorsInReactDepartment || []
   )
@@ -55,12 +56,13 @@ function MentorForm(props) {
     dispatch(mentorStatus(values.email))
 
     const mentor = values
+    // Finding trainee assigned to mentor for udating mentor email in trainee slice
     const matchingTrainees = trainees.filter(
       (trainee) =>
         trainee.email === mentor.FirstTraineeEmail ||
         trainee.email === mentor.SecondTraineeEmail
     )
-
+    // By this loop assigning mentor to each trainee one by one
     matchingTrainees.forEach((trainee) => {
       dispatch(updateTrainee({ traineeId: trainee.id, mentor: mentor.email }))
     })
@@ -246,26 +248,6 @@ function MentorForm(props) {
                           </div>
                         )}
                     </div>
-                    {/* <div className="mb-3">
-                      <label htmlFor="password" className="form-label">
-                        Password
-                      </label>
-                      <Field
-                        autoComplete="off"
-                        required
-                        type="password"
-                        id="password"
-                        name="password"
-                        className={`form-control ${
-                          touched.password && errors.password
-                            ? "is-invalid"
-                            : ""
-                        }`}
-                      />
-                      {touched.password && errors.password && (
-                        <div className="text-danger">{errors.password}</div>
-                      )}
-                    </div> */}
 
                     <button type="submit" className="btn btn-primary">
                       Submit
