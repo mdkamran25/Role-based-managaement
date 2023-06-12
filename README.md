@@ -1,70 +1,145 @@
-# Getting Started with Create React App
+# Trainexus
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Trainexus is an admin, mentor, and trainee management application built using React. The application provides separate panels for each role to manage their specific tasks and responsibilities.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+## Login
 
-### `npm start`
+The login page allows users to select their role (admin, mentor, or trainee) and log in to their respective panels.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![Screenshot from 2023-06-12 18-00-01](https://github.com/mdkamran25/Role-based-managaement/assets/122250114/45e40ccf-09a1-4126-9675-58388beae233)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Admin Panel
 
-### `npm test`
+The admin panel provides functionalities for managing the overall system and user roles. It includes features such as:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Dashboard: Provides an overview of system statistics and important information.
+- User Management: Allows the admin to add mentor to unassigned trainee.
+- Responsibility: Admin can add module for trainee to learn.
 
-### `npm run build`
+## Mentor Panel
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The mentor panel is designed for mentors who oversee and guide trainees. It includes features such as:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Dashboard: Displays a summary of assigned trainees and their progress.
+- Trainee Management: Allows mentors to view and update trainee details.
+- Task Assignment: Enables mentors to assign tasks to trainees and track their submissions.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Trainee Panel
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The trainee panel is specifically designed for trainees who are undergoing a training program. It includes features such as:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Dashboard: Displays a personalized dashboard with important information and tasks.
+- Task Management: Allows trainees to view assigned tasks and submit their completed work.
+- Progress Tracking: Enables trainees to track their progress and view feedback from mentors.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Public, Private, and Protected Routes
 
-## Learn More
+- Public Route: The login page is accessible to everyone.
+- Private Route: All pages except the login page require authentication.
+- Protected Route: Trainees cannot access other trainee profiles.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Lazy Loading
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Implemented lazy loading on the dashboard page to display a loading message while loading the dashboard.
 
-### Code Splitting
+### Bell Notification
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Mentor: Shows notifications when a new module is added or when a trainee submits a task.
+- Trainee: Shows notifications when a new module is added or when a mentor assigns a task.
 
-### Analyzing the Bundle Size
+### Pages
+- There are total of 6 pages in the app.
+    - Dashboard: 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+         <picture>
+          <img src="https://github.com/MdKAMRAN7255/Screenshot/blob/67c67794f2302ecefc5ef355c27ee85dbeada9d3/Screenshot%20from%202023-06-12%2018-19-01.png" alt="Dashboard" >
+         </picture>
 
-### Making a Progressive Web App
+    - All Trainee Profile: 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+      <picture>
+        <img src="" alt="All Trainee Profile" >
+      </picture>
 
-### Advanced Configuration
+    - Modules
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+      <picture>
+        <img src="" alt="Module" >
+      </picture>
 
-### Deployment
+    - SubTopics Page: 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+      <picture>
+        <img src="" alt="sub topcics" >
+      </picture>
 
-### `npm run build` fails to minify
+    - Page Not Found: 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+      <picture>
+        <img src="" alt="Page Not Found" >
+      </picture>
+
+    - Profile: 
+ 
+      <picture>
+        <img src="" alt="All Trainee Profile" >
+      </picture>
+
+
+### Search Option
+
+- Module Page: Allows searching for modules by entering the module name as a keyword.
+- All Trainee Profile Page: Allows mentors and trainees to search for trainees by entering their names as keywords.
+
+
+
+### Limitations
+
+- Data Storage in Local Storage: The Redux persist library has limitations in storing data in the local storage. The Chrome browser's local storage has a capacity of 10MB, which can be a limitation when adding a large number of media files.
+- Deletion Notifications: If a trainee or mentor deletes their submission or task, the corresponding notification will not be deleted.
+
+## Installation
+
+To install and run the Trainexus application locally, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/username/Trainexus.git`
+2. Navigate to the project directory: `Go to the drectory where file is clone`
+3. Install dependencies: `npm install`
+4. Start the application: `npm start`
+5. Open your browser and visit: `http://localhost:3000`
+
+## Demo
+
+A live demo of the Trainexus application can be accessed at: [https://trainexus.netlify.app](https://trainexus.netlify.app)
+
+## Credentials
+
+### Admin Login
+
+- Email: admin@gmail.com
+- Password: admin@123
+
+### Mentor Login
+
+- Email: [Email selected during mentor selection]
+- Password: [Mentor Name]@123 (Use the same capitalization as entered for the mentor's name)
+
+### Trainee Login
+
+- Email: [Trainee Email as shown in the admin dashboard]
+- Password: [Trainee Name]@123 (Use all lowercase for the trainee's name)
+
+## Known Issues
+
+- None at the moment.
+
+## Contributors
+
+Feel free to explore and use Trainexus for managing your admin, mentor, and trainee activities. If you encounter any issues or have suggestions for improvements, please let us know.
+
+
+

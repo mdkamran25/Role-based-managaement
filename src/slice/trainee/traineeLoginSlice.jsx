@@ -3,6 +3,17 @@ import { addNotification } from "../notificationData/notificationDataSlice"
 import uuid from "react-uuid"
 
 const initialState = {
+  allTraineeInReactDepartment: [
+    { id: 1, traineeEmail: "mdkamran12310@gmail.com", assigned: true },
+    { id: 2, traineeEmail: "mdkamran7255@gmail.com", assigned: true },
+    { id: 3, traineeEmail: "dipak@gmail.com", assigned: false },
+    { id: 4, traineeEmail: "rishi@gmail.com", assigned: false },
+    { id: 5, traineeEmail: "anjali@gmail.com", assigned: false },
+    { id: 6, traineeEmail: "prashant@gmail.com", assigned: false },
+    { id: 7, traineeEmail: "chetan@gmail.com", assigned: false },
+    { id: 8, traineeEmail: "ashish@gmail.com", assigned: false },
+    { id: 9, traineeEmail: "vipul@gmail.com", assigned: false },
+  ],
   login: [
     {
       id: 1,
@@ -296,6 +307,12 @@ const traineeLoginSlice = createSlice({
         }
       }
     },
+    traineeStatus: (state, action) => {
+      const trainees = state.allTraineeInReactDepartment.find(
+        (trainee) => trainee.traineeEmail === action.payload
+      )
+      trainees.assigned = true
+    },
   },
 })
 
@@ -310,6 +327,7 @@ export const {
   addSubmissionWithNotification,
   deleteSubmissions,
   updatedSubmitted,
+  traineeStatus,
 } = traineeLoginSlice.actions
 export default traineeLoginSlice.reducer
 

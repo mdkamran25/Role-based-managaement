@@ -30,6 +30,7 @@ const mentorLoginSlice = createSlice({
   name: "mentorLogin",
   initialState,
   reducers: {
+    //trainee assigned to mentor
     addMentor: (state, action) => {
       const newMentor = {
         id: uuid().substring(0, 8),
@@ -40,6 +41,7 @@ const mentorLoginSlice = createSlice({
       }
       state.login.push(newMentor)
     },
+    //assigned or not
     mentorStatus: (state, action) => {
       const mentors = state.allMentorsInReactDepartment.find(
         (mentors) => mentors.mentor === action.payload
@@ -52,12 +54,12 @@ const mentorLoginSlice = createSlice({
       })
     },
     ShowNotification: (state, action) => {
-      const { mentorEmail, decision } = action.payload
+      const { mentorEmail, seen } = action.payload
       const mentor = state.login.find((mentor) => {
         return mentor.email === mentorEmail
       })
       if (mentor) {
-        mentor.showNotification = decision
+        mentor.showNotification = seen
       }
     },
 

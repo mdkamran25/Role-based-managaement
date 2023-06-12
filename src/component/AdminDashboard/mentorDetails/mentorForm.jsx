@@ -1,7 +1,11 @@
 import React from "react"
 import { Formik, Field, Form } from "formik"
 import * as Yup from "yup"
-import { updateTrainee } from "../../../slice/trainee/traineeLoginSlice"
+import {
+  traineeStatus,
+  updateTrainee,
+} from "../../../slice/trainee/traineeLoginSlice"
+import "./mentorDetails.css"
 import { addMentor, mentorStatus } from "../../../slice/mentor/mentorLoginSlice"
 import { useDispatch, useSelector } from "react-redux"
 
@@ -35,10 +39,18 @@ const validationSchema = Yup.object().shape({
   //   .required("Password is required"),
 })
 function MentorForm(props) {
-  const trainees = useSelector((state) => state.traineeLoginReducer.login || [])
+  const { login, allTraineeInReactDepartment } = useSelector(
+    (state) => state.traineeLoginReducer || []
+  )
+
+  console.log(login, allTraineeInReactDepartment)
 
   const allMentorInReactDepartment = useSelector(
     (state) => state.mentorLoginReducer.allMentorsInReactDepartment || []
+  )
+  console.log("trainee", allTraineeInReactDepartment)
+  const traineeOptions = allTraineeInReactDepartment.filter(
+    (trainee) => !trainee.assigned
   )
 
   const mentorOptions = allMentorInReactDepartment.filter(
@@ -55,9 +67,10 @@ function MentorForm(props) {
     dispatch(addMentor(values))
     dispatch(mentorStatus(values.email))
 
+    // console.log(values, "values")
     const mentor = values
     // Finding trainee assigned to mentor for udating mentor email in trainee slice
-    const matchingTrainees = trainees.filter(
+    const matchingTrainees = login.filter(
       (trainee) =>
         trainee.email === mentor.FirstTraineeEmail ||
         trainee.email === mentor.SecondTraineeEmail
@@ -65,6 +78,8 @@ function MentorForm(props) {
     // By this loop assigning mentor to each trainee one by one
     matchingTrainees.forEach((trainee) => {
       dispatch(updateTrainee({ traineeId: trainee.id, mentor: mentor.email }))
+      console.log(trainee, trainee)
+      dispatch(traineeStatus(trainee.email))
     })
 
     closeModal()
@@ -84,7 +99,7 @@ function MentorForm(props) {
         tabIndex="-1"
         style={{ display: "block" }}
       >
-        <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-dialog modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalToggleLabel">
@@ -182,11 +197,11 @@ function MentorForm(props) {
                         as="select"
                         id="email"
                         name="email"
-                        className={`form-control ${
+                        className={`form-select  ${
                           touched.email && errors.email ? "is-invalid" : ""
                         }`}
                       >
-                        <option value="">Select Mentor Email</option>
+                        <option value="">Mentor Email</option>
                         {mentorOptions.map((mentor) => (
                           <option key={mentor.id} value={mentor.mentor}>
                             {mentor.mentor}
@@ -206,15 +221,25 @@ function MentorForm(props) {
                       <Field
                         autoComplete="off"
                         required
+                        as="select"
                         type="email"
                         id="FirstTraineeEmail"
                         name="FirstTraineeEmail"
-                        className={`form-control ${
+                        className={`form-select  ${
                           touched.FirstTraineeEmail && errors.FirstTraineeEmail
                             ? "is-invalid"
                             : ""
                         }`}
-                      />
+                      >
+                        <option className="option" value="">
+                          First Trainee Email
+                        </option>
+                        {traineeOptions.map((trainee) => (
+                          <option key={trainee.id} value={trainee.traineeEmail}>
+                            {trainee.traineeEmail}
+                          </option>
+                        ))}
+                      </Field>
                       {touched.FirstTraineeEmail &&
                         errors.FirstTraineeEmail && (
                           <div className="text-danger">
@@ -229,18 +254,30 @@ function MentorForm(props) {
                       >
                         Second Trainee Email
                       </label>
+
                       <Field
                         autoComplete="off"
+                        as="select"
                         type="email"
                         id="SecondTraineeEmail"
                         name="SecondTraineeEmail"
-                        className={`form-control ${
+                        className={`form-select ${
                           touched.SecondTraineeEmail &&
                           errors.SecondTraineeEmail
                             ? "is-invalid"
                             : ""
                         }`}
-                      />
+                      >
+                        <option className="option" value="">
+                          Second Trainee Email
+                        </option>
+                        {traineeOptions.map((trainee) => (
+                          <option key={trainee.id} value={trainee.traineeEmail}>
+                            {trainee.traineeEmail}
+                          </option>
+                        ))}
+                      </Field>
+
                       {touched.SecondTraineeEmail &&
                         errors.SecondTraineeEmail && (
                           <div className="text-danger">

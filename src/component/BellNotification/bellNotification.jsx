@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setNotification } from "../../slice/trainee/traineeLoginSlice"
 import { ShowNotification } from "../../slice/mentor/mentorLoginSlice"
 
-const SmallBox = React.memo(() => {
+const SmallBox = () => {
   const loggedUserData = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails || []
   )
@@ -90,7 +90,7 @@ const SmallBox = React.memo(() => {
       </div>
     </>
   )
-})
+}
 
 function BellNotification() {
   const loggedUserData = useSelector(
@@ -115,7 +115,7 @@ function BellNotification() {
       dispatch(setNotification(matchedTrainee.email))
     } else if (loggedUserData.role === "Mentor") {
       dispatch(
-        ShowNotification({ mentorEmail: loggedUserData.email, decision: false })
+        ShowNotification({ mentorEmail: loggedUserData.email, seen: false })
       )
     }
   }, [dispatch, matchedTrainee])
