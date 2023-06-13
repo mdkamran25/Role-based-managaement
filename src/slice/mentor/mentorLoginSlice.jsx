@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, current } from "@reduxjs/toolkit"
 import uuid from "react-uuid"
 
 const initialState = {
@@ -55,12 +55,14 @@ const mentorLoginSlice = createSlice({
     },
     ShowNotification: (state, action) => {
       const { mentorEmail, seen } = action.payload
+      console.log(action.payload, seen)
       const mentor = state.login.find((mentor) => {
         return mentor.email === mentorEmail
       })
       if (mentor) {
         mentor.showNotification = seen
       }
+      console.log(current(state.login), seen)
     },
 
     onLogout(state) {

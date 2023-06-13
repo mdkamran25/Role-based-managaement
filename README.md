@@ -62,7 +62,7 @@ The trainee panel is specifically designed for trainees who are undergoing a tra
     - All Trainee Profile: 
 
       <picture>
-        <img src="" alt="All Trainee Profile" >
+        <img src="https://github.com/MdKAMRAN7255/Screenshot/blob/e3ab7e814df3d954e4f1a60bcd3b63345863d67a/Screenshot%20from%202023-06-12%2018-28-11.png" alt="All Trainee Profile" >
       </picture>
 
     - Modules
@@ -74,7 +74,7 @@ The trainee panel is specifically designed for trainees who are undergoing a tra
     - SubTopics Page: 
 
       <picture>
-        <img src="" alt="sub topcics" >
+        <img src="https://github.com/MdKAMRAN7255/Screenshot/blob/fcb8c94a9a2639ee2bbb252a77c648b843708c50/Screenshot%20from%202023-06-12%2018-32-05.png" alt="sub topcics" >
       </picture>
 
     - Page Not Found: 

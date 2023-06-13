@@ -46,9 +46,7 @@ function TaskSubmissionForm(props) {
       feedback: null,
     }
     dispatch(addSubmission(values))
-    dispatch(
-      ShowNotification({ mentorEmail: loggedUser.mentor, decision: true })
-    )
+    dispatch(ShowNotification({ mentorEmail: loggedUser.mentor, seen: true }))
     resetForm()
     closeModal()
   }

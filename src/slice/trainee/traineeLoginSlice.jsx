@@ -24,6 +24,7 @@ const initialState = {
       mentor: "mentor@gmail.com",
       tasks: [],
       submission: [],
+      chat: [],
       role: "Trainee",
       phone: "8969385731",
       address: "Ara, Bihar",
@@ -42,6 +43,7 @@ const initialState = {
       mentor: "mentor@gmail.com",
       tasks: [],
       submission: [],
+      chat: [],
       role: "Trainee",
       phone: "8969385731",
       address: "Ara, Bihar",
@@ -60,6 +62,7 @@ const initialState = {
       mentor: null,
       tasks: [],
       submission: [],
+      chat: [],
       role: "Trainee",
       phone: "9769385739",
       address: "Rajkot, Gujarat",
@@ -78,6 +81,7 @@ const initialState = {
       mentor: null,
       tasks: [],
       submission: [],
+      chat: [],
       role: "Trainee",
       phone: "7569385734",
       address: "Daman",
@@ -96,6 +100,7 @@ const initialState = {
       mentor: null,
       tasks: [],
       submission: [],
+      chat: [],
       role: "Trainee",
       phone: "6569385734",
       address: "Dawarka",
@@ -114,6 +119,7 @@ const initialState = {
       mentor: null,
       tasks: [],
       submission: [],
+      chat: [],
       role: "Trainee",
       phone: "8769385731",
       address: "GandhiNagar",
@@ -132,6 +138,7 @@ const initialState = {
       mentor: null,
       tasks: [],
       submission: [],
+      chat: [],
       role: "Trainee",
       phone: "9569385730",
       address: "Rajkot",
@@ -150,6 +157,7 @@ const initialState = {
       mentor: null,
       tasks: [],
       submission: [],
+      chat: [],
       role: "Trainee",
       phone: "6869385731",
       address: "Ahmedabad",
@@ -168,6 +176,7 @@ const initialState = {
       mentor: null,
       tasks: [],
       submission: [],
+      chat: [],
       role: "Trainee",
       phone: "9012885738",
       address: "Ahmedabad",
@@ -313,6 +322,23 @@ const traineeLoginSlice = createSlice({
       )
       trainees.assigned = true
     },
+    addChat: (state, action) => {
+      const { traineeEmail, message, senderEmail } = action.payload
+
+      const trainee = state.login.find(
+        (trainee) => trainee.email === traineeEmail
+      )
+      if (trainee) {
+        if (!trainee.chat) {
+          trainee.chat = []
+        }
+        trainee.chat.push({
+          id: uuid().substring(0, 8),
+          senderEmail,
+          message,
+        })
+      }
+    },
   },
 })
 
@@ -328,6 +354,7 @@ export const {
   deleteSubmissions,
   updatedSubmitted,
   traineeStatus,
+  addChat,
 } = traineeLoginSlice.actions
 export default traineeLoginSlice.reducer
 

@@ -27,7 +27,7 @@ function App() {
       {showNavbar ? <Navbar /> : null}
 
       <Routes>
-        {/* <Route path="/" element={<Loader />} /> */}
+        {/* <Route path="/" element={<Chat />} /> */}
         <Route element={<PublicRoute />}>
           <Route path="/" element={<Index />} />
         </Route>
