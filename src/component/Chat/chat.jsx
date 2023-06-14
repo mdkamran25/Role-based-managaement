@@ -1,21 +1,18 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { addChat } from "../../slice/trainee/traineeLoginSlice"
 import "./chat.css"
 
 const Chat = (props) => {
+  const bottomRef = useRef()
   const loggedUser = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
   const trainee = useSelector((state) => state.traineeLoginReducer.login)
 
-  console.log(trainee, "trainee")
-
   const chat = trainee.find((trainee) => trainee.email === props.email)
-
-  console.log(props.email, "chat")
 
   const [messages, setMessages] = useState("")
 
@@ -35,6 +32,15 @@ const Chat = (props) => {
     setMessages("")
     console.log("kamran")
   }
+  console.log(chat)
+  useEffect(() => {
+    const chatBody = bottomRef.current
+
+    if (chatBody) {
+      chatBody.scrollTop = chatBody.scrollHeight
+    }
+  }, [])
+
   const close = () => {
     props.setShowChat(!props.showChat)
   }
@@ -56,42 +62,54 @@ const Chat = (props) => {
       </div>
       <div className="offcanvas-body">
         <div className="chat-window">
-          <div className="chat-body d-flex flex-column">
-            {chat.chat &&
-              chat.chat.map((message) => (
-                <div
-                  key={message.id}
-                  className={`message ${
-                    message.senderEmail !== loggedUser.email
-                      ? "sender-message"
-                      : "receiver-message"
-                  }`}
-                >
-                  <p>
-                    {message.message}
-                    <span className="message-timestamp">
-                      {message.timestamp}
-                    </span>
-                  </p>
-                </div>
-              ))}
-          </div>
-          <div className="chat-footer">
-            <form className="w-100" onSubmit={(e) => onSubmit(e)}>
-              <div className="input-group w-100">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Type your message"
-                  value={messages}
-                  onChange={(e) => setMessages(e.target.value)}
-                />
-                <button type="submit" className="btn btn-primary">
-                  Send
-                </button>
+          {loggedUser.role === "Mentor" &&
+          (loggedUser.FirstTraineeEmail === chat.email ||
+            loggedUser.SecondTraineeEmail === chat.email) ? (
+            <>
+              {" "}
+              <div className="chat-body d-flex flex-column" ref={bottomRef}>
+                {chat.chat &&
+                  chat.chat.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`message ${
+                        message.senderEmail !== loggedUser.email
+                          ? "sender-message"
+                          : "receiver-message"
+                      }`}
+                    >
+                      <p className="position-relative">
+                        {message.message}
+                        <span className="message-timestamp">
+                          {message.time}
+                        </span>
+                      </p>
+                    </div>
+                  ))}
+                {/* <div ref={bottomRef} /> */}
               </div>
-            </form>
-          </div>
+              <div className="chat-footer">
+                <form className="w-100 p-0" onSubmit={(e) => onSubmit(e)}>
+                  <div className="input-group w-100">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Type your message"
+                      value={messages}
+                      onChange={(e) => setMessages(e.target.value)}
+                    />
+                    <button type="submit" className="btn btn-primary">
+                      Send
+                    </button>
+                  </div>
+                </form>
+              </div>{" "}
+            </>
+          ) : (
+            <div className="fw-bold h-100 mt-5">
+              Only mentor can send message to their respected trainee
+            </div>
+          )}
         </div>
       </div>
     </>

@@ -13,7 +13,7 @@ const ProfileCard = (props) => {
     setShowChat(!showChat)
   }
 
-  //useRef to close chat component it clicked outside
+  //useRef to close chat component
   const offcanvasRef = useRef(null)
 
   useEffect(() => {
@@ -52,9 +52,14 @@ const ProfileCard = (props) => {
       <p className="fw-bold fs-2">{item.name}</p>
       <p className="fw-light fs-5 mb-0">{item.role}</p>
       <p className="fw-light fs-5">{item.college}</p>
-      <div className="col-12 col-sm-7 col-xl-12 d-flex flex-sm-column flex-xl-row justify-content-evenly text-center">
+      <div className="col-6 col-sm-7 col-xl-12 d-flex flex-column flex-xl-row justify-content-evenly text-center">
+        <Link to={`/traineeProfile/id=/${item.id}`} className="text-center">
+          <button className="btn text-primary border border-primary mt-sm-2 mt-xl-0 px-3">
+            View Profile
+          </button>
+        </Link>
         <button
-          className="btn btn-primary text-light px-3"
+          className="btn btn-primary text-light my-3 my-xl-0 px-3"
           data-bs-toggle="offcanvas"
           data-bs-target={`#offcanvasExample${item.email}`}
           aria-controls={`offcanvasExample${item.email}`}
@@ -77,11 +82,6 @@ const ProfileCard = (props) => {
             />
           )}
         </div>
-        <Link to={`/traineeProfile/id=/${item.id}`} className="text-center">
-          <button className="btn text-primary border border-primary mt-sm-2 mt-xl-0 px-3">
-            View Profile
-          </button>
-        </Link>
       </div>
     </div>
   )
