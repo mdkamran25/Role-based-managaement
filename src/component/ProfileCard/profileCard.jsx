@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 import "./profileCard.css"
@@ -9,7 +9,29 @@ const ProfileCard = (props) => {
   const loggedUser = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
+  const toggleChat = () => {
+    setShowChat(!showChat)
+  }
 
+  //useRef to close chat component it clicked outside
+  const offcanvasRef = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        offcanvasRef.current &&
+        !offcanvasRef.current.contains(event.target)
+      ) {
+        toggleChat()
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside)
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside)
+    }
+  }, [])
   return (
     <div
       className={`ProfileCard ${
@@ -34,23 +56,23 @@ const ProfileCard = (props) => {
         <button
           className="btn btn-primary text-light px-3"
           data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasExample"
-          aria-controls="offcanvasExample"
-          onClick={() => setShowChat(!showChat)}
+          data-bs-target={`#offcanvasExample${item.email}`}
+          aria-controls={`offcanvasExample${item.email}`}
+          onClick={toggleChat}
         >
           Message
         </button>
         <div
-          className="offcanvas  offcanvas-end"
-          // data-bs-backdrop="static"
+          className="offcanvas offcanvas-end"
           tabIndex={-1}
-          id="offcanvasExample"
-          aria-labelledby="offcanvasExampleLabel"
+          id={`offcanvasExample${item.email}`}
+          aria-labelledby={`offcanvasExampleLabel${item.email}`}
+          ref={offcanvasRef}
         >
           {showChat && (
             <Chat
               email={item.email}
-              setShowChat={setShowChat}
+              setShowChat={toggleChat}
               showChat={showChat}
             />
           )}

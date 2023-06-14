@@ -23,6 +23,7 @@ const Chat = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault()
+
     dispatch(
       addChat({
         traineeEmail: props.email,
@@ -30,21 +31,27 @@ const Chat = (props) => {
         senderEmail: loggedUser.email,
       })
     )
-    setMessages("") // Clear the input field by setting messages to an empty string
+
+    setMessages("")
+    console.log("kamran")
   }
-  //   console.log(messages, "messages")
+  const close = () => {
+    props.setShowChat(!props.showChat)
+  }
   return (
     <>
       <div className="offcanvas-header">
         <h5 className="offcanvas-title" id="offcanvasExampleLabel">
-          Chat
+          {loggedUser.role === "Trainee"
+            ? "Chat With Mentor"
+            : "Chat with " + chat.name}
         </h5>
         <button
           type="button"
           className="btn-close"
           data-bs-dismiss="offcanvas"
           aria-label="Close"
-          onClick={() => props.setShowChat(!props.showChat)}
+          onClick={close}
         ></button>
       </div>
       <div className="offcanvas-body">
@@ -76,6 +83,7 @@ const Chat = (props) => {
                   type="text"
                   className="form-control"
                   placeholder="Type your message"
+                  value={messages}
                   onChange={(e) => setMessages(e.target.value)}
                 />
                 <button type="submit" className="btn btn-primary">
