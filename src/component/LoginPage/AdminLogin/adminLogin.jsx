@@ -26,7 +26,9 @@ function AdminLogin() {
   const validate = (e) => {
     e.preventDefault()
     const validation = loginData.find(
-      (user) => user.email === userDetails.email
+      (user) =>
+        user.email === userDetails.email &&
+        user.password === userDetails.password
     )
     if (validation) {
       dispatch(getLoginUserData(validation))

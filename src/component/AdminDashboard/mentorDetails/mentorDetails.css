@@ -7,6 +7,19 @@
   overflow-x: auto;
   overflow-y: auto;
 }
+/* #email, #FirstTraineeEmail, #SecondTraineeEmail {
+  height:40px;
+  
+  
+}
+option{
+  overflow-y:scroll;
+} */
+
+ .scrollable-dropdown {
+  max-height: 50px; /* Adjust the height as per your requirements */
+   overflow-y: auto; }
+
 /* media(max-width){
     .me
 } */

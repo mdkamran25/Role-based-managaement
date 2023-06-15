@@ -4,9 +4,9 @@ const initialState = {
   login: [
     {
       id: 1,
-      email: "mdkamran12310@gmail.com",
-      password: "kamran@123",
-      name: "Md Kamran",
+      email: "admin@gmail.com",
+      password: "admin@123",
+      name: "Admin",
       role: "Lead",
     },
   ],

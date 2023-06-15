@@ -2,10 +2,13 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { onLogout } from "../../slice/loggedUserDetails/loggedUserSlice"
 
-function AdminPanelSidebar() {
+function Sidebar() {
+  const loggedUser = useSelector(
+    (state) => state.loggedUserReducer.loggedUserDetails
+  )
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const logoutFunction = () => {
@@ -38,16 +41,22 @@ function AdminPanelSidebar() {
             </Link>
           </li>
           <hr />
-          <li className="nav-item">
-            <Link
-              className="nav-link active"
-              to="allTraineesProfile"
-              onClick={handleLinkClick}
-            >
-              Trainees Profile
-            </Link>
-          </li>
-          <hr />
+          {/* Trainee cannot see other trainee profile */}
+          {loggedUser && loggedUser.role !== "Trainee" && (
+            <>
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  to="allTraineesProfile"
+                  onClick={handleLinkClick}
+                >
+                  Trainees Profile
+                </Link>
+              </li>
+              <hr />
+            </>
+          )}
+
           <li className="nav-item">
             <Link
               className="nav-link active"
@@ -60,7 +69,7 @@ function AdminPanelSidebar() {
           <hr />
           <li className="nav-item">
             <a className="nav-link active" href="#" onClick={logoutFunction}>
-              Admin Logout
+              Logout
             </a>
           </li>
         </ul>
@@ -69,4 +78,4 @@ function AdminPanelSidebar() {
   )
 }
 
-export default AdminPanelSidebar
+export default Sidebar
