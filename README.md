@@ -68,7 +68,7 @@ The trainee panel is specifically designed for trainees who are undergoing a tra
     - Modules
 
       <picture>
-        <img src="" alt="Module" >
+        <img src="https://github.com/MdKAMRAN7255/Screenshot/blob/16cb7aad2970328e2a5bf9d80b03ffb07cc45138/Screenshot%20from%202023-06-12%2019-33-56.png" alt="Module" >
       </picture>
 
     - SubTopics Page: 
@@ -80,13 +80,13 @@ The trainee panel is specifically designed for trainees who are undergoing a tra
     - Page Not Found: 
 
       <picture>
-        <img src="" alt="Page Not Found" >
+        <img src="https://github.com/MdKAMRAN7255/Screenshot/blob/5fd11c88ed707b2c48d5083fad6a50c973b90b03/Screenshot%20from%202023-06-15%2018-31-27.png" alt="Page Not Found" >
       </picture>
 
     - Profile: 
  
       <picture>
-        <img src="" alt="All Trainee Profile" >
+        <img src="https://github.com/MdKAMRAN7255/Screenshot/blob/a665b9e86bcb9411ba8b0c7127b5f84b3e781657/Screenshot%20from%202023-06-15%2018-45-07.png" alt="Profile">
       </picture>
 
 
@@ -95,8 +95,14 @@ The trainee panel is specifically designed for trainees who are undergoing a tra
 - Module Page: Allows searching for modules by entering the module name as a keyword.
 - All Trainee Profile Page: Allows mentors and trainees to search for trainees by entering their names as keywords.
 
+### Chat Functionality
+- Chat: Mentor and trainee can have conversation to each other.
 
+      <picture>
+        <img src="https://github.com/MdKAMRAN7255/Screenshot/blob/a665b9e86bcb9411ba8b0c7127b5f84b3e781657/Screenshot%20from%202023-06-15%2018-46-09.png" alt="Chat">
+      </picture>
 
+      
 ### Limitations
 
 - Data Storage in Local Storage: The Redux persist library has limitations in storing data in the local storage. The Chrome browser's local storage has a capacity of 10MB, which can be a limitation when adding a large number of media files.
