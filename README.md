@@ -98,11 +98,11 @@ The trainee panel is specifically designed for trainees who are undergoing a tra
 ### Chat Functionality
 - Chat: Mentor and trainee can have conversation to each other.
 
-      <picture>
-        <img src="https://github.com/MdKAMRAN7255/Screenshot/blob/a665b9e86bcb9411ba8b0c7127b5f84b3e781657/Screenshot%20from%202023-06-15%2018-46-09.png" alt="Chat">
-      </picture>
+    <picture>
+      <img src="https://github.com/MdKAMRAN7255/Screenshot/blob/a665b9e86bcb9411ba8b0c7127b5f84b3e781657/Screenshot%20from%202023-06-15%2018-46-09.png" alt="Chat">
+    </picture>
 
-      
+
 ### Limitations
 
 - Data Storage in Local Storage: The Redux persist library has limitations in storing data in the local storage. The Chrome browser's local storage has a capacity of 10MB, which can be a limitation when adding a large number of media files.
