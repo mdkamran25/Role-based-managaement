@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { addNotification } from "../notificationData/notificationDataSlice"
 import uuid from "react-uuid"
-import dateTimeUtils from "../../Utils/dateTimeUtils"
+import { getCurrentDate, getCurrentTime } from "../../Utils/dateTimeUtils"
 const initialState = {
   allTraineeInReactDepartment: [
     { id: 1, traineeEmail: "mdkamran12310@gmail.com", assigned: true },
@@ -336,8 +336,8 @@ const traineeLoginSlice = createSlice({
           id: uuid().substring(0, 8),
           senderEmail,
           message,
-          date: dateTimeUtils.dates,
-          time: dateTimeUtils.time,
+          date: getCurrentDate(),
+          time: getCurrentTime(),
         })
       }
     },

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useTransition, useEffect } from "react"
 import { useSelector } from "react-redux"
 import nothingfind from "../../assets/Image/nothingfind.svg"
 import "./topicsToLearn.css"
@@ -10,6 +10,8 @@ function TopicsToLearn() {
   const loggedUser = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
+  const [isPending, startTransition] = useTransition()
+  const [filteredTopics, setFilteredTopics] = useState()
   const [showForm, setShowForm] = useState(false)
   const [searchTerm, setSearchTerm] = useState("")
   const openModal = () => {
@@ -18,9 +20,16 @@ function TopicsToLearn() {
   const bottomRef = useRef(null)
 
   // Filter topics based on search term
-  const filteredTopics = topics.filter((topic) =>
-    topic.topicName.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+
+  useEffect(() => {
+    startTransition(() => {
+      setFilteredTopics(
+        topics.filter((topic) =>
+          topic.topicName.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      )
+    })
+  }, [searchTerm])
 
   return (
     <>
@@ -52,7 +61,11 @@ function TopicsToLearn() {
           </div>
         </div>
         <div className="row">
-          {filteredTopics.length > 0 ? (
+          {isPending ? (
+            <div className="col-12 text-center mt-5">
+              <p>Searching...</p>
+            </div>
+          ) : filteredTopics && filteredTopics.length > 0 ? (
             filteredTopics.map((topic, index) => (
               <div
                 className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
@@ -80,7 +93,7 @@ function TopicsToLearn() {
               </div>
             ))
           ) : (
-            <div className="col-12 text-center">
+            <div className="col-12 text-center mt-5">
               <p>No module found.</p>
             </div>
           )}

@@ -6,6 +6,7 @@ import { addSubmission } from "../../../slice/trainee/traineeLoginSlice"
 import { ShowNotification } from "../../../slice/mentor/mentorLoginSlice"
 import { useDispatch, useSelector } from "react-redux"
 import * as Yup from "yup"
+import { getCurrentDate, getCurrentTime } from "../../../Utils/dateTimeUtils"
 
 const validationSchema = Yup.object().shape({
   repo: Yup.string()
@@ -21,22 +22,14 @@ function TaskSubmissionForm(props) {
   const loggedUser = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
-  const date = new Date()
-  const options = { hour12: false }
-  const time = date.toLocaleTimeString("en-US", options)
-  const dates = date.toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  })
 
   const dispatch = useDispatch()
 
   const handleSubmit = (values, { resetForm }) => {
     values = {
       ...values,
-      time: time,
-      date: dates,
+      time: getCurrentTime(),
+      date: getCurrentDate(),
       name: loggedUser.name,
       email: loggedUser.email,
       id: props.item.id,

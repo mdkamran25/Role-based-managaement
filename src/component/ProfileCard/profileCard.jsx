@@ -32,6 +32,7 @@ const ProfileCard = (props) => {
       document.removeEventListener("click", handleClickOutside)
     }
   }, [])
+
   return (
     <div
       className={`ProfileCard ${
@@ -58,30 +59,37 @@ const ProfileCard = (props) => {
             View Profile
           </button>
         </Link>
-        <button
-          className="btn btn-primary text-light my-3 my-xl-0 px-3"
-          data-bs-toggle="offcanvas"
-          data-bs-target={`#offcanvasExample${item.email}`}
-          aria-controls={`offcanvasExample${item.email}`}
-          onClick={toggleChat}
-        >
-          Message
-        </button>
-        <div
-          className="offcanvas offcanvas-end"
-          tabIndex={-1}
-          id={`offcanvasExample${item.email}`}
-          aria-labelledby={`offcanvasExampleLabel${item.email}`}
-          ref={offcanvasRef}
-        >
-          {showChat && (
-            <Chat
-              email={item.email}
-              setShowChat={toggleChat}
-              showChat={showChat}
-            />
-          )}
-        </div>
+        {loggedUser.role && loggedUser.role !== "Lead" ? (
+          <>
+            {" "}
+            <button
+              className="btn btn-primary text-light my-3 my-xl-0 px-3"
+              data-bs-toggle="offcanvas"
+              data-bs-target={`#offcanvasExample${item.email}`}
+              aria-controls={`offcanvasExample${item.email}`}
+              onClick={toggleChat}
+            >
+              Message
+            </button>
+            <div
+              className="offcanvas offcanvas-end"
+              tabIndex={-1}
+              id={`offcanvasExample${item.email}`}
+              aria-labelledby={`offcanvasExampleLabel${item.email}`}
+              ref={offcanvasRef}
+            >
+              {showChat && (
+                <Chat
+                  email={item.email}
+                  setShowChat={toggleChat}
+                  showChat={showChat}
+                />
+              )}
+            </div>
+          </>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   )

@@ -1,13 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-constant-condition */
-import React, { useState, useCallback } from "react"
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  forwardRef,
+} from "react"
 import bell from "../../assets/Image/bell.png"
 import "./bellNotification.css"
 import { useDispatch, useSelector } from "react-redux"
 import { setNotification } from "../../slice/trainee/traineeLoginSlice"
 import { ShowNotification } from "../../slice/mentor/mentorLoginSlice"
 
-const SmallBox = () => {
+const SmallBox = forwardRef((props, ref) => {
   const loggedUserData = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails || []
   )
@@ -17,7 +23,7 @@ const SmallBox = () => {
 
   return (
     <>
-      <div className="small-box position-absolute rounded-2">
+      <div className="small-box position-absolute rounded-2" ref={ref}>
         {loggedUserData.role === "Lead" ? (
           <div className="col-12 text-center fs-6 fw-bold pt-3 text-dark">
             No notification yet
@@ -90,14 +96,36 @@ const SmallBox = () => {
       </div>
     </>
   )
-}
+})
 
 function BellNotification() {
   const loggedUserData = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails || []
   )
+
   const [isBoxVisible, setIsBoxVisible] = useState(false)
   const dispatch = useDispatch()
+
+  const smallBoxRef = useRef(null)
+  const extraRef = useRef(null)
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        smallBoxRef.current &&
+        !extraRef.current.contains(event.target) &&
+        !smallBoxRef.current.contains(event.target)
+      ) {
+        setIsBoxVisible(false)
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside)
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside)
+    }
+  }, [])
+
   const trainees = useSelector((state) => state.traineeLoginReducer.login)
   const mentor = useSelector((state) => state.mentorLoginReducer.login)
 
@@ -122,6 +150,7 @@ function BellNotification() {
 
   return (
     <div
+      ref={extraRef}
       className={`bell-notification ${
         (loggedUserData.role === "Trainee" &&
           matchedTrainee &&
@@ -136,7 +165,7 @@ function BellNotification() {
         : {})}
     >
       <img src={bell} className="bell" width={30} alt="bell-notification" />
-      {isBoxVisible && <SmallBox />}
+      <div>{isBoxVisible && <SmallBox ref={smallBoxRef} />}</div>
     </div>
   )
 }

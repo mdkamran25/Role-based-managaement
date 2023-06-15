@@ -3,6 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik"
 import { useDispatch } from "react-redux"
 import { updatedSubmitted } from "../../../slice/trainee/traineeLoginSlice"
 import * as Yup from "yup"
+import { getCurrentDate, getCurrentTime } from "../../../Utils/dateTimeUtils"
 
 const validationSchema = Yup.object().shape({
   repo: Yup.string()
@@ -17,20 +18,11 @@ function SubmissionEditForm(props) {
   }
   const dispatch = useDispatch()
 
-  const date = new Date()
-  const options = { hour12: false }
-  const time = date.toLocaleTimeString("en-US", options)
-  const dates = date.toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  })
-
   const handleSubmit = (values, { resetForm }) => {
     values = {
       ...values,
-      time: time,
-      date: dates,
+      time: getCurrentTime(),
+      date: getCurrentDate(),
       email: props.item.email,
       id: props.item.id,
     }

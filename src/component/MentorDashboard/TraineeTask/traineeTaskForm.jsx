@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux"
 import * as Yup from "yup"
 import { addNotification } from "../../../slice/notificationData/notificationDataSlice"
 import uuid from "react-uuid"
+import { getCurrentDate, getCurrentTime } from "../../../Utils/dateTimeUtils"
 
 const validationSchema = Yup.object().shape({
   taskName: Yup.string()
@@ -41,14 +42,6 @@ function TraineeTaskForm(props) {
   const closeModal = () => {
     props.setModalOpen(false)
   }
-  const date = new Date()
-  const options = { hour12: false }
-  const time = date.toLocaleTimeString("en-US", options)
-  const dates = date.toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  })
 
   const dispatch = useDispatch()
 
@@ -61,8 +54,8 @@ function TraineeTaskForm(props) {
       values.file = url
       values = {
         ...values,
-        time: time,
-        date: dates,
+        time: getCurrentTime(),
+        date: getCurrentDate(),
       }
       const taskNotification = {
         notificationType: "Task",

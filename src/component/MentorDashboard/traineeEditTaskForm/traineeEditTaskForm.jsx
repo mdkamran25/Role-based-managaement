@@ -3,7 +3,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik"
 import { updateTask } from "../../../slice/trainee/traineeLoginSlice"
 import { useDispatch } from "react-redux"
 import * as Yup from "yup"
-
+import { getCurrentDate, getCurrentTime } from "../../../Utils/dateTimeUtils"
 const validationSchema = Yup.object().shape({
   taskName: Yup.string()
     .matches(
@@ -58,14 +58,6 @@ function TraineeEditTaskForm(props) {
   const closeModal = () => {
     props.setEditTaskForm(false)
   }
-  const date = new Date()
-  const options = { hour12: false }
-  const time = date.toLocaleTimeString("en-US", options)
-  const dates = date.toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  })
 
   const dispatch = useDispatch()
 
@@ -92,8 +84,8 @@ function TraineeEditTaskForm(props) {
   const updateTaskWithValues = (values) => {
     values = {
       ...values,
-      time: time,
-      date: dates,
+      time: getCurrentTime(),
+      date: getCurrentDate(),
     }
 
     props.matchingTrainee.forEach((trainee) => {

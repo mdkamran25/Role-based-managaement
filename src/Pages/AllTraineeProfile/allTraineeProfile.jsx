@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState, useTransition } from "react"
 import ProfileCard from "../../component/ProfileCard/profileCard"
 import { useSelector } from "react-redux"
 import "./allTraineeProfile.css"
@@ -6,14 +6,21 @@ import "./allTraineeProfile.css"
 function AllTraineeProfile() {
   const traineeData = useSelector((state) => state.traineeLoginReducer.login)
   const [searchQuery, setSearchQuery] = useState("")
-
+  const [filteredTrainees, setFilteredTrainees] = useState(traineeData)
+  const [isPending, startTransition] = useTransition()
   const handleSearch = (e) => {
     setSearchQuery(e.target.value)
   }
 
-  const filteredTrainees = traineeData.filter((trainee) =>
-    trainee.name.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  useEffect(() => {
+    startTransition(() => {
+      setFilteredTrainees(
+        traineeData.filter((trainee) =>
+          trainee.name.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      )
+    })
+  }, [searchQuery])
 
   return (
     <div className="container">
@@ -30,7 +37,11 @@ function AllTraineeProfile() {
         </div>
       </div>
       <div className="row g-3 pb-3">
-        {filteredTrainees.length > 0 ? (
+        {isPending ? (
+          <div className="col-12 text-center">
+            <p>Searching...</p>
+          </div>
+        ) : filteredTrainees.length > 0 ? (
           filteredTrainees.map((item) => (
             <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={item.id}>
               <ProfileCard item={item} />
