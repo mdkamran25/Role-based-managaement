@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 import React from "react"
 import { Formik, Field, Form, ErrorMessage } from "formik"
 import { addSubmission } from "../../../slice/trainee/traineeLoginSlice"
@@ -12,7 +10,6 @@ const validationSchema = Yup.object().shape({
   repo: Yup.string()
     .url("Invalid Git Repo Link")
     .required("Git Repo Link is required"),
-  //   description: Yup.string().required("Additional Information is required"),
 })
 
 function TaskSubmissionForm(props) {

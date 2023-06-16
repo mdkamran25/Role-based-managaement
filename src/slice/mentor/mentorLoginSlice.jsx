@@ -22,6 +22,7 @@ const initialState = {
       role: "Mentor",
       showNotification: false,
       password: "mentor@123",
+      messageNotification: [],
     },
   ],
 }
@@ -37,6 +38,7 @@ const mentorLoginSlice = createSlice({
         role: "Mentor",
         showNotification: false,
         password: action.payload.name + "@123",
+        messageNotification: false,
         ...action.payload,
       }
       state.login.push(newMentor)
@@ -55,18 +57,39 @@ const mentorLoginSlice = createSlice({
     },
     ShowNotification: (state, action) => {
       const { mentorEmail, seen } = action.payload
-      console.log(action.payload, seen)
       const mentor = state.login.find((mentor) => {
         return mentor.email === mentorEmail
       })
       if (mentor) {
         mentor.showNotification = seen
       }
-      console.log(current(state.login), seen)
     },
 
-    onLogout(state) {
+    onLogout: (state) => {
       state.loggedUserDetails = []
+    },
+
+    mentorMessageNotification: (state, action) => {
+      const { mentorEmail, seen, traineeEmail } = action.payload
+      const mentor = state.login.find((mentor) => mentor.email === mentorEmail)
+
+      if (mentor) {
+        if (!mentor.messageNotification) {
+          mentor.messageNotification = []
+        }
+
+        const traineeNotification = mentor.messageNotification.find(
+          (notification) => notification.traineeEmail === traineeEmail
+        )
+
+        if (traineeNotification) {
+          traineeNotification.seen = seen
+        } else {
+          mentor.messageNotification.push({ traineeEmail, seen })
+        }
+      }
+
+      console.log(current(state), "a", action.payload)
     },
   },
 })
@@ -77,5 +100,6 @@ export const {
   showNotificationToAllMentor,
   ShowNotification,
   mentorStatus,
+  mentorMessageNotification,
 } = mentorLoginSlice.actions
 export default mentorLoginSlice.reducer

@@ -30,25 +30,16 @@ const validationSchema = Yup.object().shape({
     .email("Invalid email")
     .required("Trainee Email is required"),
   SecondTraineeEmail: Yup.string().email("Invalid email"),
-  // .required("Trainee Email is required"),
-  // password: Yup.string()
-  //   .matches(
-  //     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,10}$/,
-  //     "Password must contain at least one letter, one number, one special character, and be 5-10 characters long"
-  //   )
-  //   .required("Password is required"),
 })
 function MentorForm(props) {
   const { login, allTraineeInReactDepartment } = useSelector(
     (state) => state.traineeLoginReducer || []
   )
 
-  console.log(login, allTraineeInReactDepartment)
-
   const allMentorInReactDepartment = useSelector(
     (state) => state.mentorLoginReducer.allMentorsInReactDepartment || []
   )
-  console.log("trainee", allTraineeInReactDepartment)
+
   const traineeOptions = allTraineeInReactDepartment.filter(
     (trainee) => !trainee.assigned
   )
@@ -67,7 +58,6 @@ function MentorForm(props) {
     dispatch(addMentor(values))
     dispatch(mentorStatus(values.email))
 
-    // console.log(values, "values")
     const mentor = values
     // Finding trainee assigned to mentor for udating mentor email in trainee slice
     const matchingTrainees = login.filter(
@@ -78,7 +68,6 @@ function MentorForm(props) {
     // By this loop assigning mentor to each trainee one by one
     matchingTrainees.forEach((trainee) => {
       dispatch(updateTrainee({ traineeId: trainee.id, mentor: mentor.email }))
-      console.log(trainee, trainee)
       dispatch(traineeStatus(trainee.email))
     })
 
@@ -120,7 +109,6 @@ function MentorForm(props) {
                   department: "",
                   designation: "",
                   email: "",
-                  // password: "",
                 }}
                 validationSchema={validationSchema}
                 onSubmit={handleSubmit}

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import { traineeMessageNotification } from "../../slice/trainee/traineeLoginSlice"
+import { mentorMessageNotification } from "../../slice/mentor/mentorLoginSlice"
 import { addChat } from "../../slice/trainee/traineeLoginSlice"
 import "./chat.css"
 
@@ -15,6 +17,9 @@ const Chat = (props) => {
   const [messages, setMessages] = useState("")
 
   const dispatch = useDispatch()
+  // const mentor = useSelector((state) => state.mentorLoginReducer.login)
+
+  // const matchedMentor = mentor.find((mentor) => mentor.email === chat.mentor)
 
   const onSubmit = (event) => {
     event.preventDefault()
@@ -26,6 +31,24 @@ const Chat = (props) => {
         senderEmail: loggedUser.email,
       })
     )
+    if (loggedUser.role === "Mentor") {
+      console.log("mentor")
+      dispatch(
+        traineeMessageNotification({
+          traineeEmail: props.email,
+          seen: true,
+        })
+      )
+    } else {
+      console.log("trainee", chat)
+      dispatch(
+        mentorMessageNotification({
+          traineeEmail: props.email,
+          mentorEmail: chat.mentor,
+          seen: true,
+        })
+      )
+    }
 
     setMessages("")
   }
@@ -82,7 +105,6 @@ const Chat = (props) => {
                         </p>
                       </div>
                     ))}
-                  {/* <div ref={bottomRef} /> */}
                 </div>
                 <div className="chat-footer">
                   <form className="w-100 p-0" onSubmit={(e) => onSubmit(e)}>

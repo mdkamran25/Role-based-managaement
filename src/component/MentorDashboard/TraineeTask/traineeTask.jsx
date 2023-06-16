@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, { useState } from "react"
 import "./traineeTask.css"
 import Lottie from "lottie-react"

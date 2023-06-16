@@ -1,25 +1,14 @@
-import React, { useState } from "react"
+import React from "react"
 import { useSelector } from "react-redux"
-import TraineeForm from "./traineeForm"
 import "./traineeDetails.css"
 
 function TraineeDetails() {
   const traineeDetail = useSelector((state) => state.traineeLoginReducer.login)
-  const [modalOpen, setModalOpen] = useState(false)
-  // const openModal = () => {
-  //   setModalOpen(true)
-  // }
 
   return (
     <>
       <div className="col-12 pt-3 pe-2">
         <span className="table-name ps-1 ">Trainee Details</span>
-        {/* <button
-          className="btn btn-primary float-end text-light"
-          onClick={openModal}
-        >
-          + Add Trainee
-        </button> */}
       </div>
       <hr />
       <div className="col-12 traineeTable ">
@@ -46,8 +35,6 @@ function TraineeDetails() {
           </tbody>
         </table>
       </div>
-
-      {modalOpen && <TraineeForm setModalOpen={setModalOpen} />}
     </>
   )
 }

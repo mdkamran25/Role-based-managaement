@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, current } from "@reduxjs/toolkit"
 import { addNotification } from "../notificationData/notificationDataSlice"
 import uuid from "react-uuid"
 import { getCurrentDate, getCurrentTime } from "../../Utils/dateTimeUtils"
@@ -33,6 +33,7 @@ const initialState = {
       linkdin: undefined,
       ShowNotification: false,
       password: "kamran@123",
+      messageNotification: false,
     },
     {
       id: 2,
@@ -52,6 +53,7 @@ const initialState = {
       linkdin: undefined,
       ShowNotification: false,
       password: "khan@123",
+      messageNotification: false,
     },
     {
       id: 3,
@@ -71,6 +73,7 @@ const initialState = {
       linkdin: undefined,
       ShowNotification: false,
       password: "dipak@123",
+      messageNotification: false,
     },
     {
       id: 4,
@@ -90,6 +93,7 @@ const initialState = {
       linkdin: undefined,
       ShowNotification: false,
       password: "rishi@123",
+      messageNotification: false,
     },
     {
       id: 5,
@@ -109,6 +113,7 @@ const initialState = {
       linkdin: undefined,
       ShowNotification: false,
       password: "anjali@123",
+      messageNotification: false,
     },
     {
       id: 6,
@@ -128,6 +133,7 @@ const initialState = {
       linkdin: undefined,
       ShowNotification: false,
       password: "prashant@123",
+      messageNotification: false,
     },
     {
       id: 7,
@@ -147,6 +153,7 @@ const initialState = {
       linkdin: undefined,
       ShowNotification: false,
       password: "chetan@123",
+      messageNotification: false,
     },
     {
       id: 8,
@@ -166,6 +173,7 @@ const initialState = {
       linkdin: undefined,
       ShowNotification: false,
       password: "ashish@123",
+      messageNotification: false,
     },
     {
       id: 9,
@@ -185,6 +193,7 @@ const initialState = {
       linkdin: undefined,
       ShowNotification: false,
       password: "vipul@123",
+      messageNotification: false,
     },
   ],
 }
@@ -193,14 +202,6 @@ const traineeLoginSlice = createSlice({
   name: "traineeLogin",
   initialState,
   reducers: {
-    addTrainee: (state, action) => {
-      const newTrainee = {
-        id: uuid().substring(0, 8),
-        ...action.payload,
-        mentor: null,
-      }
-      state.login.push(newTrainee)
-    },
     updateTrainee: (state, action) => {
       const { traineeId, mentor } = action.payload
 
@@ -341,11 +342,20 @@ const traineeLoginSlice = createSlice({
         })
       }
     },
+    traineeMessageNotification: (state, action) => {
+      const { traineeEmail, seen } = action.payload
+      const trainee = state.login.find((trainee) => {
+        return trainee.email === traineeEmail
+      })
+      if (trainee) {
+        trainee.messageNotification = seen
+      }
+      console.log(current(state))
+    },
   },
 })
 
 export const {
-  addTrainee,
   updateTrainee,
   addTaskWithNotification,
   deleteTask,
@@ -357,6 +367,7 @@ export const {
   updatedSubmitted,
   traineeStatus,
   addChat,
+  traineeMessageNotification,
 } = traineeLoginSlice.actions
 export default traineeLoginSlice.reducer
 

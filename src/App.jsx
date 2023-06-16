@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from "react"
 import "./App.css"
 import { Routes, Route, useLocation } from "react-router-dom"
@@ -27,7 +26,6 @@ function App() {
       {showNavbar ? <Navbar /> : null}
 
       <Routes>
-        {/* <Route path="/" element={<Chat />} /> */}
         <Route element={<PublicRoute />}>
           <Route path="/" element={<Index />} />
         </Route>

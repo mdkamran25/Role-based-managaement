@@ -49,7 +49,6 @@ const SubtopicForm = (props) => {
     additionalInformation: Yup.string().required(
       "Additional Information is required"
     ),
-    // inputs: Yup.string().url("Invalid URL"),
   })
 
   return (

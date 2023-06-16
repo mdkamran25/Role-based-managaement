@@ -1,7 +1,6 @@
 import React from "react"
 import { useSelector } from "react-redux"
 import "./traineeDashboard.css"
-// import TraineeTask from "../MentorPanel/TraineeTask/traineeTask"
 import ProfileCard from "../ProfileCard/profileCard"
 import TaskSubmit from "../Task-submit/taskSubmit"
 

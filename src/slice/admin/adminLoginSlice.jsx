@@ -19,5 +19,4 @@ const adminLoginSlice = createSlice({
   reducers: {},
 })
 
-// export const {} = adminLoginSlice.actions
 export default adminLoginSlice.reducer

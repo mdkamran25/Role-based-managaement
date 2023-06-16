@@ -29,13 +29,10 @@ const validationSchema = Yup.object().shape({
       if (!value) {
         return true
       }
-      // Perform additional file validation here
-      // For example, file type and size checks
       let image = document.getElementById("file")
       let rules = /[^\s]+(.*?).(jpg|jpeg|png|svg|txt)$/i
 
       if (value && !image.value.match(rules)) {
-        // Invalid file type
         return this.createError({
           message: "Only PNG, JPG, JPEG, SVG, and TXT file types are allowed",
           path: "file",

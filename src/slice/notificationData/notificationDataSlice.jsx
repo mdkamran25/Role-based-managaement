@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { getCurrentDate, getCurrentTime } from "../../Utils/dateTimeUtils"
 const initialState = {
-  notifications: [], // Change to an array
+  notifications: [],
 }
 
 const notificationDataSlice = createSlice({
@@ -15,7 +15,7 @@ const notificationDataSlice = createSlice({
         date: getCurrentDate(),
         time: getCurrentTime(),
       }
-      state.notifications.unshift(newNotification) // Update to state.notifications
+      state.notifications.unshift(newNotification)
     },
   },
 })

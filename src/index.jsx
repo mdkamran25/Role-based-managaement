@@ -20,7 +20,6 @@ root.render(
       </Provider>
     </BrowserRouter>
   </React.StrictMode>
-  // eslint-disable-next-line no-undef
 )
 
 reportWebVitals()

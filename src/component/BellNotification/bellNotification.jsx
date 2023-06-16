@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-constant-condition */
 import React, {
   useEffect,
   useState,

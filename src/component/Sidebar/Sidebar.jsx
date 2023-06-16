@@ -19,7 +19,6 @@ function Sidebar() {
   const handleLinkClick = () => {
     const offcanvasNavbar = document.getElementById("offcanvasNavbar")
     if (offcanvasNavbar) {
-      // eslint-disable-next-line no-undef
       const offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasNavbar)
       if (offcanvasInstance) {
         offcanvasInstance.hide()

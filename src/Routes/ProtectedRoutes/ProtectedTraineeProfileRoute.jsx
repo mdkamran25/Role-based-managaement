@@ -10,8 +10,6 @@ function ProtectedTraineeProfile({ children }) {
   if (loggedUser.role === "Trainee") {
     if (loggedUser.id.toString() !== trainee_id) {
       return <Navigate to={`/traineeProfile/id=/${loggedUser.id}`} replace />
-
-      //  return <div className="h1">You Cannot See Other Trainee Profile</div>
     }
   }
   return children ? children : <Outlet />
