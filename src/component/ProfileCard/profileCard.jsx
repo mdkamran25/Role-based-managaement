@@ -14,20 +14,14 @@ const ProfileCard = (props) => {
   const loggedUser = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
-  // const trainees = useSelector((state) => state.traineeLoginReducer.login)
   const mentor = useSelector((state) => state.mentorLoginReducer.login)
 
   const matchedMentor = mentor.find((ment) => ment.email === item.mentor)
 
-  // console.log(matchedMentor, item, "item")
   const toggleChat = () => {
     setShowChat(!showChat)
   }
 
-  const mentorNotificationStatus = matchedMentor.messageNotification.find(
-    (trainee) => trainee.traineeEmail === props.email || []
-  )
-  // console.log(mentorNotificationStatus, "mentorNotificationStatus")
   const offcanvasRef = useRef(null)
 
   useEffect(() => {
@@ -47,20 +41,18 @@ const ProfileCard = (props) => {
     }
   }, [])
 
-  const notification = (traineEmail) => {
+  const notification = (traineeEmail) => {
     if (loggedUser.role === "Trainee") {
-      console.log("trainee", traineEmail)
       dispatch(
         traineeMessageNotification({
-          traineeEmail: traineEmail,
+          traineeEmail: traineeEmail,
           seen: false,
         })
       )
     } else {
-      console.log("trainee", traineEmail)
       dispatch(
         mentorMessageNotification({
-          traineeEmail: traineEmail,
+          traineeEmail: traineeEmail,
           mentorEmail: item.mentor,
           seen: false,
         })
@@ -94,9 +86,8 @@ const ProfileCard = (props) => {
             View Profile
           </button>
         </Link>
-        {loggedUser.role && loggedUser.role !== "Lead" ? (
+        {loggedUser.role && loggedUser.role !== "Lead" && (
           <>
-            {" "}
             <button
               className="btn btn-primary text-light my-3 my-xl-0 px-3 position-relative"
               data-bs-toggle="offcanvas"
@@ -113,11 +104,20 @@ const ProfileCard = (props) => {
                   <span className="visually-hidden">New alerts</span>
                 </span>
               )}
-              {loggedUser.role === "Mentor" && mentorNotificationStatus && (
-                <span className="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                  <span className="visually-hidden">New alerts</span>
-                </span>
-              )}
+              {loggedUser.role === "Mentor" &&
+                Array.isArray(matchedMentor.messageNotification) &&
+                matchedMentor.messageNotification.map(
+                  (trainee, index) =>
+                    trainee.traineeEmail === item.email &&
+                    trainee.seen && (
+                      <span
+                        key={index}
+                        className=" position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"
+                      >
+                        <span className="visually-hidden">New alerts</span>
+                      </span>
+                    )
+                )}
             </button>
             <div
               className="offcanvas offcanvas-end"
@@ -135,8 +135,6 @@ const ProfileCard = (props) => {
               )}
             </div>
           </>
-        ) : (
-          ""
         )}
       </div>
     </div>
