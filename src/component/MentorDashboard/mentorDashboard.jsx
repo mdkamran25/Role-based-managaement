@@ -16,7 +16,7 @@ function MentorDashboard() {
 
   return (
     <>
-      <div className="col-12 mb-5 d-flex flex-column flex-md-row mt-5 justify-content-center justify-content-md-evenly align-items-md-start align-items-center">
+      <div className="col-12 mb-5 d-flex flex-column flex-md-row mt-3 mt-md-5 justify-content-center justify-content-md-evenly align-items-md-start align-items-center">
         <div className="col-11 col-md-5 TraineeDetail rounded-3 d-flex flex-row">
           <div className="col-12 pt-3">
             <span className="table-name pt-1 ps-2">Trainee Assigned</span>

@@ -1,12 +1,12 @@
-import { createSlice, current } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 import uuid from "react-uuid"
 
 const initialState = {
   allMentorsInReactDepartment: [
     { id: 1, mentor: "mentor@gmail.com", assigned: true },
     { id: 2, mentor: "vishal@gmail.com", assigned: false },
-    { id: 3, mentor: "asif@gmail.com", assigned: false },
-    { id: 4, mentor: "meet@gmail.com", assigned: false },
+    { id: 3, mentor: "aniket@gmail.com", assigned: false },
+    { id: 4, mentor: "mihir@gmail.com", assigned: false },
     { id: 5, mentor: "chandan@gmail.com", assigned: false },
     { id: 6, mentor: "raman@gmail.com", assigned: false },
   ],
@@ -37,7 +37,7 @@ const mentorLoginSlice = createSlice({
         id: uuid().substring(0, 8),
         role: "Mentor",
         showNotification: false,
-        password: action.payload.name + "@123",
+        password: action.payload.email.split("@")[0] + "@123",
         messageNotification: false,
         ...action.payload,
       }
@@ -88,8 +88,6 @@ const mentorLoginSlice = createSlice({
           mentor.messageNotification.push({ traineeEmail, seen })
         }
       }
-
-      console.log(current(state), "a", action.payload)
     },
   },
 })

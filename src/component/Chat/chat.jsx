@@ -17,9 +17,6 @@ const Chat = (props) => {
   const [messages, setMessages] = useState("")
 
   const dispatch = useDispatch()
-  // const mentor = useSelector((state) => state.mentorLoginReducer.login)
-
-  // const matchedMentor = mentor.find((mentor) => mentor.email === chat.mentor)
 
   const onSubmit = (event) => {
     event.preventDefault()
@@ -32,7 +29,6 @@ const Chat = (props) => {
       })
     )
     if (loggedUser.role === "Mentor") {
-      console.log("mentor")
       dispatch(
         traineeMessageNotification({
           traineeEmail: props.email,
@@ -40,7 +36,6 @@ const Chat = (props) => {
         })
       )
     } else {
-      console.log("trainee", chat)
       dispatch(
         mentorMessageNotification({
           traineeEmail: props.email,
