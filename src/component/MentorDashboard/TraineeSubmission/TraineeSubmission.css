@@ -1,12 +1,7 @@
 .noSubmission {
   width: 340px !important;
 }
-/* .textOverflow{
-  overflow: hidden;
-  max-width: 0ch;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-} */
+
 .trainee-segmented-buttons {
   background-color: #cfe2ff;
   height: 43px;

@@ -9,7 +9,6 @@ const validationSchema = Yup.object().shape({
   repo: Yup.string()
     .url("Invalid Git Repo Link")
     .required("Git Repo Link is required"),
-  //   description: Yup.string().required("Additional Information is required"),
 })
 
 function SubmissionEditForm(props) {

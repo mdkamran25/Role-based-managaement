@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import React, { forwardRef } from "react"
 import { Formik, Field, Form, ErrorMessage } from "formik"
 import * as Yup from "yup"
@@ -31,13 +30,11 @@ const validationSchema = Yup.object().shape({
       if (!value) {
         return true
       }
-      // Perform additional img validation here
-      // For example, img type and size checks
+
       let image = document.getElementById("img")
       let rules = /[^\s]+(.*?).(jpg|jpeg|png|svg|txt)$/i
 
       if (!image || !image.value.match(rules)) {
-        // Invalid img type
         return this.createError({
           message: "Only PNG, JPG, JPEG, SVG, and TXT img types are allowed",
           path: "img",
@@ -78,7 +75,6 @@ const NewTopicsForm = forwardRef((props, ref) => {
       values.img = nothingfind
       dispatch(addNewTopicWithNotification(values))
     }
-    //   dispatch(addNewTopics(values))
 
     resetForm()
     closeModal()

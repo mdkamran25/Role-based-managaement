@@ -1,19 +1,27 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import "./profileCard.css"
 import Chat from "../Chat/chat"
+import { mentorMessageNotification } from "../../slice/mentor/mentorLoginSlice"
+import { traineeMessageNotification } from "../../slice/trainee/traineeLoginSlice"
+
 const ProfileCard = (props) => {
   const item = props.item
   const [showChat, setShowChat] = useState(false)
+  const dispatch = useDispatch()
+
   const loggedUser = useSelector(
     (state) => state.loggedUserReducer.loggedUserDetails
   )
+  const mentor = useSelector((state) => state.mentorLoginReducer.login)
+
+  const matchedMentor = mentor.find((ment) => ment.email === item.mentor)
+
   const toggleChat = () => {
     setShowChat(!showChat)
   }
 
-  //useRef to close chat component
   const offcanvasRef = useRef(null)
 
   useEffect(() => {
@@ -32,6 +40,25 @@ const ProfileCard = (props) => {
       document.removeEventListener("click", handleClickOutside)
     }
   }, [])
+
+  const notification = (traineeEmail) => {
+    if (loggedUser.role === "Trainee") {
+      dispatch(
+        traineeMessageNotification({
+          traineeEmail: traineeEmail,
+          seen: false,
+        })
+      )
+    } else {
+      dispatch(
+        mentorMessageNotification({
+          traineeEmail: traineeEmail,
+          mentorEmail: item.mentor,
+          seen: false,
+        })
+      )
+    }
+  }
 
   return (
     <div
@@ -59,17 +86,38 @@ const ProfileCard = (props) => {
             View Profile
           </button>
         </Link>
-        {loggedUser.role && loggedUser.role !== "Lead" ? (
+        {loggedUser.role && loggedUser.role !== "Lead" && (
           <>
-            {" "}
             <button
-              className="btn btn-primary text-light my-3 my-xl-0 px-3"
+              className="btn btn-primary text-light my-3 my-xl-0 px-3 position-relative"
               data-bs-toggle="offcanvas"
               data-bs-target={`#offcanvasExample${item.email}`}
               aria-controls={`offcanvasExample${item.email}`}
-              onClick={toggleChat}
+              onClick={() => {
+                toggleChat()
+                notification(item.email)
+              }}
             >
               Message
+              {loggedUser.role === "Trainee" && item?.messageNotification && (
+                <span className="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                  <span className="visually-hidden">New alerts</span>
+                </span>
+              )}
+              {loggedUser.role === "Mentor" &&
+                Array.isArray(matchedMentor.messageNotification) &&
+                matchedMentor.messageNotification.map(
+                  (trainee, index) =>
+                    trainee.traineeEmail === item.email &&
+                    trainee.seen && (
+                      <span
+                        key={index}
+                        className=" position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"
+                      >
+                        <span className="visually-hidden">New alerts</span>
+                      </span>
+                    )
+                )}
             </button>
             <div
               className="offcanvas offcanvas-end"
@@ -87,8 +135,6 @@ const ProfileCard = (props) => {
               )}
             </div>
           </>
-        ) : (
-          ""
         )}
       </div>
     </div>

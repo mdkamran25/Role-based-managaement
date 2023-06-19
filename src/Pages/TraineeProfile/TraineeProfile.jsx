@@ -2,12 +2,9 @@ import React from "react"
 import "./TraineeProfile.css"
 import linkdinIcon from "../../assets/Image/linkedin-icon.svg"
 import githubIcon from "../../assets/Image/github.gif"
-// import { useLocation } from "react-router"
 import { Link, useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 function TraineeProfile() {
-  // const location = useLocation()
-  // const ProfileData = location.state
   const { trainee_id } = useParams()
   const trainee = useSelector((state) => state.traineeLoginReducer.login)
 
@@ -34,9 +31,6 @@ function TraineeProfile() {
                 <p className="fw-bold fs-2">{ProfileData.name}</p>
                 <p className="fw-light fs-5 mb-0">{ProfileData.role}</p>
                 <p className="fw-light fs-5">{ProfileData.college}</p>
-                {/* <button className="btn btn-primary text-light px-3">
-                  Message
-                </button> */}
               </div>
               {/* Personal-Details */}
               <div className="col-10 mt-3 mt-md-0 col-md-8 Personal-Detail rounded-4 py-5">
@@ -114,16 +108,6 @@ function TraineeProfile() {
                         >
                           <div className="col-12 px-3" key={item.id}>
                             {item.topicName}
-                            {/* <div className="progress">
-                            <div
-                              className="progress-bar w-25"
-                              role="progressbar"
-                              aria-label="Basic example"
-                              aria-valuenow="75"
-                              aria-valuemin="0"
-                              aria-valuemax="100"
-                            ></div>
-                          </div> */}
                           </div>
                         </Link>
                         <hr />

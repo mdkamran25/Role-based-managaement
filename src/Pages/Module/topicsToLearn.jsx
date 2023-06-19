@@ -19,8 +19,6 @@ function TopicsToLearn() {
   }
   const bottomRef = useRef(null)
 
-  // Filter topics based on search term
-
   useEffect(() => {
     startTransition(() => {
       setFilteredTopics(

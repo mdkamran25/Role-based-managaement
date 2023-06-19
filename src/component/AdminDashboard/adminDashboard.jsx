@@ -10,7 +10,7 @@ function AdminDashboard() {
     setTraineeButtonClicked(!isTraineeButtonClicked)
   }
   return (
-    <div className="col-12 d-flex flex-column my-5 justify-content-center align-items-center">
+    <div className="col-12 d-flex flex-column my-2 my-md-5 justify-content-center align-items-center">
       <div className="segmented-buttons position-relative col-11 rounded-top">
         <button
           className={`btn pt-3 px-4 position-absolute`}

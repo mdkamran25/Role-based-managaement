@@ -1,12 +1,12 @@
-import { createSlice, current } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 import uuid from "react-uuid"
 
 const initialState = {
   allMentorsInReactDepartment: [
     { id: 1, mentor: "mentor@gmail.com", assigned: true },
     { id: 2, mentor: "vishal@gmail.com", assigned: false },
-    { id: 3, mentor: "asif@gmail.com", assigned: false },
-    { id: 4, mentor: "meet@gmail.com", assigned: false },
+    { id: 3, mentor: "aniket@gmail.com", assigned: false },
+    { id: 4, mentor: "mihir@gmail.com", assigned: false },
     { id: 5, mentor: "chandan@gmail.com", assigned: false },
     { id: 6, mentor: "raman@gmail.com", assigned: false },
   ],
@@ -22,6 +22,7 @@ const initialState = {
       role: "Mentor",
       showNotification: false,
       password: "mentor@123",
+      messageNotification: [],
     },
   ],
 }
@@ -36,7 +37,8 @@ const mentorLoginSlice = createSlice({
         id: uuid().substring(0, 8),
         role: "Mentor",
         showNotification: false,
-        password: action.payload.name + "@123",
+        password: action.payload.email.split("@")[0] + "@123",
+        messageNotification: false,
         ...action.payload,
       }
       state.login.push(newMentor)
@@ -55,18 +57,37 @@ const mentorLoginSlice = createSlice({
     },
     ShowNotification: (state, action) => {
       const { mentorEmail, seen } = action.payload
-      console.log(action.payload, seen)
       const mentor = state.login.find((mentor) => {
         return mentor.email === mentorEmail
       })
       if (mentor) {
         mentor.showNotification = seen
       }
-      console.log(current(state.login), seen)
     },
 
-    onLogout(state) {
+    onLogout: (state) => {
       state.loggedUserDetails = []
+    },
+
+    mentorMessageNotification: (state, action) => {
+      const { mentorEmail, seen, traineeEmail } = action.payload
+      const mentor = state.login.find((mentor) => mentor.email === mentorEmail)
+
+      if (mentor) {
+        if (!mentor.messageNotification) {
+          mentor.messageNotification = []
+        }
+
+        const traineeNotification = mentor.messageNotification.find(
+          (notification) => notification.traineeEmail === traineeEmail
+        )
+
+        if (traineeNotification) {
+          traineeNotification.seen = seen
+        } else {
+          mentor.messageNotification.push({ traineeEmail, seen })
+        }
+      }
     },
   },
 })
@@ -77,5 +98,6 @@ export const {
   showNotificationToAllMentor,
   ShowNotification,
   mentorStatus,
+  mentorMessageNotification,
 } = mentorLoginSlice.actions
 export default mentorLoginSlice.reducer

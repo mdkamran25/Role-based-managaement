@@ -66,7 +66,6 @@ function MentorLogin() {
             </div>
             <div className="col-11 align-self-center ps-lg-0 ps-2">
               <input
-                // autoComplete="off"
                 autoComplete="new-password"
                 required
                 type="email"

@@ -1,12 +1,10 @@
-/* eslint-disable no-unused-vars */
-import { createSlice, current } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 import htmlcss from "../../assets/Image/html&css.png"
 import javascript from "../../assets/Image/javascript.png"
 import github from "../../assets/Image/github.jpg"
 import react from "../../assets/Image/react.svg"
 import microsoft_azure from "../../assets/Image/microsoft_azure.svg"
 import aws from "../../assets/Image/aws.svg"
-// import { useDispatch } from "react-redux"
 import { setNotificationForall } from "../trainee/traineeLoginSlice"
 import { addNotification } from "../notificationData/notificationDataSlice"
 import uuid from "react-uuid"
