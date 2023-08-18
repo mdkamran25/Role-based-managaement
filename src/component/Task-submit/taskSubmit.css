@@ -1,0 +1,38 @@
+.task-submission {
+  height: 550px !important;
+}
+.segmented-buttons {
+  background-color: rgb(227, 227, 227);
+  height: 49px;
+}
+
+.segmented-buttons button {
+  flex-grow: 1;
+  border-radius: 0;
+  border: none;
+  outline: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.segmented-buttons button:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.segmented-buttons button:last-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  left: 125px;
+}
+#taskButton {
+  background-color: #fff;
+  color: black;
+  transition: background-color 0.9s ease;
+}
+#submissionButton {
+  background-color: #fff;
+  color: black;
+  transition: background-color 0.9s ease;
+}

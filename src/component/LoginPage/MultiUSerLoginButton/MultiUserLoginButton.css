@@ -1,0 +1,18 @@
+.active {
+  outline: none;
+  border: 0;
+}
+
+.btn-container {
+  transition: background-color 0.9s ease;
+  background-color: #cfe2ff;
+}
+.btn {
+  color: #000;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn.active {
+  background-color: #2e81ff;
+  color: #fff;
+}

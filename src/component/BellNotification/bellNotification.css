@@ -1,0 +1,72 @@
+.small-box {
+  z-index: 11;
+  background-color: #ffffff;
+  height: 20rem;
+  width: 19rem;
+  left: -12rem;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
+  overflow: auto;
+}
+
+.taskNotification,
+.submissionNotification {
+  background-color: #f9f9f9;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.taskNotification p,
+.submissionNotification p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+  text-overflow: ellipsis;
+}
+
+.taskName {
+  flex-grow: 1;
+  margin-right: 1rem;
+}
+
+.taskDate {
+  flex-shrink: 0;
+}
+
+.notificationRow {
+  background-color: #cfe2ff !important;
+}
+
+.bell-notification {
+  color: #fff;
+  position: relative;
+}
+
+.bell {
+  cursor: pointer;
+  font-size: 30px;
+}
+
+
+.redDot::after {
+  content: attr(current-count);
+  position: absolute;
+  top: 5px;
+  right: 8%;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background-color: red !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+}
+
+.bell-notification {
+  position: relative;
+}
+

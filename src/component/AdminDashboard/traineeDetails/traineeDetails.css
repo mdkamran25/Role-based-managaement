@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,300&family=Wix+Madefor+Display:wght@500;600&display=swap");
+.traineeDetailsMainContainer {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  max-height: 500px;
+}
+.table-name {
+  font-family: "Nunito", sans-serif;
+  font-family: "Wix Madefor Display", sans-serif;
+  font-size: 28px;
+}
+.traineeTable {
+  max-height: 400px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+@media (max-width: 370px) {
+  .table-name {
+    font-family: "Nunito", sans-serif;
+    font-family: "Wix Madefor Display", sans-serif;
+    font-size: 20px;
+  }
+}
