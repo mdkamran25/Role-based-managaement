@@ -146,6 +146,3 @@ A live demo of the Trainexus application can be accessed at: [https://trainexus.
 ## Contributors
 
 Feel free to explore and use Trainexus for managing your admin, mentor, and trainee activities. If you encounter any issues or have suggestions for improvements, please let us know.
-
-
-
